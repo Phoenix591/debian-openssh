@@ -251,6 +251,8 @@ typedef struct {
 	int	unused_connection_timeout;
 
 	char   *sshd_session_path;
+
+	int	debian_banner;
 }       ServerOptions;
 
 /* Information about the incoming connection as used by Match */
