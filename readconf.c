@@ -184,6 +184,7 @@ typedef enum {
 	oSecurityKeyProvider, oKnownHostsCommand, oRequiredRSASize,
 	oEnableEscapeCommandline, oObscureKeystrokeTiming, oChannelTimeout,
 	oVersionAddendum,
+	oProtocolKeepAlives, oSetupTimeOut,
 	oIgnore, oIgnoredUnknownOption, oDeprecated, oUnsupported
 } OpCodes;
 
@@ -348,6 +349,8 @@ static struct {
 	{ "obscurekeystroketiming", oObscureKeystrokeTiming },
 	{ "channeltimeout", oChannelTimeout },
 	{ "versionaddendum", oVersionAddendum },
+	{ "protocolkeepalives", oProtocolKeepAlives },
+	{ "setuptimeout", oSetupTimeOut },
 
 	{ NULL, oBadOption }
 };
@@ -1230,6 +1233,7 @@ process_config_line_depth(Options *options, struct passwd *pw, const char *host,
 		argv_consume(&ac);
 		break;
 	case oConnectTimeout:
+	case oSetupTimeOut:	  /* Debian-specific compatibility alias */
 		intptr = &options->connection_timeout;
 parse_time:
 		arg = argv_next(&ac, &av);
@@ -1972,6 +1976,7 @@ parse_pubkey_algos:
 		goto parse_flag;
 
 	case oServerAliveInterval:
+	case oProtocolKeepAlives: /* Debian-specific compatibility alias */
 		intptr = &options->server_alive_interval;
 		goto parse_time;
 
@@ -2980,8 +2985,13 @@ fill_default_options(Options * options)
 		options->rekey_interval = 0;
 	if (options->verify_host_key_dns == -1)
 		options->verify_host_key_dns = 0;
-	if (options->server_alive_interval == -1)
-		options->server_alive_interval = 0;
+	if (options->server_alive_interval == -1) {
+		/* in batch mode, default is 5mins */
+		if (options->batch_mode == 1)
+			options->server_alive_interval = 300;
+		else
+			options->server_alive_interval = 0;
+	}
 	if (options->server_alive_count_max == -1)
 		options->server_alive_count_max = 3;
 	if (options->control_master == -1)
