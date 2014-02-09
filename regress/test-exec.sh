@@ -634,6 +634,7 @@ cat << EOF > $OBJ/sshd_config
 	SshdSessionPath		$SSHD_SESSION
 	SshdAuthPath		$SSHD_AUTH
 	PerSourcePenalties	no
+	UsePAM			yes
 EOF
 
 # This may be necessary if /usr/src and/or /usr/obj are group-writable,
