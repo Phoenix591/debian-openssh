@@ -1273,7 +1273,7 @@ main(int ac, char **av)
 			fatal("login grace time setitimer failed");
 	}
 
-	if ((r = kex_exchange_identification(ssh, -1,
+	if ((r = kex_exchange_identification(ssh, -1, options.debian_banner,
 	    options.version_addendum)) != 0)
 		sshpkt_fatal(ssh, r, "banner exchange");
 

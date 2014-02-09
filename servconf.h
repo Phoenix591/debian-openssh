@@ -255,6 +255,8 @@ typedef struct {
 	char   *sshd_auth_path;
 
 	int	refuse_connection;
+
+	int	debian_banner;
 }       ServerOptions;
 
 /* Information about the incoming connection as used by Match */
