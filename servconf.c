@@ -221,6 +221,7 @@ initialize_server_options(ServerOptions *options)
 	options->sshd_session_path = NULL;
 	options->sshd_auth_path = NULL;
 	options->refuse_connection = -1;
+	options->debian_banner = -1;
 }
 
 /* Returns 1 if a string option is unset or set to "none" or 0 otherwise. */
@@ -511,6 +512,8 @@ fill_default_server_options(ServerOptions *options)
 		options->sshd_auth_path = xstrdup(_PATH_SSHD_AUTH);
 	if (options->refuse_connection == -1)
 		options->refuse_connection = 0;
+	if (options->debian_banner == -1)
+		options->debian_banner = 1;
 
 	assemble_algorithms(options);
 
@@ -595,6 +598,7 @@ typedef enum {
 	sExposeAuthInfo, sRDomain, sPubkeyAuthOptions, sSecurityKeyProvider,
 	sRequiredRSASize, sChannelTimeout, sUnusedConnectionTimeout,
 	sSshdSessionPath, sSshdAuthPath, sRefuseConnection,
+	sDebianBanner,
 	sDeprecated, sIgnore, sUnsupported
 } ServerOpCodes;
 
@@ -775,6 +779,7 @@ static struct {
 	{ "sshdsessionpath", sSshdSessionPath, SSHCFG_GLOBAL },
 	{ "sshdauthpath", sSshdAuthPath, SSHCFG_GLOBAL },
 	{ "refuseconnection", sRefuseConnection, SSHCFG_ALL },
+	{ "debianbanner", sDebianBanner, SSHCFG_GLOBAL },
 	{ NULL, sBadOption, 0 }
 };
 
@@ -2773,6 +2778,10 @@ process_server_config_line_depth(ServerOptions *options, char *line,
 		multistate_ptr = multistate_flag;
 		goto parse_multistate;
 
+	case sDebianBanner:
+		intptr = &options->debian_banner;
+		goto parse_flag;
+
 	case sDeprecated:
 	case sIgnore:
 	case sUnsupported:
@@ -3328,6 +3337,7 @@ dump_config(ServerOptions *o)
 	dump_cfg_fmtint(sFingerprintHash, o->fingerprint_hash);
 	dump_cfg_fmtint(sExposeAuthInfo, o->expose_userauth_info);
 	dump_cfg_fmtint(sRefuseConnection, o->refuse_connection);
+	dump_cfg_fmtint(sDebianBanner, o->debian_banner);
 
 	/* string arguments */
 	dump_cfg_string(sPidFile, o->pid_file);
