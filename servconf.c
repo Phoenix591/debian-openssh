@@ -217,6 +217,7 @@ initialize_server_options(ServerOptions *options)
 	options->num_channel_timeouts = 0;
 	options->unused_connection_timeout = -1;
 	options->sshd_session_path = NULL;
+	options->debian_banner = -1;
 }
 
 /* Returns 1 if a string option is unset or set to "none" or 0 otherwise. */
@@ -501,6 +502,8 @@ fill_default_server_options(ServerOptions *options)
 		options->unused_connection_timeout = 0;
 	if (options->sshd_session_path == NULL)
 		options->sshd_session_path = xstrdup(_PATH_SSHD_SESSION);
+	if (options->debian_banner == -1)
+		options->debian_banner = 1;
 
 	assemble_algorithms(options);
 
@@ -585,6 +588,7 @@ typedef enum {
 	sExposeAuthInfo, sRDomain, sPubkeyAuthOptions, sSecurityKeyProvider,
 	sRequiredRSASize, sChannelTimeout, sUnusedConnectionTimeout,
 	sSshdSessionPath,
+	sDebianBanner,
 	sDeprecated, sIgnore, sUnsupported
 } ServerOpCodes;
 
@@ -763,6 +767,7 @@ static struct {
 	{ "channeltimeout", sChannelTimeout, SSHCFG_ALL },
 	{ "unusedconnectiontimeout", sUnusedConnectionTimeout, SSHCFG_ALL },
 	{ "sshdsessionpath", sSshdSessionPath, SSHCFG_GLOBAL },
+	{ "debianbanner", sDebianBanner, SSHCFG_GLOBAL },
 	{ NULL, sBadOption, 0 }
 };
 
@@ -2702,6 +2707,10 @@ process_server_config_line_depth(ServerOptions *options, char *line,
 		charptr = &options->sshd_session_path;
 		goto parse_filename;
 
+	case sDebianBanner:
+		intptr = &options->debian_banner;
+		goto parse_flag;
+
 	case sDeprecated:
 	case sIgnore:
 	case sUnsupported:
@@ -3251,6 +3260,7 @@ dump_config(ServerOptions *o)
 	dump_cfg_fmtint(sStreamLocalBindUnlink, o->fwd_opts.streamlocal_bind_unlink);
 	dump_cfg_fmtint(sFingerprintHash, o->fingerprint_hash);
 	dump_cfg_fmtint(sExposeAuthInfo, o->expose_userauth_info);
+	dump_cfg_fmtint(sDebianBanner, o->debian_banner);
 
 	/* string arguments */
 	dump_cfg_string(sPidFile, o->pid_file);
