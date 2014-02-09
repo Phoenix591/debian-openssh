@@ -1332,7 +1332,7 @@ send_error(struct ssh *ssh, char *msg)
  */
 int
 kex_exchange_identification(struct ssh *ssh, int timeout_ms,
-    const char *version_addendum)
+    int debian_banner, const char *version_addendum)
 {
 	int remote_major, remote_minor, mismatch, oerrno = 0;
 	size_t len, n;
@@ -1350,7 +1350,8 @@ kex_exchange_identification(struct ssh *ssh, int timeout_ms,
 	if (version_addendum != NULL && *version_addendum == '\0')
 		version_addendum = NULL;
 	if ((r = sshbuf_putf(our_version, "SSH-%d.%d-%.100s%s%s\r\n",
-	    PROTOCOL_MAJOR_2, PROTOCOL_MINOR_2, SSH_RELEASE,
+	    PROTOCOL_MAJOR_2, PROTOCOL_MINOR_2,
+	    debian_banner ? SSH_RELEASE : SSH_RELEASE_MINIMUM,
 	    version_addendum == NULL ? "" : " ",
 	    version_addendum == NULL ? "" : version_addendum)) != 0) {
 		oerrno = errno;
