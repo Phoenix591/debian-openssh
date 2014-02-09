@@ -49,18 +49,18 @@ ssh_compatible_openssl(long headerver, long libver)
 		return 1;
 
 	/*
-	 * For versions >= 3.0, only the major and status must match.
+	 * For versions >= 3.0, only the major must match.
 	 */
 	if (headerver >= 0x3000000f) {
-		mask = 0xf000000fL; /* major,status */
+		mask = 0xf0000000L; /* major */
 		return (headerver & mask) == (libver & mask);
 	}
 
 	/*
-	 * For versions >= 1.0.0, but <3, major,minor,status must match and
+	 * For versions >= 1.0.0, but <3, major,minor must match and
 	 * library fix version must be equal to or newer than the header.
 	 */
-	mask = 0xfff0000fL; /* major,minor,status */
+	mask = 0xfff00000L; /* major,minor */
 	hfix = (headerver & 0x000ff000) >> 12;
 	lfix = (libver & 0x000ff000) >> 12;
 	if ( (headerver & mask) == (libver & mask) && lfix >= hfix)
