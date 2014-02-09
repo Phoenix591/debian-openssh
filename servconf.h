@@ -236,6 +236,8 @@ typedef struct {
 	u_int	num_channel_timeouts;
 
 	int	unused_connection_timeout;
+
+	int	debian_banner;
 }       ServerOptions;
 
 /* Information about the incoming connection as used by Match */
