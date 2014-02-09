@@ -440,7 +440,7 @@ privsep_postauth(struct ssh *ssh, Authctxt *authctxt)
 
 	/* Drop privileges */
 	if (!skip_privdrop)
-		do_setusercontext(authctxt->pw);
+		do_setusercontext(authctxt->pw, authctxt->role);
 
 	/* It is safe now to apply the key state */
 	monitor_apply_keystate(ssh, pmonitor);
