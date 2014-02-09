@@ -622,6 +622,7 @@ cat << EOF > $OBJ/sshd_config
 	Subsystem	sftp	$SFTPSERVER
 	SshdSessionPath		$SSHD_SESSION
 	PerSourcePenalties	no
+	UsePAM			yes
 EOF
 
 # This may be necessary if /usr/src and/or /usr/obj are group-writable,
