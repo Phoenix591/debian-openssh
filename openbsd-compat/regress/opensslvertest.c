@@ -28,6 +28,7 @@ struct version_test {
 } version_tests[] = {
 	/* built with 1.0.1b release headers */
 	{ 0x1000101fL, 0x1000101fL, 1},/* exact match */
+	{ 0x1000101fL, 0x10001010L, 1}, /* different status: ok */
 	{ 0x1000101fL, 0x1000102fL, 1},	/* newer library patch version: ok */
 	{ 0x1000101fL, 0x1000100fL, 1},	/* older library patch version: ok */
 	{ 0x1000101fL, 0x1000201fL, 1},	/* newer library fix version: ok */
@@ -48,6 +49,7 @@ struct version_test {
 
 	/* built with 3.0.1 release headers */
 	{ 0x3010101fL, 0x3010101fL, 1},/* exact match */
+	{ 0x3010101fL, 0x30101010L, 1}, /* different status: ok */
 	{ 0x3010101fL, 0x3010102fL, 1},	/* newer library patch version: ok */
 	{ 0x3010101fL, 0x3010100fL, 1},	/* older library patch version: ok */
 	{ 0x3010101fL, 0x3010201fL, 1},	/* newer library fix version: ok */
