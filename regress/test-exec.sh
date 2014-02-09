@@ -609,6 +609,7 @@ cat << EOF > $OBJ/sshd_config
 	AcceptEnv		_XXX_TEST_*
 	AcceptEnv		_XXX_TEST
 	Subsystem	sftp	$SFTPSERVER
+	UsePAM			yes
 EOF
 
 # This may be necessary if /usr/src and/or /usr/obj are group-writable,
