@@ -1344,7 +1344,7 @@ safely_chroot(const char *path, uid_t uid)
 
 /* Set login name, uid, gid, and groups. */
 void
-do_setusercontext(struct passwd *pw)
+do_setusercontext(struct passwd *pw, const char *role)
 {
 	char uidstr[32], *chroot_path, *tmp;
 
@@ -1372,7 +1372,7 @@ do_setusercontext(struct passwd *pw)
 		endgrent();
 #endif
 
-		platform_setusercontext_post_groups(pw);
+		platform_setusercontext_post_groups(pw, role);
 
 		if (!in_chroot && options.chroot_directory != NULL &&
 		    strcasecmp(options.chroot_directory, "none") != 0) {
@@ -1515,7 +1515,7 @@ do_child(struct ssh *ssh, Session *s, const char *command)
 
 	/* Force a password change */
 	if (s->authctxt->force_pwchange) {
-		do_setusercontext(pw);
+		do_setusercontext(pw, s->authctxt->role);
 		child_close_fds(ssh);
 		do_pwchange(s);
 		exit(1);
@@ -1533,7 +1533,7 @@ do_child(struct ssh *ssh, Session *s, const char *command)
 	/* When PAM is enabled we rely on it to do the nologin check */
 	if (!options.use_pam)
 		do_nologin(pw);
-	do_setusercontext(pw);
+	do_setusercontext(pw, s->authctxt->role);
 	/*
 	 * PAM session modules in do_setusercontext may have
 	 * generated messages, so if this in an interactive
