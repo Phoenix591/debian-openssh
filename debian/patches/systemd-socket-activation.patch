@@ -6,11 +6,32 @@ Description: support systemd socket activation
  like ClientAliveCountMax.
 Author: Steve Langasek <steve.langasek@ubuntu.com>
 
-Index: openssh-9.0p1/sshd.c
+Index: openssh/sshd.c
 ===================================================================
---- openssh-9.0p1.orig/sshd.c
-+++ openssh-9.0p1/sshd.c
-@@ -1033,6 +1033,51 @@
+--- openssh.orig/sshd.c
++++ openssh/sshd.c
+@@ -141,10 +141,16 @@
+ #endif /* LIBWRAP */
+ 
+ /* Re-exec fds */
+-#define REEXEC_DEVCRYPTO_RESERVED_FD	(STDERR_FILENO + 1)
+-#define REEXEC_STARTUP_PIPE_FD		(STDERR_FILENO + 2)
+-#define REEXEC_CONFIG_PASS_FD		(STDERR_FILENO + 3)
+-#define REEXEC_MIN_FREE_FD		(STDERR_FILENO + 4)
++#ifdef HAVE_SYSTEMD
++#define SYSTEMD_OFFSET sd_listen_fds(0)
++#else
++#define SYSTEMD_OFFSET 0
++#endif
++
++#define REEXEC_DEVCRYPTO_RESERVED_FD	(STDERR_FILENO + 1 + SYSTEMD_OFFSET)
++#define REEXEC_STARTUP_PIPE_FD		(STDERR_FILENO + 2 + SYSTEMD_OFFSET)
++#define REEXEC_CONFIG_PASS_FD		(STDERR_FILENO + 3 + SYSTEMD_OFFSET)
++#define REEXEC_MIN_FREE_FD		(STDERR_FILENO + 4 + SYSTEMD_OFFSET)
+ 
+ extern char *__progname;
+ 
+@@ -1033,6 +1039,51 @@
  	debug("inetd sockets after dupping: %d, %d", *sock_in, *sock_out);
  }
  
@@ -62,7 +83,7 @@ Index: openssh-9.0p1/sshd.c
  /*
   * Listen for TCP connections
   */
-@@ -1561,6 +1606,9 @@
+@@ -1561,6 +1612,9 @@
  	int keytype;
  	Authctxt *authctxt;
  	struct connection_info *connection_info = NULL;
@@ -72,19 +93,7 @@ Index: openssh-9.0p1/sshd.c
  
  #ifdef HAVE_SECUREWARE
  	(void)set_auth_parameters(ac, av);
-@@ -1708,7 +1756,11 @@
- 	if (rexeced_flag)
- 		closefrom(REEXEC_MIN_FREE_FD);
- 	else
-+#ifdef HAVE_SYSTEMD
-+		closefrom(SD_LISTEN_FDS_START + sd_listen_fds(0));
-+#else
- 		closefrom(REEXEC_DEVCRYPTO_RESERVED_FD);
-+#endif
- 
- 	/* If requested, redirect the logs to the specified logfile. */
- 	if (logfile != NULL)
-@@ -2065,7 +2117,16 @@
+@@ -2065,7 +2119,16 @@
  		server_accept_inetd(&sock_in, &sock_out);
  	} else {
  		platform_pre_listen();
