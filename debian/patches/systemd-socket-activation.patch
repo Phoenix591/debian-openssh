@@ -31,7 +31,7 @@ Index: openssh/sshd.c
  
  extern char *__progname;
  
-@@ -1033,6 +1039,51 @@
+@@ -1033,6 +1039,47 @@
  	debug("inetd sockets after dupping: %d, %d", *sock_in, *sock_out);
  }
  
@@ -69,10 +69,6 @@ Index: openssh/sshd.c
 +	/* Socket options */
 +	set_reuseaddr(listen_sock);
 +
-+	/* Only communicate in IPv6 over AF_INET6 sockets. */
-+	if (addr.sa_family == AF_INET6)
-+		sock_set_v6only(listen_sock);
-+
 +	listen_socks[num_listen_socks] = listen_sock;
 +	num_listen_socks++;
 +
@@ -83,7 +79,7 @@ Index: openssh/sshd.c
  /*
   * Listen for TCP connections
   */
-@@ -1112,22 +1163,35 @@
+@@ -1112,22 +1159,35 @@
  server_listen(void)
  {
  	u_int i;
