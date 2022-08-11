@@ -203,6 +203,10 @@ override_dh_runit:
 execute_after_dh_fixperms-arch:
 	chmod u+s debian/openssh-client/usr/lib/openssh/ssh-keysign
 
+# Work around debhelper/dh-exec bug #1017023.
+override_dh_missing:
+	dh_missing --list-missing
+
 # Tighten libssl dependencies to match the check in entropy.c.
 execute_after_dh_shlibdeps:
 	debian/adjust-openssl-dependencies

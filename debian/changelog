@@ -3,6 +3,9 @@ openssh (1:9.0p1-2) UNRELEASED; urgency=medium
   [ Markus Teich ]
   * Delete obsolete upstart configuration override.
 
+  [ Colin Watson ]
+  * Work around apparent dh-exec regressions (closes: #1016340).
+
  -- Colin Watson <cjwatson@debian.org>  Tue, 19 Apr 2022 14:00:44 +0100
 
 openssh (1:9.0p1-1) unstable; urgency=medium
