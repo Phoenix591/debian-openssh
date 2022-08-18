@@ -129,11 +129,12 @@ if [ "$action" = configure ]; then
 	    mv /etc/ssh/moduli.dpkg-bak /etc/ssh/moduli
 	fi
 	if dpkg --compare-versions "$2" lt-nl 1:9.0p1-2~ && \
-	   deb-systemd-helper --quiet was-enabled ssh.socket
+	   deb-systemd-helper --quiet was-enabled ssh.socket && \
+	   [ -d /run/systemd/system ]
 	then
 		# migrate to systemd socket activation.
-		systemctl unmask ssh.service >/dev/null || true
-		systemctl disable ssh.service >/dev/null || true
+		systemctl unmask ssh.service
+		systemctl disable ssh.service
 	fi
 fi
 
