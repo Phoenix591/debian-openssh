@@ -195,7 +195,7 @@ To roll back this change, run:
   systemctl stop ssh.socket
   systemctl enable --now ssh.service
 
-Or iff you want to make this change permanent:
+Or if you want to make this change permanent:
 
   systemctl enable ssh.socket
 
