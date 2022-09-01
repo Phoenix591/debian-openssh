@@ -1,16 +1,26 @@
-Description: support systemd socket activation
- Unlike inetd socket activation, with systemd socket activation the 
- supervisor passes the listened-on socket to the child process and lets 
- the child process handle the accept().  This lets us do delayed start 
- of the sshd daemon without becoming incompatible with config options 
- like ClientAliveCountMax.
-Author: Steve Langasek <steve.langasek@ubuntu.com>
+From d141e8e5520215c8bf35d41f4099f1cd49d0a6cb Mon Sep 17 00:00:00 2001
+From: Steve Langasek <steve.langasek@ubuntu.com>
+Date: Thu, 1 Sep 2022 16:03:37 +0100
+Subject: Support systemd socket activation
 
-Index: openssh-9.0p1/sshd.c
-===================================================================
---- openssh-9.0p1.orig/sshd.c
-+++ openssh-9.0p1/sshd.c
-@@ -141,10 +141,16 @@
+Unlike inetd socket activation, with systemd socket activation the
+supervisor passes the listened-on socket to the child process and lets
+the child process handle the accept().  This lets us do delayed start
+of the sshd daemon without becoming incompatible with config options
+like ClientAliveCountMax.
+
+Last-Update: 2022-09-01
+
+Patch-Name: systemd-socket-activation.patch
+---
+ sshd.c | 89 +++++++++++++++++++++++++++++++++++++++++++++++++---------
+ 1 file changed, 75 insertions(+), 14 deletions(-)
+
+diff --git a/sshd.c b/sshd.c
+index 9acae637a..3ef0c1452 100644
+--- a/sshd.c
++++ b/sshd.c
+@@ -141,10 +141,16 @@ int deny_severity;
  #endif /* LIBWRAP */
  
  /* Re-exec fds */
@@ -31,7 +41,7 @@ Index: openssh-9.0p1/sshd.c
  
  extern char *__progname;
  
-@@ -1033,6 +1039,48 @@
+@@ -1033,6 +1039,48 @@ server_accept_inetd(int *sock_in, int *sock_out)
  	debug("inetd sockets after dupping: %d, %d", *sock_in, *sock_out);
  }
  
@@ -80,7 +90,7 @@ Index: openssh-9.0p1/sshd.c
  /*
   * Listen for TCP connections
   */
-@@ -1112,22 +1160,35 @@
+@@ -1112,22 +1160,35 @@ static void
  server_listen(void)
  {
  	u_int i;
@@ -98,11 +108,6 @@ Index: openssh-9.0p1/sshd.c
 -		free(options.listen_addrs[i].rdomain);
 -		memset(&options.listen_addrs[i], 0,
 -		    sizeof(options.listen_addrs[i]));
--	}
--	free(options.listen_addrs);
--	options.listen_addrs = NULL;
--	options.num_listen_addrs = 0;
--
 +#ifdef HAVE_SYSTEMD
 +	systemd_socket_count = sd_listen_fds(0);
 +	if (systemd_socket_count > 0)
@@ -123,7 +128,11 @@ Index: openssh-9.0p1/sshd.c
 +		free(options.listen_addrs);
 +		options.listen_addrs = NULL;
 +		options.num_listen_addrs = 0;
-+	}
+ 	}
+-	free(options.listen_addrs);
+-	options.listen_addrs = NULL;
+-	options.num_listen_addrs = 0;
+-
  	if (!num_listen_socks)
  		fatal("Cannot bind any address.");
  }
