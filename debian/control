@@ -6,7 +6,7 @@ Build-Depends: debhelper (>= 13.1~),
                debhelper-compat (= 13),
                dh-exec,
                dh-runit (>= 2.8.8),
-               dpkg-dev (>= 1.16.1~),
+               dpkg-dev,
                libaudit-dev [linux-any],
                libedit-dev,
                libfido2-dev (>= 1.5.0) [linux-any],
@@ -18,7 +18,7 @@ Build-Depends: debhelper (>= 13.1~),
                libsystemd-dev [linux-any] | libelogind-dev [linux-any],
                libwrap0-dev | libwrap-dev,
                pkg-config,
-               zlib1g-dev (>= 1:1.2.3),
+               zlib1g-dev,
 Standards-Version: 4.1.0
 Uploaders: Colin Watson <cjwatson@debian.org>,
            Matthew Vernon <matthew@debian.org>,
@@ -29,8 +29,7 @@ Rules-Requires-Root: no
 
 Package: openssh-client
 Architecture: any
-Depends: adduser (>= 3.10),
-         dpkg (>= 1.7.0),
+Depends: adduser,
          passwd,
          ${misc:Depends},
          ${shlibs:Depends},
@@ -74,15 +73,14 @@ Package: openssh-server
 Priority: optional
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends},
-Depends: adduser (>= 3.9),
-         dpkg (>= 1.9.0),
-         libpam-modules (>= 0.72-9),
-         libpam-runtime (>= 0.76-14),
-         lsb-base (>= 4.1+Debian3),
+Depends: adduser,
+         libpam-modules,
+         libpam-runtime,
+         lsb-base,
          openssh-client (= ${binary:Version}),
          openssh-sftp-server,
          procps,
-         ucf (>= 0.28),
+         ucf,
          ${misc:Depends},
          ${shlibs:Depends},
 Recommends: default-logind | logind | libpam-systemd,
@@ -179,7 +177,6 @@ Description: OpenSSH regression tests
 Package: ssh
 Priority: optional
 Architecture: all
-Pre-Depends: dpkg (>= 1.17.5),
 Depends: openssh-client (>= ${binary:Version}),
          openssh-server (>= ${binary:Version}),
          ${misc:Depends},
