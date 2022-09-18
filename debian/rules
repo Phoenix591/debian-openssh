@@ -173,6 +173,8 @@ endif
 	# dh_installalternatives.
 	ln -sf ssh debian/openssh-client/usr/bin/slogin
 
+	rm -f debian/openssh-tests/usr/lib/openssh/regress/misc/sk-dummy/*.lo
+
 override_dh_installdocs:
 	dh_installdocs -Nopenssh-server -Nopenssh-sftp-server
 	dh_installdocs -popenssh-server -popenssh-sftp-server \
