@@ -1,3 +1,19 @@
+openssh (1:9.1p1-1) UNRELEASED; urgency=medium
+
+  OpenSSH 9.1 includes a number of changes that may affect existing
+  configurations:
+
+   * ssh(1), sshd(8): SetEnv directives in ssh_config and sshd_config are
+     now first-match-wins to match other directives. Previously if an
+     environment variable was multiply specified the last set value would
+     have been used.
+
+   * ssh-keygen(8): ssh-keygen -A (generate all default host key types) will
+     no longer generate DSA keys, as these are insecure and have not been
+     used by default for some years.
+
+ -- Colin Watson <cjwatson@debian.org>  Sun, 13 Nov 2022 17:49:17 +0000
+
 openssh (1:9.0p1-1) unstable; urgency=medium
 
   OpenSSH 9.0 includes a number of changes that may affect existing

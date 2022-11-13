@@ -1,4 +1,4 @@
-openssh (1:9.0p1-2) UNRELEASED; urgency=medium
+openssh (1:9.1p1-1) UNRELEASED; urgency=medium
 
   [ Markus Teich ]
   * Delete obsolete upstart configuration override.
@@ -12,6 +12,102 @@ openssh (1:9.0p1-2) UNRELEASED; urgency=medium
     providing rsh-client (closes: #197037).
   * Add sshd_config checksums for 1:8.2p1-1 and 1:8.7p1-1 to ucf reference
     file.
+  * New upstream release (https://www.openssh.com/releasenotes.html#9.1p1,
+    closes: #1021585):
+    - ssh-keyscan(1): fix a one-byte overflow in SSH- banner processing.
+    - ssh-keygen(1): double free() in error path of file hashing step in
+      signing/verify code.
+    - ssh-keysign(8): double-free in error path introduced in openssh-8.9.
+    - ssh(1), sshd(8): SetEnv directives in ssh_config and sshd_config are
+      now first-match-wins to match other directives. Previously if an
+      environment variable was multiply specified the last set value would
+      have been used.
+    - ssh-keygen(8): ssh-keygen -A (generate all default host key types)
+      will no longer generate DSA keys, as these are insecure and have not
+      been used by default for some years.
+    - ssh(1), sshd(8): add a RequiredRSASize directive to set a minimum RSA
+      key length. Keys below this length will be ignored for user
+      authentication and for host authentication in sshd(8). ssh(1) will
+      terminate a connection if the server offers an RSA key that falls
+      below this limit, as the SSH protocol does not include the ability to
+      retry a failed key exchange.
+    - sftp-server(8): add a "users-groups-by-id@openssh.com" extension
+      request that allows the client to obtain user/group names that
+      correspond to a set of uids/gids.
+    - sftp(1): use "users-groups-by-id@openssh.com" sftp-server extension
+      (when available) to fill in user/group names for directory listings.
+    - sftp-server(8): support the "home-directory" extension request defined
+      in draft-ietf-secsh-filexfer-extensions-00. This overlaps a bit with
+      the existing "expand-path@openssh.com", but some other clients support
+      it.
+    - ssh-keygen(1), sshd(8): allow certificate validity intervals, sshsig
+      verification times and authorized_keys expiry-time options to accept
+      dates in the UTC time zone in addition to the default of interpreting
+      them in the system time zone. YYYYMMDD and YYMMDDHHMM[SS] dates/times
+      will be interpreted as UTC if suffixed with a 'Z' character. Also
+      allow certificate validity intervals to be specified in raw
+      seconds-since-epoch as hex value, e.g. -V 0x1234:0x4567890. This is
+      intended for use by regress tests and other tools that call ssh-keygen
+      as part of a CA workflow.
+    - sftp(1): allow arguments to the sftp -D option, e.g. sftp -D
+      "/usr/libexec/sftp-server -el debug3".
+    - ssh-keygen(1): allow the existing -U (use agent) flag to work with "-Y
+      sign" operations, where it will be interpreted to require that the
+      private keys is hosted in an agent.
+    - ssh-keygen(1): implement the "verify-required" certificate option.
+      This was already documented when support for user-verified FIDO keys
+      was added, but the ssh-keygen(1) code was missing.
+    - ssh-agent(1): hook up the restrict_websafe command-line flag;
+      previously the flag was accepted but never actually used.
+    - sftp(1): improve filename tab completions: never try to complete names
+      to non-existent commands, and better match the completion type (local
+      or remote filename) against the argument position being completed.
+    - ssh-keygen(1), ssh(1), ssh-agent(1): several fixes to FIDO key
+      handling, especially relating to keys that request user-verification.
+      These should reduce the number of unnecessary PIN prompts for keys
+      that support intrinsic user verification.
+    - ssh-keygen(1): when enrolling a FIDO resident key, check if a
+      credential with matching application and user ID strings already
+      exists and, if so, prompt the user for confirmation before overwriting
+      the credential.
+    - sshd(8): improve logging of errors when opening authorized_keys files.
+    - ssh(1): avoid multiplexing operations that could cause SIGPIPE from
+      causing the client to exit early.
+    - ssh_config(5), sshd_config(5): clarify that the RekeyLimit directive
+      applies to both transmitted and received data.
+    - ssh-keygen(1): avoid double fclose() in error path.
+    - sshd(8): log an error if pipe() fails while accepting a connection.
+    - ssh-keyscan(1): add missing *-sk types to ssh-keyscan manpage.
+    - sshd(8): ensure that authentication passwords are cleared from memory
+      in error paths.
+    - ssh(1), ssh-agent(1): avoid possibility of notifier code executing
+      kill(-1).
+    - ssh_config(5): note that the ProxyJump directive also accepts the same
+      tokens as ProxyCommand.
+    - scp(1): do not ftruncate(3) files early when in sftp mode. The
+      previous behaviour of unconditionally truncating the destination file
+      would cause "scp ~/foo localhost:foo" and the reverse "scp
+      localhost:foo ~/foo" to delete all the contents of their destination.
+    - ssh-keygen(1): improve error message when 'ssh-keygen -Y sign' is
+      unable to load a private key.
+    - sftp(1), scp(1): when performing operations that glob(3) a remote
+      path, ensure that the implicit working directory used to construct
+      that path escapes glob(3) characters. This prevents glob characters
+      from being processed in places they shouldn't, e.g. "cd /tmp/a*/",
+      "get *.txt" should have the get operation treat the path "/tmp/a*"
+      literally and not attempt to expand it (LP: #1483751).
+    - ssh(1), sshd(8): be stricter in which characters will be accepted in
+      specifying a mask length; allow only 0-9.
+    - ssh-keygen(1): avoid printing hash algorithm twice when dumping a KRL.
+    - ssh(1), sshd(8): continue running local I/O for open channels during
+      SSH transport rekeying. This should make ~-escapes work in the client
+      (e.g. to exit) if the connection happened to have stalled during a
+      rekey event.
+    - ssh(1), sshd(8): avoid potential poll() spin during rekeying.
+    - Further hardening for sshbuf internals: disallow "reparenting" a
+      hierarchical sshbuf and zero the entire buffer if reallocation fails.
+    - sshd(8): add AUDIT_ARCH_PPC to supported seccomp sandbox
+      architectures.
 
   [ Steve Langasek ]
   * Support systemd socket activation.  Migrate any existing inetd-style

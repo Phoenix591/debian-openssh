@@ -1,4 +1,4 @@
-From 2d15f920d30dbb11300568b7eaf2a7d656382305 Mon Sep 17 00:00:00 2001
+From 215c3477a5c6c7e5190f30f56b195b96fb01376d Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:09:58 +0000
 Subject: Allow harmless group-writability
@@ -51,7 +51,7 @@ index 4fc9252a6..b8b0522c0 100644
  			    "bad modes for %.200s", pw->pw_name, path);
  			auth_debug_add("Bad file modes for %.200s", path);
 diff --git a/auth.c b/auth.c
-index 3d7889988..c3693ba3f 100644
+index a449f275a..28904aa4b 100644
 --- a/auth.c
 +++ b/auth.c
 @@ -432,8 +432,7 @@ check_key_in_hostfiles(struct passwd *pw, struct sshkey *key, const char *host,
@@ -65,7 +65,7 @@ index 3d7889988..c3693ba3f 100644
  			    "bad owner or modes for %.200s",
  			    pw->pw_name, user_hostfile);
 diff --git a/misc.c b/misc.c
-index 85d223695..085baeea4 100644
+index f21358037..e3e9c6d6a 100644
 --- a/misc.c
 +++ b/misc.c
 @@ -55,9 +55,9 @@
@@ -156,10 +156,10 @@ index 85d223695..085baeea4 100644
  			    "bad ownership or modes for directory %s", buf);
  			return -1;
 diff --git a/misc.h b/misc.h
-index 2e1b5feca..b5cf9d53f 100644
+index 7ef75bd09..5535bd20a 100644
 --- a/misc.h
 +++ b/misc.h
-@@ -222,6 +222,8 @@ struct notifier_ctx *notify_start(int, const char *, ...)
+@@ -224,6 +224,8 @@ struct notifier_ctx *notify_start(int, const char *, ...)
  void	notify_complete(struct notifier_ctx *, const char *, ...)
  	__attribute__((format(printf, 2, 3)));
  
@@ -169,10 +169,10 @@ index 2e1b5feca..b5cf9d53f 100644
  #define MAXIMUM(a, b)	(((a) > (b)) ? (a) : (b))
  #define ROUNDUP(x, y)   ((((x)+((y)-1))/(y))*(y))
 diff --git a/readconf.c b/readconf.c
-index 785943642..cf738b215 100644
+index 001059c8b..7b2e32990 100644
 --- a/readconf.c
 +++ b/readconf.c
-@@ -2319,8 +2319,7 @@ read_config_file_depth(const char *filename, struct passwd *pw,
+@@ -2309,8 +2309,7 @@ read_config_file_depth(const char *filename, struct passwd *pw,
  
  		if (fstat(fileno(f), &sb) == -1)
  			fatal("fstat %s: %s", filename, strerror(errno));
@@ -183,10 +183,10 @@ index 785943642..cf738b215 100644
  	}
  
 diff --git a/ssh.1 b/ssh.1
-index 784e05c20..1d8b3baf2 100644
+index 070cf553c..1940ef4da 100644
 --- a/ssh.1
 +++ b/ssh.1
-@@ -1558,6 +1558,8 @@ The file format and configuration options are described in
+@@ -1562,6 +1562,8 @@ The file format and configuration options are described in
  .Xr ssh_config 5 .
  Because of the potential for abuse, this file must have strict permissions:
  read/write for the user, and not writable by others.
@@ -196,10 +196,10 @@ index 784e05c20..1d8b3baf2 100644
  .It Pa ~/.ssh/environment
  Contains additional definitions for environment variables; see
 diff --git a/ssh_config.5 b/ssh_config.5
-index e8a1a37f0..824eb4b9a 100644
+index b48a2791b..67417174b 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -2230,6 +2230,8 @@ The format of this file is described above.
+@@ -2243,6 +2243,8 @@ The format of this file is described above.
  This file is used by the SSH client.
  Because of the potential for abuse, this file must have strict permissions:
  read/write for the user, and not writable by others.

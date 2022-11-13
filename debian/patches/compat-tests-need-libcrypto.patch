@@ -1,0 +1,29 @@
+From 75a8a58870266d4f8db1d0c53900d32a15db4e82 Mon Sep 17 00:00:00 2001
+From: Darren Tucker <dtucker@dtucker.net>
+Date: Thu, 3 Nov 2022 08:14:05 +1100
+Subject: Compat tests need libcrypto.
+
+This was moved to CHANNELLIBS during the libs refactor.  Spotted by
+rapier at psc.edu.
+
+Origin: upstream, https://anongit.mindrot.org/openssh.git/commit/?id=fe88d67e7599b0bc73f6e4524add28d743e7f977
+Last-Update: 2022-11-13
+
+Patch-Name: compat-tests-need-libcrypto.patch
+---
+ openbsd-compat/regress/Makefile.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/openbsd-compat/regress/Makefile.in b/openbsd-compat/regress/Makefile.in
+index dd8cdc4b7..fdcefdc6f 100644
+--- a/openbsd-compat/regress/Makefile.in
++++ b/openbsd-compat/regress/Makefile.in
+@@ -10,7 +10,7 @@ CFLAGS=@CFLAGS@
+ CPPFLAGS=-I. -I.. -I../.. -I$(srcdir) -I$(srcdir)/.. -I$(srcdir)/../.. @CPPFLAGS@ @DEFS@
+ EXEEXT=@EXEEXT@
+ LIBCOMPAT=../libopenbsd-compat.a
+-LIBS=@LIBS@
++LIBS=@LIBS@ @CHANNELLIBS@
+ LDFLAGS=@LDFLAGS@ $(LIBCOMPAT)
+ 
+ TESTPROGS=closefromtest$(EXEEXT) snprintftest$(EXEEXT) strduptest$(EXEEXT) \

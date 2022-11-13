@@ -1,4 +1,4 @@
-From 6106ce237a806e9ce088ae5cf730e5ba2ca36760 Mon Sep 17 00:00:00 2001
+From 04a65db7d08dce84043cf3ee938fff2568c567ac Mon Sep 17 00:00:00 2001
 From: Kees Cook <kees@debian.org>
 Date: Sun, 9 Feb 2014 16:10:06 +0000
 Subject: Add DebianBanner server configuration option
@@ -8,7 +8,7 @@ initial protocol handshake, for those scared by package-versioning.patch.
 
 Bug-Debian: http://bugs.debian.org/562048
 Forwarded: not-needed
-Last-Update: 2021-11-05
+Last-Update: 2022-11-13
 
 Patch-Name: debian-banner.patch
 ---
@@ -58,45 +58,45 @@ index 240dca89d..e356f5ed0 100644
  struct kex *kex_new(void);
  int	 kex_ready(struct ssh *, char *[PROPOSAL_MAX]);
 diff --git a/servconf.c b/servconf.c
-index 7d3367268..dac06fed5 100644
+index 721a008a6..dc49b868d 100644
 --- a/servconf.c
 +++ b/servconf.c
-@@ -199,6 +199,7 @@ initialize_server_options(ServerOptions *options)
- 	options->fingerprint_hash = -1;
+@@ -200,6 +200,7 @@ initialize_server_options(ServerOptions *options)
  	options->disable_forwarding = -1;
  	options->expose_userauth_info = -1;
+ 	options->required_rsa_size = -1;
 +	options->debian_banner = -1;
  }
  
  /* Returns 1 if a string option is unset or set to "none" or 0 otherwise. */
-@@ -453,6 +454,8 @@ fill_default_server_options(ServerOptions *options)
- 		options->expose_userauth_info = 0;
- 	if (options->sk_provider == NULL)
+@@ -456,6 +457,8 @@ fill_default_server_options(ServerOptions *options)
  		options->sk_provider = xstrdup("internal");
+ 	if (options->required_rsa_size == -1)
+ 		options->required_rsa_size = SSH_RSA_MINIMUM_MODULUS_SIZE;
 +	if (options->debian_banner == -1)
 +		options->debian_banner = 1;
  
  	assemble_algorithms(options);
  
-@@ -530,6 +533,7 @@ typedef enum {
- 	sStreamLocalBindMask, sStreamLocalBindUnlink,
+@@ -534,6 +537,7 @@ typedef enum {
  	sAllowStreamLocalForwarding, sFingerprintHash, sDisableForwarding,
  	sExposeAuthInfo, sRDomain, sPubkeyAuthOptions, sSecurityKeyProvider,
+ 	sRequiredRSASize,
 +	sDebianBanner,
  	sDeprecated, sIgnore, sUnsupported
  } ServerOpCodes;
  
-@@ -700,6 +704,7 @@ static struct {
- 	{ "rdomain", sRDomain, SSHCFG_ALL },
+@@ -705,6 +709,7 @@ static struct {
  	{ "casignaturealgorithms", sCASignatureAlgorithms, SSHCFG_ALL },
  	{ "securitykeyprovider", sSecurityKeyProvider, SSHCFG_GLOBAL },
+ 	{ "requiredrsasize", sRequiredRSASize, SSHCFG_ALL },
 +	{ "debianbanner", sDebianBanner, SSHCFG_GLOBAL },
  	{ NULL, sBadOption, 0 }
  };
  
-@@ -2476,6 +2481,10 @@ process_server_config_line_depth(ServerOptions *options, char *line,
- 			*charptr = xstrdup(arg);
- 		break;
+@@ -2491,6 +2496,10 @@ process_server_config_line_depth(ServerOptions *options, char *line,
+ 		intptr = &options->required_rsa_size;
+ 		goto parse_int;
  
 +	case sDebianBanner:
 +		intptr = &options->debian_banner;
@@ -106,20 +106,20 @@ index 7d3367268..dac06fed5 100644
  	case sIgnore:
  	case sUnsupported:
 diff --git a/servconf.h b/servconf.h
-index 197c35bbf..5ae73460b 100644
+index cb7af38a8..c3992672e 100644
 --- a/servconf.h
 +++ b/servconf.h
-@@ -232,6 +232,8 @@ typedef struct {
- 	int	expose_userauth_info;
+@@ -233,6 +233,8 @@ typedef struct {
  	u_int64_t timing_secret;
  	char   *sk_provider;
+ 	int	required_rsa_size;	/* minimum size of RSA keys */
 +
 +	int	debian_banner;
  }       ServerOptions;
  
  /* Information about the incoming connection as used by Match */
 diff --git a/sshconnect.c b/sshconnect.c
-index 60cff2d87..6d5cea60b 100644
+index 7db2ccec6..6cff1693b 100644
 --- a/sshconnect.c
 +++ b/sshconnect.c
 @@ -1560,7 +1560,7 @@ ssh_login(struct ssh *ssh, Sensitive *sensitive, const char *orighost,
@@ -132,10 +132,10 @@ index 60cff2d87..6d5cea60b 100644
  
  	/* Put the connection into non-blocking mode. */
 diff --git a/sshd.c b/sshd.c
-index 91e30825a..f8e3ecc0a 100644
+index 9c03ca25f..e0c178174 100644
 --- a/sshd.c
 +++ b/sshd.c
-@@ -2227,7 +2227,7 @@ main(int ac, char **av)
+@@ -2238,7 +2238,7 @@ main(int ac, char **av)
  	if (!debug_flag)
  		alarm(options.login_grace_time);
  
@@ -145,7 +145,7 @@ index 91e30825a..f8e3ecc0a 100644
  		sshpkt_fatal(ssh, r, "banner exchange");
  
 diff --git a/sshd_config.5 b/sshd_config.5
-index 83615a5d0..2dca1fc8f 100644
+index dfbd17be7..a89c8afd4 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
 @@ -546,6 +546,11 @@ or

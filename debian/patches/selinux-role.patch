@@ -1,4 +1,4 @@
-From 04fd524306d6ccf03b737d98fbb370a5eb56aaec Mon Sep 17 00:00:00 2001
+From f7eb577e2019d2b55a0489371e9ff1fdeee3ad18 Mon Sep 17 00:00:00 2001
 From: Manoj Srivastava <srivasta@debian.org>
 Date: Sun, 9 Feb 2014 16:09:49 +0000
 Subject: Handle SELinux authorisation roles
@@ -31,10 +31,10 @@ Patch-Name: selinux-role.patch
  15 files changed, 99 insertions(+), 31 deletions(-)
 
 diff --git a/auth.h b/auth.h
-index a65d8fd02..3cfce0eaf 100644
+index 6d2d39762..d16dc66b8 100644
 --- a/auth.h
 +++ b/auth.h
-@@ -63,6 +63,7 @@ struct Authctxt {
+@@ -65,6 +65,7 @@ struct Authctxt {
  	char		*service;
  	struct passwd	*pw;		/* set if 'valid' */
  	char		*style;
@@ -81,7 +81,7 @@ index 44bd49177..d66d73876 100644
  		if (auth2_setup_methods_lists(authctxt) != 0)
  			ssh_packet_disconnect(ssh,
 diff --git a/monitor.c b/monitor.c
-index cd9f95504..ccab23e04 100644
+index 5f7df9539..769eda640 100644
 --- a/monitor.c
 +++ b/monitor.c
 @@ -117,6 +117,7 @@ int mm_answer_sign(struct ssh *, int, struct sshbuf *);
@@ -176,7 +176,7 @@ index 2b1a2d590..4d87284aa 100644
  
  struct ssh;
 diff --git a/monitor_wrap.c b/monitor_wrap.c
-index 3310ad3f5..62b1db62c 100644
+index 3d0b1cc77..e8cff2998 100644
 --- a/monitor_wrap.c
 +++ b/monitor_wrap.c
 @@ -374,10 +374,10 @@ mm_auth2_read_banner(void)
@@ -230,7 +230,7 @@ index 3310ad3f5..62b1db62c 100644
  int
  mm_auth_password(struct ssh *ssh, char *password)
 diff --git a/monitor_wrap.h b/monitor_wrap.h
-index f51bcca05..e7d6d2561 100644
+index 830fdb308..c84f96d0c 100644
 --- a/monitor_wrap.h
 +++ b/monitor_wrap.h
 @@ -48,7 +48,8 @@ DH *mm_choose_dh(int, int, int);
@@ -424,7 +424,7 @@ index ce59dabd9..675c91146 100644
  const char	*session_get_remote_name_or_ip(struct ssh *, u_int, int);
  
 diff --git a/sshd.c b/sshd.c
-index 0c1bb2454..91e30825a 100644
+index 337a7e296..9c03ca25f 100644
 --- a/sshd.c
 +++ b/sshd.c
 @@ -584,7 +584,7 @@ privsep_postauth(struct ssh *ssh, Authctxt *authctxt)

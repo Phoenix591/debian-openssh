@@ -1,4 +1,4 @@
-From 00b2bf85583f26cdc736a35f759657b3253c88d6 Mon Sep 17 00:00:00 2001
+From cee99316b69ff95b56f3b4242b73798f566b73fa Mon Sep 17 00:00:00 2001
 From: Matthew Vernon <matthew@debian.org>
 Date: Sun, 9 Feb 2014 16:10:05 +0000
 Subject: Include the Debian version in our identification
@@ -31,11 +31,11 @@ index 461f5364c..d9a97b253 100644
  	    version_addendum == NULL ? "" : version_addendum)) != 0) {
  		oerrno = errno;
 diff --git a/version.h b/version.h
-index e600fe4c3..9a27e73fb 100644
+index 1a034c838..582988127 100644
 --- a/version.h
 +++ b/version.h
 @@ -3,4 +3,9 @@
- #define SSH_VERSION	"OpenSSH_9.0"
+ #define SSH_VERSION	"OpenSSH_9.1"
  
  #define SSH_PORTABLE	"p1"
 -#define SSH_RELEASE	SSH_VERSION SSH_PORTABLE
