@@ -22,6 +22,7 @@ make -C "$tmp/regress" \
 	OBJ="$tmp/regress" \
 	SUDO=sudo \
 	TEST_SHELL=sh \
+	TEST_SSH_SSH=ssh \
 	TEST_SSH_SFTPSERVER=/usr/lib/openssh/sftp-server \
 	TEST_SSH_PLINK=plink \
 	TEST_SSH_PUTTYGEN=puttygen \
