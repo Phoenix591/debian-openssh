@@ -108,6 +108,8 @@ openssh (1:9.1p1-1) UNRELEASED; urgency=medium
       hierarchical sshbuf and zero the entire buffer if reallocation fails.
     - sshd(8): add AUDIT_ARCH_PPC to supported seccomp sandbox
       architectures.
+  * Drop patch to work around https://twistedmatrix.com/trac/ticket/9765,
+    since the fix for that is in Debian testing.
 
   [ Steve Langasek ]
   * Support systemd socket activation.  Migrate any existing inetd-style
