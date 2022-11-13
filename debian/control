@@ -42,8 +42,7 @@ Suggests: keychain,
           libpam-ssh,
           monkeysphere,
           ssh-askpass,
-Provides: rsh-client,
-          ssh-client,
+Provides: ssh-client,
 Multi-Arch: foreign
 Description: secure shell (SSH) client, for secure access to remote machines
  This is the portable version of OpenSSH, a free implementation of
