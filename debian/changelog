@@ -110,6 +110,8 @@ openssh (1:9.1p1-1) UNRELEASED; urgency=medium
       architectures.
   * Drop patch to work around https://twistedmatrix.com/trac/ticket/9765,
     since the fix for that is in Debian testing.
+  * Rewrite gnome-ssh-askpass(1) manual page using mdoc macros, and flesh it
+    out a bit more.
 
   [ Steve Langasek ]
   * Support systemd socket activation.  Migrate any existing inetd-style
