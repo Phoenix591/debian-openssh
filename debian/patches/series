@@ -23,5 +23,6 @@ debian-config.patch
 restore-authorized_keys2.patch
 revert-ipqos-defaults.patch
 maxhostnamelen.patch
+conch-ssh-rsa.patch
 systemd-socket-activation.patch
 compat-tests-need-libcrypto.patch

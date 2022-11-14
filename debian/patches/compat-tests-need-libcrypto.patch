@@ -1,4 +1,4 @@
-From 47ebfac62a301c1f14c639aae5aeffffc6191da7 Mon Sep 17 00:00:00 2001
+From dcce1f6f893312c5f7838d38773d47e99f772fc8 Mon Sep 17 00:00:00 2001
 From: Darren Tucker <dtucker@dtucker.net>
 Date: Thu, 3 Nov 2022 08:14:05 +1100
 Subject: Compat tests need libcrypto.
