@@ -1,4 +1,4 @@
-openssh (1:9.1p1-1) UNRELEASED; urgency=medium
+openssh (1:9.1p1-1) unstable; urgency=medium
 
   [ Markus Teich ]
   * Delete obsolete upstart configuration override.
@@ -122,7 +122,7 @@ openssh (1:9.1p1-1) UNRELEASED; urgency=medium
   * d/openssh-server.{postinst,config}: get_config_option: Replace perl with
     sed.
 
- -- Colin Watson <cjwatson@debian.org>  Tue, 19 Apr 2022 14:00:44 +0100
+ -- Colin Watson <cjwatson@debian.org>  Mon, 14 Nov 2022 16:25:45 +0000
 
 openssh (1:9.0p1-1) unstable; urgency=medium
 

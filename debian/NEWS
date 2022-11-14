@@ -1,4 +1,4 @@
-openssh (1:9.1p1-1) UNRELEASED; urgency=medium
+openssh (1:9.1p1-1) unstable; urgency=medium
 
   OpenSSH 9.1 includes a number of changes that may affect existing
   configurations:
@@ -12,7 +12,7 @@ openssh (1:9.1p1-1) UNRELEASED; urgency=medium
      no longer generate DSA keys, as these are insecure and have not been
      used by default for some years.
 
- -- Colin Watson <cjwatson@debian.org>  Sun, 13 Nov 2022 17:49:17 +0000
+ -- Colin Watson <cjwatson@debian.org>  Mon, 14 Nov 2022 16:35:59 +0000
 
 openssh (1:9.0p1-1) unstable; urgency=medium
 
