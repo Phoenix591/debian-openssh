@@ -38,7 +38,7 @@ if [ "$action" = configure ]; then
 		update_ssh_group_name
 	fi
 	set_ssh_agent_permissions
-	if dpkg --compare-versions "$2" lt-nl 1:9.0p1-2~; then
+	if dpkg --compare-versions "$2" lt-nl 1:9.1p1-1~; then
 		remove_obsolete_alternatives
 	fi
 fi
