@@ -91,7 +91,7 @@ create_sshdconfig() {
 
 	trap cleanup EXIT
 	new_config="$(mktemp)"
-	cp -a /usr/share/openssh/sshd_config "$new_config"
+	cp -aZ /usr/share/openssh/sshd_config "$new_config"
 	if [ "$permit_root_login" != true ]; then
 		sed -i 's/^#*PermitRootLogin .*/PermitRootLogin yes/' \
 			"$new_config"
@@ -100,7 +100,7 @@ create_sshdconfig() {
 		sed -i 's/^#PasswordAuthentication .*/PasswordAuthentication no/' \
 			"$new_config"
 	fi
-	mkdir -p /etc/ssh
+	mkdir -pZ /etc/ssh
 	ucf --three-way --debconf-ok \
 		--sum-file /usr/share/openssh/sshd_config.md5sum \
 		"$new_config" /etc/ssh/sshd_config
