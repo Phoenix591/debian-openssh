@@ -9,6 +9,8 @@ openssh (1:9.1p1-2) UNRELEASED; urgency=medium
   * Use secure URI in Homepage field.
   * Remove 2 obsolete maintscript entries in 2 files.
   * Fix day-of-week for changelog entries 1:3.0.2p1-9, 1:3.0.2p1-2, 1:3.0.1p1-1.
+  * Remove deprecated Encoding key from desktop file
+    debian/ssh-askpass-gnome.desktop.
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 15 Nov 2022 15:02:31 +0000
 
