@@ -12,6 +12,8 @@ openssh (1:9.1p1-2) UNRELEASED; urgency=medium
   * Remove deprecated Encoding key from desktop file
     debian/ssh-askpass-gnome.desktop.
   * Update standards version to 4.1.1, no changes needed.
+  * debian/tests/regress: Adjust to cope with changes in adduser 3.130 (see
+    #625758).
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 15 Nov 2022 15:02:31 +0000
 
