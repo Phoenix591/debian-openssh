@@ -6,6 +6,7 @@ openssh (1:9.1p1-2) UNRELEASED; urgency=medium
   [ Colin Watson ]
   * Add missing ${misc:Depends} to Depends for openssh-client-udeb,
     openssh-server-udeb.
+  * Use secure URI in Homepage field.
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 15 Nov 2022 15:02:31 +0000
 
