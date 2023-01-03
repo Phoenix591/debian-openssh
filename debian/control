@@ -18,7 +18,7 @@ Build-Depends: debhelper (>= 13.1~),
                libwrap0-dev | libwrap-dev,
                pkg-config,
                zlib1g-dev,
-Standards-Version: 4.1.1
+Standards-Version: 4.6.2
 Uploaders: Colin Watson <cjwatson@debian.org>,
            Matthew Vernon <matthew@debian.org>,
 Homepage: https://www.openssh.com/
