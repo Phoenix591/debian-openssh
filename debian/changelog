@@ -1,3 +1,10 @@
+openssh (1:9.1p1-3) UNRELEASED; urgency=medium
+
+  * Set "UsePAM yes" when running regression tests, to match our default
+    sshd configuration.
+
+ -- Colin Watson <cjwatson@debian.org>  Tue, 03 Jan 2023 15:04:10 +0000
+
 openssh (1:9.1p1-2) unstable; urgency=medium
 
   [ Christian Göttsche ]

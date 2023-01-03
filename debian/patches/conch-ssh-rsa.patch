@@ -1,4 +1,4 @@
-From c74bc7c9b34a80cfb156759259058f55b4881098 Mon Sep 17 00:00:00 2001
+From ab4a155b1b4a66e4e041954d39c47e252b83e369 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Tue, 15 Feb 2022 18:25:35 +0000
 Subject: Work around RSA SHA-2 signature issues in conch
@@ -19,10 +19,10 @@ Patch-Name: conch-ssh-rsa.patch
  1 file changed, 11 insertions(+)
 
 diff --git a/regress/test-exec.sh b/regress/test-exec.sh
-index c51f8eac1..b7db62514 100644
+index 0eab70af7..98cddd749 100644
 --- a/regress/test-exec.sh
 +++ b/regress/test-exec.sh
-@@ -669,6 +669,17 @@ REGRESS_INTEROP_CONCH=no
+@@ -670,6 +670,17 @@ REGRESS_INTEROP_CONCH=no
  if test -x "$CONCH" ; then
  	REGRESS_INTEROP_CONCH=yes
  fi
