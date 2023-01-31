@@ -2,6 +2,8 @@ openssh (1:9.1p1-3) UNRELEASED; urgency=medium
 
   * Set "UsePAM yes" when running regression tests, to match our default
     sshd configuration.
+  * Ignore Lintian error about depending on lsb-base for now, to avoid
+    problems with partial upgrades on non-default init systems.
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 03 Jan 2023 15:04:10 +0000
 
