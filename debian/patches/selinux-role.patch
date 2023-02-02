@@ -1,4 +1,4 @@
-From f7eb577e2019d2b55a0489371e9ff1fdeee3ad18 Mon Sep 17 00:00:00 2001
+From a1b3f6592e7ef61f5d9544fc652ae44f8c47bd2e Mon Sep 17 00:00:00 2001
 From: Manoj Srivastava <srivasta@debian.org>
 Date: Sun, 9 Feb 2014 16:09:49 +0000
 Subject: Handle SELinux authorisation roles
@@ -176,10 +176,10 @@ index 2b1a2d590..4d87284aa 100644
  
  struct ssh;
 diff --git a/monitor_wrap.c b/monitor_wrap.c
-index 3d0b1cc77..e8cff2998 100644
+index a4b66c56f..6fb47becb 100644
 --- a/monitor_wrap.c
 +++ b/monitor_wrap.c
-@@ -374,10 +374,10 @@ mm_auth2_read_banner(void)
+@@ -375,10 +375,10 @@ mm_auth2_read_banner(void)
  	return (banner);
  }
  
@@ -192,7 +192,7 @@ index 3d0b1cc77..e8cff2998 100644
  {
  	struct sshbuf *m;
  	int r;
-@@ -387,7 +387,8 @@ mm_inform_authserv(char *service, char *style)
+@@ -388,7 +388,8 @@ mm_inform_authserv(char *service, char *style)
  	if ((m = sshbuf_new()) == NULL)
  		fatal_f("sshbuf_new failed");
  	if ((r = sshbuf_put_cstring(m, service)) != 0 ||
@@ -202,7 +202,7 @@ index 3d0b1cc77..e8cff2998 100644
  		fatal_fr(r, "assemble");
  
  	mm_request_send(pmonitor->m_recvfd, MONITOR_REQ_AUTHSERV, m);
-@@ -395,6 +396,26 @@ mm_inform_authserv(char *service, char *style)
+@@ -396,6 +397,26 @@ mm_inform_authserv(char *service, char *style)
  	sshbuf_free(m);
  }
  
@@ -362,7 +362,7 @@ index 7fef8c983..027fdfb51 100644
  char *platform_krb5_get_principal_name(const char *);
  int platform_locked_account(struct passwd *);
 diff --git a/session.c b/session.c
-index f7d028d40..a638ceef1 100644
+index 96960f2da..492463529 100644
 --- a/session.c
 +++ b/session.c
 @@ -1355,7 +1355,7 @@ safely_chroot(const char *path, uid_t uid)
@@ -411,7 +411,7 @@ index f7d028d40..a638ceef1 100644
  	/* Set window size from the packet. */
  	pty_change_window_size(s->ptyfd, s->row, s->col, s->xpixel, s->ypixel);
 diff --git a/session.h b/session.h
-index ce59dabd9..675c91146 100644
+index 344a1ddf9..20ea822a7 100644
 --- a/session.h
 +++ b/session.h
 @@ -77,7 +77,7 @@ void	 session_pty_cleanup2(Session *);
@@ -424,7 +424,7 @@ index ce59dabd9..675c91146 100644
  const char	*session_get_remote_name_or_ip(struct ssh *, u_int, int);
  
 diff --git a/sshd.c b/sshd.c
-index 337a7e296..9c03ca25f 100644
+index 7944cf633..dd4a19131 100644
 --- a/sshd.c
 +++ b/sshd.c
 @@ -584,7 +584,7 @@ privsep_postauth(struct ssh *ssh, Authctxt *authctxt)

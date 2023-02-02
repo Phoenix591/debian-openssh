@@ -1,9 +1,98 @@
-openssh (1:9.1p1-3) UNRELEASED; urgency=medium
+openssh (1:9.2p1-1) UNRELEASED; urgency=medium
 
   * Set "UsePAM yes" when running regression tests, to match our default
     sshd configuration.
   * Ignore Lintian error about depending on lsb-base for now, to avoid
     problems with partial upgrades on non-default init systems.
+  * New upstream release (https://www.openssh.com/releasenotes.html#9.2p1):
+    - [SECURITY] sshd(8): fix a pre-authentication double-free memory fault
+      introduced in OpenSSH 9.1. This is not believed to be exploitable, and
+      it occurs in the unprivileged pre-auth process that is subject to
+      chroot(2) and is further sandboxed on most major platforms.
+    - [SECURITY] ssh(8): in OpenSSH releases after 8.7, the PermitRemoteOpen
+      option would ignore its first argument unless it was one of the
+      special keywords "any" or "none", causing the permission list to fail
+      open if only one permission was specified.
+    - [SECURITY] ssh(1): if the CanonicalizeHostname and
+      CanonicalizePermittedCNAMEs options were enabled, and the system/libc
+      resolver did not check that names in DNS responses were valid, then
+      use of these options could allow an attacker with control of DNS to
+      include invalid characters (possibly including wildcards) in names
+      added to known_hosts files when they were updated. These names would
+      still have to match the CanonicalizePermittedCNAMEs allow-list, so
+      practical exploitation appears unlikely.
+    - ssh(1): add a new EnableEscapeCommandline ssh_config(5) option that
+      controls whether the client-side ~C escape sequence that provides a
+      command-line is available. Among other things, the ~C command-line
+      could be used to add additional port-forwards at runtime. This option
+      defaults to "no", disabling the ~C command-line that was previously
+      enabled by default.
+    - sshd(8): add support for channel inactivity timeouts via a new
+      sshd_config(5) ChannelTimeout directive. This allows channels that
+      have not seen traffic in a configurable interval to be automatically
+      closed. Different timeouts may be applied to session, X11, agent and
+      TCP forwarding channels.
+    - sshd(8): add a sshd_config UnusedConnectionTimeout option to terminate
+      client connections that have no open channels for a length of time.
+      This complements the ChannelTimeout option above.
+    - sshd(8): add a -V (version) option to sshd like the ssh client has.
+    - ssh(1): add a "Host" line to the output of ssh -G showing the original
+      hostname argument. bz3343
+    - scp(1), sftp(1): add a -X option to both scp(1) and sftp(1) to allow
+      control over some SFTP protocol parameters: the copy buffer length and
+      the number of in-flight requests, both of which are used during
+      upload/download. Previously these could be controlled in sftp(1) only.
+      This makes them available in both SFTP protocol clients using the same
+      option character sequence.
+    - ssh-keyscan(1): allow scanning of complete CIDR address ranges, e.g.
+      "ssh-keyscan 192.168.0.0/24". If a CIDR range is passed, then it will
+      be expanded to all possible addresses in the range including the
+      all-0s and all-1s addresses.
+    - ssh(1): support dynamic remote port forwarding in escape
+      command-line's -R processing.
+    - ssh(1): when restoring non-blocking mode to stdio fds, restore exactly
+      the flags that ssh started with and don't just clobber them with zero,
+      as this could also remove the append flag from the set.
+    - ssh(1): avoid printf("%s", NULL) if using UserKnownHostsFile=none and
+      a hostkey in one of the system known hosts file changes.
+    - scp(1): switch scp from using pipes to a socket-pair for communication
+      with its ssh sub-processes, matching how sftp(1) operates.
+    - sshd(8): clear signal mask early in main(); sshd may have been started
+      with one or more signals masked (sigprocmask(2) is not cleared on
+      fork/exec) and this could interfere with various things, e.g. the
+      login grace timer. Execution environments that fail to clear the
+      signal mask before running sshd are clearly broken, but apparently
+      they do exist.
+    - ssh(1): warn if no host keys for hostbased auth can be loaded.
+    - sshd(8): Add server debugging for hostbased auth that is queued and
+      sent to the client after successful authentication, but also logged to
+      assist in diagnosis of HostbasedAuthentication problems.
+    - ssh(1): document use of the IdentityFile option as being usable to
+      list public keys as well as private keys.
+    - sshd(8): check for and disallow MaxStartups values less than or equal
+      to zero during config parsing, rather than failing later at runtime.
+    - ssh-keygen(1): fix parsing of hex cert expiry times specified on the
+      command-line when acting as a CA.
+    - scp(1): when scp(1) is using the SFTP protocol for transport (the
+      default), better match scp/rcp's handling of globs that don't match
+      the globbed characters but do match literally (e.g. trying to transfer
+      a file named "foo.[1]"). Previously scp(1) in SFTP mode would not
+      match these pathnames but legacy scp/rcp mode would.
+    - ssh-agent(1): document the "-O no-restrict-websafe" command-line
+      option.
+    - ssh(1): honour user's umask(2) if it is more restrictive then the ssh
+      default (022).
+    - sshd(8): allow writev(2) in the Linux seccomp sandbox. This seems to
+      be used by recent glibcs at least in some configurations during error
+      conditions.
+    - sshd(8): simplify handling of SSH_CONNECTION PAM env var, removing
+      global variable and checking the return value from pam_putenv.
+    - sshd(8): disable SANDBOX_SECCOMP_FILTER_DEBUG that was mistakenly
+      enabled during the OpenSSH 9.1 release cycle.
+    - sshd(8): defer PRNG seeding until after the initial closefrom(2) call.
+      PRNG seeding will initialize OpenSSL, and some engine providers (e.g.
+      Intel's QAT) will open descriptors for their own use that closefrom(2)
+      could clobber.
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 03 Jan 2023 15:04:10 +0000
 

@@ -1,3 +1,20 @@
+openssh (1:9.2p1-1) UNRELEASED; urgency=medium
+
+  OpenSSH 9.2 includes a number of changes that may affect existing
+  configurations:
+
+   * ssh(1): add a new EnableEscapeCommandline ssh_config(5) option that
+     controls whether the client-side ~C escape sequence that provides a
+     command-line is available. Among other things, the ~C command-line
+     could be used to add additional port-forwards at runtime.
+
+     This option defaults to "no", disabling the ~C command-line that was
+     previously enabled by default. Turning off the command-line allows
+     platforms that support sandboxing of the ssh(1) client (currently only
+     OpenBSD) to use a stricter default sandbox policy.
+
+ -- Colin Watson <cjwatson@debian.org>  Thu, 02 Feb 2023 22:47:39 +0000
+
 openssh (1:9.1p1-1) unstable; urgency=medium
 
   OpenSSH 9.1 includes a number of changes that may affect existing

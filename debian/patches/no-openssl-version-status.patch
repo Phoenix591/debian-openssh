@@ -1,4 +1,4 @@
-From 16f92c8d5a3c6f3b8dae2713eb9f0a0b3fe97631 Mon Sep 17 00:00:00 2001
+From c7c2ce00f07135457dbd924cfe962e03a2b0ab62 Mon Sep 17 00:00:00 2001
 From: Kurt Roeckx <kurt@roeckx.be>
 Date: Sun, 9 Feb 2014 16:10:14 +0000
 Subject: Don't check the status field of the OpenSSL version
@@ -49,7 +49,7 @@ index a37ca61bf..c1749210d 100644
  	lfix = (libver & 0x000ff000) >> 12;
  	if ( (headerver & mask) == (libver & mask) && lfix >= hfix)
 diff --git a/openbsd-compat/regress/opensslvertest.c b/openbsd-compat/regress/opensslvertest.c
-index 43825b24c..669396d9f 100644
+index d50066609..aeccc107b 100644
 --- a/openbsd-compat/regress/opensslvertest.c
 +++ b/openbsd-compat/regress/opensslvertest.c
 @@ -37,6 +37,7 @@ struct version_test {
