@@ -53,7 +53,7 @@ else
 	fi
 
 	trace "kill agent"
-	${SSHAGENT} -vvv -k >>$OBJ/ssh-agent.log 2>&1
+	${SSHAGENT} -k >>$OBJ/ssh-agent.log 2>&1
 fi
 
 rm -f ${OBJ}/agent
