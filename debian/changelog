@@ -93,6 +93,7 @@ openssh (1:9.2p1-1) UNRELEASED; urgency=medium
       PRNG seeding will initialize OpenSSL, and some engine providers (e.g.
       Intel's QAT) will open descriptors for their own use that closefrom(2)
       could clobber.
+  * debian/run-tests: Add a little more flexibility for debugging.
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 03 Jan 2023 15:04:10 +0000
 
