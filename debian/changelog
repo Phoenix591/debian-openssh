@@ -1,4 +1,4 @@
-openssh (1:9.2p1-1) UNRELEASED; urgency=medium
+openssh (1:9.2p1-1) unstable; urgency=medium
 
   * Set "UsePAM yes" when running regression tests, to match our default
     sshd configuration.
@@ -95,7 +95,7 @@ openssh (1:9.2p1-1) UNRELEASED; urgency=medium
       could clobber.
   * debian/run-tests: Add a little more flexibility for debugging.
 
- -- Colin Watson <cjwatson@debian.org>  Tue, 03 Jan 2023 15:04:10 +0000
+ -- Colin Watson <cjwatson@debian.org>  Wed, 08 Feb 2023 10:36:06 +0000
 
 openssh (1:9.1p1-2) unstable; urgency=medium
 
