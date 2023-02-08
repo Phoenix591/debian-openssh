@@ -1,4 +1,4 @@
-openssh (1:9.2p1-1) UNRELEASED; urgency=medium
+openssh (1:9.2p1-1) unstable; urgency=medium
 
   OpenSSH 9.2 includes a number of changes that may affect existing
   configurations:
@@ -13,7 +13,7 @@ openssh (1:9.2p1-1) UNRELEASED; urgency=medium
      platforms that support sandboxing of the ssh(1) client (currently only
      OpenBSD) to use a stricter default sandbox policy.
 
- -- Colin Watson <cjwatson@debian.org>  Thu, 02 Feb 2023 22:47:39 +0000
+ -- Colin Watson <cjwatson@debian.org>  Wed, 08 Feb 2023 10:36:06 +0000
 
 openssh (1:9.1p1-1) unstable; urgency=medium
 
