@@ -1,3 +1,10 @@
+openssh (1:9.2p1-3) UNRELEASED; urgency=medium
+
+  * Debconf translations:
+    - Romanian (thanks, Remus-Gabriel Chelu; closes: #1033178).
+
+ -- Colin Watson <cjwatson@debian.org>  Sat, 25 Mar 2023 22:20:02 +0000
+
 openssh (1:9.2p1-2) unstable; urgency=medium
 
   * Fix mistakenly-unreleased entry for 1:9.2p1-1 in debian/NEWS.
