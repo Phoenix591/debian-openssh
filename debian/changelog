@@ -2,6 +2,7 @@ openssh (1:9.2p1-3) UNRELEASED; urgency=medium
 
   * Debconf translations:
     - Romanian (thanks, Remus-Gabriel Chelu; closes: #1033178).
+  * Properly fix date of 1:3.0.2p1-2 changelog entry (closes: #1034425).
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 25 Mar 2023 22:20:02 +0000
 
@@ -6058,7 +6059,7 @@ openssh (1:3.0.2p1-2) unstable; urgency=high
     (Closes: #127842, #127867)
   * Add section in README.Debian about the PermitRootLogin setting
 
- -- Matthew Vernon <matthew@debian.org>  Sun, 05 Jan 2003 05:26:30 +0000
+ -- Matthew Vernon <matthew@debian.org>  Sat, 05 Jan 2002 05:26:30 +0000
 
 openssh (1:3.0.2p1-1) unstable; urgency=high
 
