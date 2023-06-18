@@ -25,4 +25,3 @@ revert-ipqos-defaults.patch
 maxhostnamelen.patch
 conch-ssh-rsa.patch
 systemd-socket-activation.patch
-remove-spurious-ssh-agent-options.patch

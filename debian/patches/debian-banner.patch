@@ -1,4 +1,4 @@
-From 2d3ac49df11f0aed81f35ce9588eb2c578ec98f2 Mon Sep 17 00:00:00 2001
+From 2170a1447e978fc528f50609444da72a9f5a2f59 Mon Sep 17 00:00:00 2001
 From: Kees Cook <kees@debian.org>
 Date: Sun, 9 Feb 2014 16:10:06 +0000
 Subject: Add DebianBanner server configuration option
@@ -22,10 +22,10 @@ Patch-Name: debian-banner.patch
  7 files changed, 22 insertions(+), 5 deletions(-)
 
 diff --git a/kex.c b/kex.c
-index 32858e65c..e7b7316c7 100644
+index b9bec3b9a..11b99827d 100644
 --- a/kex.c
 +++ b/kex.c
-@@ -1272,7 +1272,7 @@ send_error(struct ssh *ssh, char *msg)
+@@ -1332,7 +1332,7 @@ send_error(struct ssh *ssh, char *msg)
   */
  int
  kex_exchange_identification(struct ssh *ssh, int timeout_ms,
@@ -34,7 +34,7 @@ index 32858e65c..e7b7316c7 100644
  {
  	int remote_major, remote_minor, mismatch, oerrno = 0;
  	size_t len, n;
-@@ -1290,7 +1290,8 @@ kex_exchange_identification(struct ssh *ssh, int timeout_ms,
+@@ -1350,7 +1350,8 @@ kex_exchange_identification(struct ssh *ssh, int timeout_ms,
  	if (version_addendum != NULL && *version_addendum == '\0')
  		version_addendum = NULL;
  	if ((r = sshbuf_putf(our_version, "SSH-%d.%d-%.100s%s%s\r\n",
@@ -45,11 +45,11 @@ index 32858e65c..e7b7316c7 100644
  	    version_addendum == NULL ? "" : version_addendum)) != 0) {
  		oerrno = errno;
 diff --git a/kex.h b/kex.h
-index 240dca89d..e356f5ed0 100644
+index 790b87f76..3f8d20177 100644
 --- a/kex.h
 +++ b/kex.h
-@@ -200,7 +200,7 @@ char	*kex_names_cat(const char *, const char *);
- int	 kex_assemble_names(char **, const char *, const char *);
+@@ -203,7 +203,7 @@ void	 kex_proposal_populate_entries(struct ssh *, char *prop[PROPOSAL_MAX],
+ void	 kex_proposal_free_entries(char *prop[PROPOSAL_MAX]);
  int	 kex_gss_names_valid(const char *);
  
 -int	 kex_exchange_identification(struct ssh *, int, const char *);
@@ -58,10 +58,10 @@ index 240dca89d..e356f5ed0 100644
  struct kex *kex_new(void);
  int	 kex_ready(struct ssh *, char *[PROPOSAL_MAX]);
 diff --git a/servconf.c b/servconf.c
-index 6529f2736..4ecbca8ed 100644
+index 791e36a00..9135d9d2c 100644
 --- a/servconf.c
 +++ b/servconf.c
-@@ -203,6 +203,7 @@ initialize_server_options(ServerOptions *options)
+@@ -202,6 +202,7 @@ initialize_server_options(ServerOptions *options)
  	options->channel_timeouts = NULL;
  	options->num_channel_timeouts = 0;
  	options->unused_connection_timeout = -1;
@@ -69,7 +69,7 @@ index 6529f2736..4ecbca8ed 100644
  }
  
  /* Returns 1 if a string option is unset or set to "none" or 0 otherwise. */
-@@ -461,6 +462,8 @@ fill_default_server_options(ServerOptions *options)
+@@ -460,6 +461,8 @@ fill_default_server_options(ServerOptions *options)
  		options->required_rsa_size = SSH_RSA_MINIMUM_MODULUS_SIZE;
  	if (options->unused_connection_timeout == -1)
  		options->unused_connection_timeout = 0;
@@ -78,7 +78,7 @@ index 6529f2736..4ecbca8ed 100644
  
  	assemble_algorithms(options);
  
-@@ -546,6 +549,7 @@ typedef enum {
+@@ -545,6 +548,7 @@ typedef enum {
  	sAllowStreamLocalForwarding, sFingerprintHash, sDisableForwarding,
  	sExposeAuthInfo, sRDomain, sPubkeyAuthOptions, sSecurityKeyProvider,
  	sRequiredRSASize, sChannelTimeout, sUnusedConnectionTimeout,
@@ -86,7 +86,7 @@ index 6529f2736..4ecbca8ed 100644
  	sDeprecated, sIgnore, sUnsupported
  } ServerOpCodes;
  
-@@ -719,6 +723,7 @@ static struct {
+@@ -718,6 +722,7 @@ static struct {
  	{ "requiredrsasize", sRequiredRSASize, SSHCFG_ALL },
  	{ "channeltimeout", sChannelTimeout, SSHCFG_ALL },
  	{ "unusedconnectiontimeout", sUnusedConnectionTimeout, SSHCFG_ALL },
@@ -94,7 +94,7 @@ index 6529f2736..4ecbca8ed 100644
  	{ NULL, sBadOption, 0 }
  };
  
-@@ -2596,6 +2601,10 @@ process_server_config_line_depth(ServerOptions *options, char *line,
+@@ -2595,6 +2600,10 @@ process_server_config_line_depth(ServerOptions *options, char *line,
  		}
  		goto parse_time;
  
@@ -119,10 +119,10 @@ index 38a68d576..e142cf77a 100644
  
  /* Information about the incoming connection as used by Match */
 diff --git a/sshconnect.c b/sshconnect.c
-index 77a3080ba..dbb3c98a7 100644
+index 570c27fd9..db1fefbaa 100644
 --- a/sshconnect.c
 +++ b/sshconnect.c
-@@ -1574,7 +1574,7 @@ ssh_login(struct ssh *ssh, Sensitive *sensitive, const char *orighost,
+@@ -1573,7 +1573,7 @@ ssh_login(struct ssh *ssh, Sensitive *sensitive, const char *orighost,
  	lowercase(host);
  
  	/* Exchange protocol version identification strings with the server. */
@@ -132,10 +132,10 @@ index 77a3080ba..dbb3c98a7 100644
  
  	/* Put the connection into non-blocking mode. */
 diff --git a/sshd.c b/sshd.c
-index dd4a19131..b4ee435e5 100644
+index ef4ed8510..29db3a2ac 100644
 --- a/sshd.c
 +++ b/sshd.c
-@@ -2238,7 +2238,7 @@ main(int ac, char **av)
+@@ -2249,7 +2249,7 @@ main(int ac, char **av)
  	if (!debug_flag)
  		alarm(options.login_grace_time);
  
@@ -145,10 +145,10 @@ index dd4a19131..b4ee435e5 100644
  		sshpkt_fatal(ssh, r, "banner exchange");
  
 diff --git a/sshd_config.5 b/sshd_config.5
-index eb58750a5..2c6ec76cb 100644
+index d94b4da0b..4d0cc5dd0 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -615,6 +615,11 @@ or
+@@ -621,6 +621,11 @@ or
  .Cm no .
  The default is
  .Cm yes .

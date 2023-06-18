@@ -1,4 +1,4 @@
-From 4cedd1c9acac0fba598db2eaf43278dfe8e53ef0 Mon Sep 17 00:00:00 2001
+From ee465c8eeadf7c3b13db23e7afce3b9100dbf75a Mon Sep 17 00:00:00 2001
 From: Steve Langasek <steve.langasek@ubuntu.com>
 Date: Thu, 1 Sep 2022 16:03:37 +0100
 Subject: Support systemd socket activation
@@ -17,10 +17,10 @@ Patch-Name: systemd-socket-activation.patch
  1 file changed, 75 insertions(+), 14 deletions(-)
 
 diff --git a/sshd.c b/sshd.c
-index 0a4eefe01..fc22fcb62 100644
+index 731b9e400..3a5189a6e 100644
 --- a/sshd.c
 +++ b/sshd.c
-@@ -141,10 +141,16 @@ int deny_severity;
+@@ -140,10 +140,16 @@ int deny_severity;
  #endif /* LIBWRAP */
  
  /* Re-exec fds */
@@ -41,7 +41,7 @@ index 0a4eefe01..fc22fcb62 100644
  
  extern char *__progname;
  
-@@ -1025,6 +1031,48 @@ server_accept_inetd(int *sock_in, int *sock_out)
+@@ -1020,6 +1026,48 @@ server_accept_inetd(int *sock_in, int *sock_out)
  	debug("inetd sockets after dupping: %d, %d", *sock_in, *sock_out);
  }
  
@@ -90,7 +90,7 @@ index 0a4eefe01..fc22fcb62 100644
  /*
   * Listen for TCP connections
   */
-@@ -1104,22 +1152,35 @@ static void
+@@ -1099,22 +1147,35 @@ static void
  server_listen(void)
  {
  	u_int i;

@@ -1,4 +1,4 @@
-From ac80435d753ff39d9c6ded2f7535d770f257fc59 Mon Sep 17 00:00:00 2001
+From af904c59656943ae931476c20801d1afc383848b Mon Sep 17 00:00:00 2001
 From: Natalie Amery <nmamery@chiark.greenend.org.uk>
 Date: Sun, 9 Feb 2014 16:09:54 +0000
 Subject: "LogLevel SILENT" compatibility
@@ -33,10 +33,10 @@ index 99bf046a7..bdc4b6515 100644
  	{ "FATAL",	SYSLOG_LEVEL_FATAL },
  	{ "ERROR",	SYSLOG_LEVEL_ERROR },
 diff --git a/ssh.c b/ssh.c
-index 855777d7f..8b6b54558 100644
+index 9f1f698a2..fc18a9d70 100644
 --- a/ssh.c
 +++ b/ssh.c
-@@ -1363,7 +1363,7 @@ main(int ac, char **av)
+@@ -1364,7 +1364,7 @@ main(int ac, char **av)
  	/* Do not allocate a tty if stdin is not a tty. */
  	if ((!isatty(fileno(stdin)) || options.stdin_null) &&
  	    options.request_tty != REQUEST_TTY_FORCE) {

@@ -1,4 +1,4 @@
-From 25f54fd79c7dc62d5ffaa7ebdc2e3de86a031084 Mon Sep 17 00:00:00 2001
+From 5e77f23abc8bf8604a202de4e7fb7aa99d23dcae Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:01 +0000
 Subject: Force use of DNSSEC even if "options edns0" isn't in resolv.conf
@@ -18,7 +18,7 @@ Patch-Name: dnssec-sshfp.patch
  3 files changed, 21 insertions(+), 6 deletions(-)
 
 diff --git a/dns.c b/dns.c
-index f2310bec2..9021d1785 100644
+index 939241440..bf47a079f 100644
 --- a/dns.c
 +++ b/dns.c
 @@ -198,6 +198,7 @@ verify_host_key_dns(const char *hostname, struct sockaddr *address,
@@ -51,7 +51,7 @@ index f2310bec2..9021d1785 100644
  		verbose("DNS lookup error: %s", dns_result_totext(result));
  		return -1;
 diff --git a/openbsd-compat/getrrsetbyname.c b/openbsd-compat/getrrsetbyname.c
-index 73de5e948..4dfa351c6 100644
+index 8f5939840..3e5499a5a 100644
 --- a/openbsd-compat/getrrsetbyname.c
 +++ b/openbsd-compat/getrrsetbyname.c
 @@ -214,8 +214,8 @@ getrrsetbyname(const char *hostname, unsigned int rdclass,

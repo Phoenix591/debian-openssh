@@ -1,4 +1,4 @@
-From a1b3f6592e7ef61f5d9544fc652ae44f8c47bd2e Mon Sep 17 00:00:00 2001
+From 5f79bbf491dbe54243e5951cdef5eafe3715e531 Mon Sep 17 00:00:00 2001
 From: Manoj Srivastava <srivasta@debian.org>
 Date: Sun, 9 Feb 2014 16:09:49 +0000
 Subject: Handle SELinux authorisation roles
@@ -43,10 +43,10 @@ index 6d2d39762..d16dc66b8 100644
  	/* Method lists for multiple authentication */
  	char		**auth_methods;	/* modified from server config */
 diff --git a/auth2.c b/auth2.c
-index 44bd49177..d66d73876 100644
+index 1752a7699..796e4e1c5 100644
 --- a/auth2.c
 +++ b/auth2.c
-@@ -264,7 +264,7 @@ input_userauth_request(int type, u_int32_t seq, struct ssh *ssh)
+@@ -261,7 +261,7 @@ input_userauth_request(int type, u_int32_t seq, struct ssh *ssh)
  {
  	Authctxt *authctxt = ssh->authctxt;
  	Authmethod *m = NULL;
@@ -55,7 +55,7 @@ index 44bd49177..d66d73876 100644
  	int r, authenticated = 0;
  	double tstart = monotime_double();
  
-@@ -278,8 +278,13 @@ input_userauth_request(int type, u_int32_t seq, struct ssh *ssh)
+@@ -275,8 +275,13 @@ input_userauth_request(int type, u_int32_t seq, struct ssh *ssh)
  	debug("userauth-request for user %s service %s method %s", user, service, method);
  	debug("attempt %d failures %d", authctxt->attempt, authctxt->failures);
  
@@ -69,7 +69,7 @@ index 44bd49177..d66d73876 100644
  
  	if (authctxt->attempt >= 1024)
  		auth_maxtries_exceeded(ssh);
-@@ -308,8 +313,9 @@ input_userauth_request(int type, u_int32_t seq, struct ssh *ssh)
+@@ -305,8 +310,9 @@ input_userauth_request(int type, u_int32_t seq, struct ssh *ssh)
  		    use_privsep ? " [net]" : "");
  		authctxt->service = xstrdup(service);
  		authctxt->style = style ? xstrdup(style) : NULL;
@@ -81,7 +81,7 @@ index 44bd49177..d66d73876 100644
  		if (auth2_setup_methods_lists(authctxt) != 0)
  			ssh_packet_disconnect(ssh,
 diff --git a/monitor.c b/monitor.c
-index 5f7df9539..769eda640 100644
+index 73a03f262..6a96e9272 100644
 --- a/monitor.c
 +++ b/monitor.c
 @@ -117,6 +117,7 @@ int mm_answer_sign(struct ssh *, int, struct sshbuf *);
@@ -153,7 +153,7 @@ index 5f7df9539..769eda640 100644
  	return (0);
  }
  
-@@ -1578,7 +1608,7 @@ mm_answer_pty(struct ssh *ssh, int sock, struct sshbuf *m)
+@@ -1577,7 +1607,7 @@ mm_answer_pty(struct ssh *ssh, int sock, struct sshbuf *m)
  	res = pty_allocate(&s->ptyfd, &s->ttyfd, s->tty, sizeof(s->tty));
  	if (res == 0)
  		goto error;
@@ -362,7 +362,7 @@ index 7fef8c983..027fdfb51 100644
  char *platform_krb5_get_principal_name(const char *);
  int platform_locked_account(struct passwd *);
 diff --git a/session.c b/session.c
-index 96960f2da..492463529 100644
+index 1f4baad09..d9ead4394 100644
 --- a/session.c
 +++ b/session.c
 @@ -1355,7 +1355,7 @@ safely_chroot(const char *path, uid_t uid)
@@ -424,10 +424,10 @@ index 344a1ddf9..20ea822a7 100644
  const char	*session_get_remote_name_or_ip(struct ssh *, u_int, int);
  
 diff --git a/sshd.c b/sshd.c
-index 7944cf633..dd4a19131 100644
+index b42a8aad9..ef4ed8510 100644
 --- a/sshd.c
 +++ b/sshd.c
-@@ -584,7 +584,7 @@ privsep_postauth(struct ssh *ssh, Authctxt *authctxt)
+@@ -579,7 +579,7 @@ privsep_postauth(struct ssh *ssh, Authctxt *authctxt)
  	reseed_prngs();
  
  	/* Drop privileges */

@@ -1,4 +1,4 @@
-From aedb5d2ee2799e3a95b6913721533d2c42c496b3 Mon Sep 17 00:00:00 2001
+From 5f705021367e9d9d51561bac34325f720159d851 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:18 +0000
 Subject: Various Debian-specific configuration changes
@@ -46,10 +46,10 @@ Patch-Name: debian-config.patch
  7 files changed, 99 insertions(+), 9 deletions(-)
 
 diff --git a/readconf.c b/readconf.c
-index 18e814039..6c8ad919f 100644
+index c6376c7ee..2e08a4137 100644
 --- a/readconf.c
 +++ b/readconf.c
-@@ -2536,7 +2536,7 @@ fill_default_options(Options * options)
+@@ -2533,7 +2533,7 @@ fill_default_options(Options * options)
  	if (options->forward_x11 == -1)
  		options->forward_x11 = 0;
  	if (options->forward_x11_trusted == -1)
@@ -59,10 +59,10 @@ index 18e814039..6c8ad919f 100644
  		options->forward_x11_timeout = 1200;
  	/*
 diff --git a/regress/test-exec.sh b/regress/test-exec.sh
-index df43f0214..a56108179 100644
+index eaa12992d..a3721eab2 100644
 --- a/regress/test-exec.sh
 +++ b/regress/test-exec.sh
-@@ -539,6 +539,7 @@ cat << EOF > $OBJ/sshd_config
+@@ -594,6 +594,7 @@ cat << EOF > $OBJ/sshd_config
  	AcceptEnv		_XXX_TEST_*
  	AcceptEnv		_XXX_TEST
  	Subsystem	sftp	$SFTPSERVER
@@ -138,7 +138,7 @@ index 52aae8692..09a17cf18 100644
 +    HashKnownHosts yes
 +    GSSAPIAuthentication yes
 diff --git a/ssh_config.5 b/ssh_config.5
-index 82d68650e..32851c984 100644
+index f48941071..552403680 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
 @@ -71,6 +71,29 @@ Since the first obtained value for each parameter is used, more
@@ -244,7 +244,7 @@ index ecfe8d026..677f97d5d 100644
  # Example of overriding settings on a per-user basis
  #Match User anoncvs
 diff --git a/sshd_config.5 b/sshd_config.5
-index b9a19c7bd..b13f7665b 100644
+index f97c26f18..f59ebe8d2 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
 @@ -56,6 +56,35 @@ Arguments may optionally be enclosed in double quotes
