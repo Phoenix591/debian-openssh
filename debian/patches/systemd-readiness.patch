@@ -1,4 +1,4 @@
-From ae0ec8599cee6c4e4a2d9645833ef1ae81565e3c Mon Sep 17 00:00:00 2001
+From 6d10a80c115d635491f9f1f3a24797d3fbec8719 Mon Sep 17 00:00:00 2001
 From: Michael Biebl <biebl@debian.org>
 Date: Mon, 21 Dec 2015 16:08:47 +0000
 Subject: Add systemd readiness notification support

@@ -215,7 +215,7 @@ getrrsetbyname(const char *hostname, unsigned int rdclass,
 	}
 
 	/* Allow RRSET_FORCE_EDNS0 flag only. */
-	if ((flags & !RRSET_FORCE_EDNS0) != 0) {
+	if ((flags & ~RRSET_FORCE_EDNS0) != 0) {
 		result = ERRSET_INVAL;
 		goto fail;
 	}
