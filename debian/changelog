@@ -43,6 +43,8 @@ openssh (1:9.3p1-1) UNRELEASED; urgency=medium
     - sshd(8): harden Linux seccomp sandbox. Move to an allowlist of
       mmap(2), madvise(2) and futex(2) flags, removing some concerning
       kernel attack surface.
+  * debian/README.Debian: Clarify that you need to restart ssh.socket after
+    overriding its ListenStream= option (LP: #2020560).
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 25 Mar 2023 22:20:02 +0000
 

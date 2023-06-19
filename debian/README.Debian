@@ -212,6 +212,7 @@ follows (modifying ListenStream to match your requirements):
   ListenStream=2222
   EOF
   systemctl daemon-reload
+  systemctl restart ssh.socket
 
 See systemd.socket(5) for details.
 
