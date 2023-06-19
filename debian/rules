@@ -65,6 +65,9 @@ ifeq ($(DEB_HOST_ARCH_OS),hurd)
 confflags += --with-libs=-lcrypt
 endif
 
+# Always use the internal mkdtemp; see https://bugs.debian.org/1001186.
+confflags += ac_cv_func_mkdtemp=no
+
 # Everything above here is common to the deb and udeb builds.
 confflags_udeb := $(confflags)
 

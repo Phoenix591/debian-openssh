@@ -49,6 +49,9 @@ openssh (1:9.3p1-1) UNRELEASED; urgency=medium
     configuration file (closes: #959726).
   * Fix incorrect RRSET_FORCE_EDNS0 flags validation in SSHFP DNSSEC patch
     (thanks, Ben Hutchings; closes: #909022).
+  * Always use the internal mkdtemp implementation, since it substitutes
+    more randomness into the template string than glibc's version (closes:
+    #1001186).
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 25 Mar 2023 22:20:02 +0000
 
