@@ -45,6 +45,8 @@ openssh (1:9.3p1-1) UNRELEASED; urgency=medium
       kernel attack surface.
   * debian/README.Debian: Clarify that you need to restart ssh.socket after
     overriding its ListenStream= option (LP: #2020560).
+  * debian/openssh-server.postinst: Use "sshd -G" to parse the server
+    configuration file (closes: #959726).
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 25 Mar 2023 22:20:02 +0000
 
