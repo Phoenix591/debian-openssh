@@ -1,11 +1,11 @@
-openssh (1:9.3p2-1) UNRELEASED; urgency=high
+openssh (1:9.3p2-1) unstable; urgency=high
 
   * New upstream release (https://www.openssh.com/releasenotes.html#9.3p2):
     - [CVE-2023-38408] Fix a condition where specific libraries loaded via
       ssh-agent(1)'s PKCS#11 support could be abused to achieve remote code
       execution via a forwarded agent socket.
 
- -- Colin Watson <cjwatson@debian.org>  Wed, 19 Jul 2023 21:57:53 +0100
+ -- Colin Watson <cjwatson@debian.org>  Wed, 19 Jul 2023 22:49:14 +0100
 
 openssh (1:9.3p1-1) unstable; urgency=medium
 
