@@ -1,4 +1,4 @@
-From f8b38f738e477352336fed06c07c07a6a38dad35 Mon Sep 17 00:00:00 2001
+From c050b522837e76f0f36306e3a497244c81cde467 Mon Sep 17 00:00:00 2001
 From: Matthew Vernon <matthew@debian.org>
 Date: Sun, 9 Feb 2014 16:10:05 +0000
 Subject: Include the Debian version in our identification
@@ -9,7 +9,7 @@ generally just try attacks rather than bothering to scan for
 vulnerable-looking version strings.  (However, see debian-banner.patch.)
 
 Forwarded: not-needed
-Last-Update: 2021-11-05
+Last-Update: 2023-07-19
 
 Patch-Name: package-versioning.patch
 ---
@@ -31,13 +31,13 @@ index 2e49ca41a..b9bec3b9a 100644
  	    version_addendum == NULL ? "" : version_addendum)) != 0) {
  		oerrno = errno;
 diff --git a/version.h b/version.h
-index 69e76e634..d2f5494f2 100644
+index 23dae0661..f90c4f497 100644
 --- a/version.h
 +++ b/version.h
 @@ -3,4 +3,9 @@
  #define SSH_VERSION	"OpenSSH_9.3"
  
- #define SSH_PORTABLE	"p1"
+ #define SSH_PORTABLE	"p2"
 -#define SSH_RELEASE	SSH_VERSION SSH_PORTABLE
 +#define SSH_RELEASE_MINIMUM	SSH_VERSION SSH_PORTABLE
 +#ifdef SSH_EXTRAVERSION
