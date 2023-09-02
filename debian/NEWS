@@ -1,4 +1,4 @@
-openssh (1:9.4p1-1) UNRELEASED; urgency=medium
+openssh (1:9.4p1-1) unstable; urgency=medium
 
   OpenSSH 9.4p1 includes a number of changes that may affect existing
   configurations:
@@ -7,7 +7,7 @@ openssh (1:9.4p1-1) UNRELEASED; urgency=medium
      paths. Previously dlopen(3) could search for them in system library
      directories.
 
- -- Colin Watson <cjwatson@debian.org>  Sat, 02 Sep 2023 17:46:06 +0100
+ -- Colin Watson <cjwatson@debian.org>  Sat, 02 Sep 2023 21:02:53 +0100
 
 openssh (1:9.3p2-1) unstable; urgency=high
 
