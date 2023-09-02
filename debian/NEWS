@@ -1,3 +1,14 @@
+openssh (1:9.4p1-1) UNRELEASED; urgency=medium
+
+  OpenSSH 9.4p1 includes a number of changes that may affect existing
+  configurations:
+
+   * ssh-agent(1): PKCS#11 modules must now be specified by their full
+     paths. Previously dlopen(3) could search for them in system library
+     directories.
+
+ -- Colin Watson <cjwatson@debian.org>  Sat, 02 Sep 2023 17:46:06 +0100
+
 openssh (1:9.3p2-1) unstable; urgency=high
 
   OpenSSH 9.3p2 includes a number of changes that may affect existing
