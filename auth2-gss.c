@@ -1,4 +1,4 @@
-/* $OpenBSD: auth2-gss.c,v 1.33 2021/12/19 22:12:07 djm Exp $ */
+/* $OpenBSD: auth2-gss.c,v 1.34 2023/03/31 04:22:27 djm Exp $ */
 
 /*
  * Copyright (c) 2001-2007 Simon Wilkinson. All rights reserved.
@@ -47,6 +47,8 @@
 #include "kex.h"
 #include "ssh-gss.h"
 #include "monitor_wrap.h"
+
+#define SSH_GSSAPI_MAX_MECHS	2048
 
 extern ServerOptions options;
 
@@ -117,7 +119,11 @@ userauth_gssapi(struct ssh *ssh, const char *method)
 		fatal_fr(r, "parse packet");
 
 	if (mechs == 0) {
-		debug("Mechanism negotiation is not supported");
+		logit_f("mechanism negotiation is not supported");
+		return (0);
+	} else if (mechs > SSH_GSSAPI_MAX_MECHS) {
+		logit_f("too many mechanisms requested %u > %u", mechs,
+		    SSH_GSSAPI_MAX_MECHS);
 		return (0);
 	}
 
@@ -136,7 +142,7 @@ userauth_gssapi(struct ssh *ssh, const char *method)
 			goid.length   = len - 2;
 			ssh_gssapi_test_oid_supported(&ms, &goid, &present);
 		} else {
-			logit("Badly formed OID received");
+			logit_f("badly formed OID received");
 		}
 	} while (mechs > 0 && !present);
 

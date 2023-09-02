@@ -1,4 +1,4 @@
-From 6a4d99e9ffbc41e2c2a24a75ae91daef21a7299f Mon Sep 17 00:00:00 2001
+From d13baf6f12d08743fef38119de2233125f34c952 Mon Sep 17 00:00:00 2001
 From: Richard Kettlewell <rjk@greenend.org.uk>
 Date: Sun, 9 Feb 2014 16:09:52 +0000
 Subject: Various keepalive extensions
@@ -26,10 +26,10 @@ Patch-Name: keepalive-extensions.patch
  3 files changed, 34 insertions(+), 4 deletions(-)
 
 diff --git a/readconf.c b/readconf.c
-index f1ef1428f..f06370c18 100644
+index b04b2fe10..821f442ce 100644
 --- a/readconf.c
 +++ b/readconf.c
-@@ -178,6 +178,7 @@ typedef enum {
+@@ -182,6 +182,7 @@ typedef enum {
  	oPubkeyAcceptedAlgorithms, oCASignatureAlgorithms, oProxyJump,
  	oSecurityKeyProvider, oKnownHostsCommand, oRequiredRSASize,
  	oEnableEscapeCommandline,
@@ -37,7 +37,7 @@ index f1ef1428f..f06370c18 100644
  	oIgnore, oIgnoredUnknownOption, oDeprecated, oUnsupported
  } OpCodes;
  
-@@ -338,6 +339,8 @@ static struct {
+@@ -343,6 +344,8 @@ static struct {
  	{ "knownhostscommand", oKnownHostsCommand },
  	{ "requiredrsasize", oRequiredRSASize },
  	{ "enableescapecommandline", oEnableEscapeCommandline },
@@ -46,7 +46,7 @@ index f1ef1428f..f06370c18 100644
  
  	{ NULL, oBadOption }
  };
-@@ -1771,6 +1774,8 @@ parse_pubkey_algos:
+@@ -1861,6 +1864,8 @@ parse_pubkey_algos:
  		goto parse_flag;
  
  	case oServerAliveInterval:
@@ -55,7 +55,7 @@ index f1ef1428f..f06370c18 100644
  		intptr = &options->server_alive_interval;
  		goto parse_time;
  
-@@ -2651,8 +2656,13 @@ fill_default_options(Options * options)
+@@ -2744,8 +2749,13 @@ fill_default_options(Options * options)
  		options->rekey_interval = 0;
  	if (options->verify_host_key_dns == -1)
  		options->verify_host_key_dns = 0;
@@ -72,10 +72,10 @@ index f1ef1428f..f06370c18 100644
  		options->server_alive_count_max = 3;
  	if (options->control_master == -1)
 diff --git a/ssh_config.5 b/ssh_config.5
-index 3238a1086..3de003615 100644
+index bc1d80113..c47b65fc5 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -275,9 +275,13 @@ If set to
+@@ -297,9 +297,13 @@ If set to
  .Cm yes ,
  user interaction such as password prompts and host key confirmation requests
  will be disabled.
@@ -90,7 +90,7 @@ index 3238a1086..3de003615 100644
  The argument must be
  .Cm yes
  or
-@@ -1794,7 +1798,14 @@ from the server,
+@@ -1824,7 +1828,14 @@ from the server,
  will send a message through the encrypted
  channel to request a response from the server.
  The default
@@ -106,7 +106,7 @@ index 3238a1086..3de003615 100644
  .It Cm SessionType
  May be used to either request invocation of a subsystem on the remote system,
  or to prevent the execution of a remote command at all.
-@@ -1908,6 +1919,12 @@ Specifies whether the system should send TCP keepalive messages to the
+@@ -1938,6 +1949,12 @@ Specifies whether the system should send TCP keepalive messages to the
  other side.
  If they are sent, death of the connection or crash of one
  of the machines will be properly noticed.
@@ -120,7 +120,7 @@ index 3238a1086..3de003615 100644
  connections will die if the route is down temporarily, and some people
  find it annoying.
 diff --git a/sshd_config.5 b/sshd_config.5
-index e0b0505e5..d94b4da0b 100644
+index d2f09de9b..5de2fd8cf 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
 @@ -1842,6 +1842,9 @@ This avoids infinitely hanging sessions.

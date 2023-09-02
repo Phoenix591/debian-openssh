@@ -1,4 +1,4 @@
-From 6ca171e17dbc81d18b48b757ef183e806833d860 Mon Sep 17 00:00:00 2001
+From 7ae5377ef7f526d85ad0669e4edad5f689d09689 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:09 +0000
 Subject: Adjust various OpenBSD-specific references in manual pages
@@ -11,7 +11,7 @@ No single bug reference for this patch, but history includes:
  https://bugs.debian.org/998069 (rdomain(4))
 
 Forwarded: not-needed
-Last-Update: 2021-11-05
+Last-Update: 2023-09-02
 
 Patch-Name: openbsd-docs.patch
 ---
@@ -45,7 +45,7 @@ index 5086a6d42..6dffdc7e6 100644
  .Sh SEE ALSO
  .Xr ssh-keygen 1 ,
 diff --git a/ssh-keygen.1 b/ssh-keygen.1
-index 1be082282..bc20d9b72 100644
+index c760f91be..997912c0b 100644
 --- a/ssh-keygen.1
 +++ b/ssh-keygen.1
 @@ -212,9 +212,7 @@ key in
@@ -89,10 +89,10 @@ index 1be082282..bc20d9b72 100644
  The file format is described in
  .Xr moduli 5 .
 diff --git a/ssh.1 b/ssh.1
-index 4028f971a..6b56f5638 100644
+index 86e7e6fb2..ea0018d17 100644
 --- a/ssh.1
 +++ b/ssh.1
-@@ -925,6 +925,10 @@ implements public key authentication protocol automatically,
+@@ -938,6 +938,10 @@ implements public key authentication protocol automatically,
  using one of the DSA, ECDSA, Ed25519 or RSA algorithms.
  The HISTORY section of
  .Xr ssl 8
@@ -134,7 +134,7 @@ index e314b6b87..f80a11e41 100644
  .Xr sshd_config 5 ,
  .Xr inetd 8 ,
 diff --git a/sshd_config.5 b/sshd_config.5
-index 4d0cc5dd0..f97c26f18 100644
+index 630c18736..98bd201b0 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
 @@ -993,9 +993,6 @@ for interactive sessions and
@@ -234,16 +234,16 @@ index 4d0cc5dd0..f97c26f18 100644
  .It Cm SecurityKeyProvider
  Specifies a path to a library that will be used when loading
  FIDO authenticator-hosted keys, overriding the default of using
-@@ -2059,8 +2028,6 @@ which are expanded at runtime:
- .It %%
- A literal
- .Sq % .
+@@ -2063,8 +2032,6 @@ A literal
+ Identifies the connection endpoints, containing
+ four space-separated values: client address, client port number,
+ server address, and server port number.
 -.It \&%D
 -The routing domain in which the incoming connection was received.
  .It %F
  The fingerprint of the CA key.
  .It %f
-@@ -2099,9 +2066,6 @@ accepts the tokens %%, %h, %U, and %u.
+@@ -2103,9 +2070,6 @@ accepts the tokens %%, %h, %U, and %u.
  .Pp
  .Cm ChrootDirectory
  accepts the tokens %%, %h, %U, and %u.

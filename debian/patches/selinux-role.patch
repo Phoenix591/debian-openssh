@@ -1,4 +1,4 @@
-From edcb878539b1bf78506593eab928f3d9eaee3c70 Mon Sep 17 00:00:00 2001
+From 8750e7349fc4fae138fec1d148113f50d0635da2 Mon Sep 17 00:00:00 2001
 From: Manoj Srivastava <srivasta@debian.org>
 Date: Sun, 9 Feb 2014 16:09:49 +0000
 Subject: Handle SELinux authorisation roles
@@ -81,7 +81,7 @@ index 1752a7699..796e4e1c5 100644
  		if (auth2_setup_methods_lists(authctxt) != 0)
  			ssh_packet_disconnect(ssh,
 diff --git a/monitor.c b/monitor.c
-index 73a03f262..6a96e9272 100644
+index 1e8dff5f7..0a16a5025 100644
 --- a/monitor.c
 +++ b/monitor.c
 @@ -117,6 +117,7 @@ int mm_answer_sign(struct ssh *, int, struct sshbuf *);
@@ -92,7 +92,7 @@ index 73a03f262..6a96e9272 100644
  int mm_answer_authpassword(struct ssh *, int, struct sshbuf *);
  int mm_answer_bsdauthquery(struct ssh *, int, struct sshbuf *);
  int mm_answer_bsdauthrespond(struct ssh *, int, struct sshbuf *);
-@@ -195,6 +196,7 @@ struct mon_table mon_dispatch_proto20[] = {
+@@ -192,6 +193,7 @@ struct mon_table mon_dispatch_proto20[] = {
      {MONITOR_REQ_SIGN, MON_ONCE, mm_answer_sign},
      {MONITOR_REQ_PWNAM, MON_ONCE, mm_answer_pwnamallow},
      {MONITOR_REQ_AUTHSERV, MON_ONCE, mm_answer_authserv},
@@ -100,7 +100,7 @@ index 73a03f262..6a96e9272 100644
      {MONITOR_REQ_AUTH2_READ_BANNER, MON_ONCE, mm_answer_auth2_read_banner},
      {MONITOR_REQ_AUTHPASSWORD, MON_AUTH, mm_answer_authpassword},
  #ifdef USE_PAM
-@@ -815,6 +817,7 @@ mm_answer_pwnamallow(struct ssh *ssh, int sock, struct sshbuf *m)
+@@ -812,6 +814,7 @@ mm_answer_pwnamallow(struct ssh *ssh, int sock, struct sshbuf *m)
  
  	/* Allow service/style information on the auth context */
  	monitor_permit(mon_dispatch, MONITOR_REQ_AUTHSERV, 1);
@@ -108,7 +108,7 @@ index 73a03f262..6a96e9272 100644
  	monitor_permit(mon_dispatch, MONITOR_REQ_AUTH2_READ_BANNER, 1);
  
  #ifdef USE_PAM
-@@ -848,15 +851,42 @@ mm_answer_authserv(struct ssh *ssh, int sock, struct sshbuf *m)
+@@ -845,15 +848,42 @@ mm_answer_authserv(struct ssh *ssh, int sock, struct sshbuf *m)
  	monitor_permit_authentications(1);
  
  	if ((r = sshbuf_get_cstring(m, &authctxt->service, NULL)) != 0 ||
@@ -153,7 +153,7 @@ index 73a03f262..6a96e9272 100644
  	return (0);
  }
  
-@@ -1577,7 +1607,7 @@ mm_answer_pty(struct ssh *ssh, int sock, struct sshbuf *m)
+@@ -1574,7 +1604,7 @@ mm_answer_pty(struct ssh *ssh, int sock, struct sshbuf *m)
  	res = pty_allocate(&s->ptyfd, &s->ttyfd, s->tty, sizeof(s->tty));
  	if (res == 0)
  		goto error;
@@ -176,7 +176,7 @@ index 2b1a2d590..4d87284aa 100644
  
  struct ssh;
 diff --git a/monitor_wrap.c b/monitor_wrap.c
-index a4b66c56f..6fb47becb 100644
+index 1eb43d37a..b49969971 100644
 --- a/monitor_wrap.c
 +++ b/monitor_wrap.c
 @@ -375,10 +375,10 @@ mm_auth2_read_banner(void)
@@ -244,10 +244,10 @@ index 830fdb308..c84f96d0c 100644
  char *mm_auth2_read_banner(void);
  int mm_auth_password(struct ssh *, char *);
 diff --git a/openbsd-compat/port-linux.c b/openbsd-compat/port-linux.c
-index 77cb8213a..3a59ba1b7 100644
+index 0457e28d0..0394f4808 100644
 --- a/openbsd-compat/port-linux.c
 +++ b/openbsd-compat/port-linux.c
-@@ -56,7 +56,7 @@ ssh_selinux_enabled(void)
+@@ -57,7 +57,7 @@ ssh_selinux_enabled(void)
  
  /* Return the default security context for the given username */
  static char *
@@ -256,7 +256,7 @@ index 77cb8213a..3a59ba1b7 100644
  {
  	char *sc = NULL, *sename = NULL, *lvl = NULL;
  	int r;
-@@ -70,9 +70,16 @@ ssh_selinux_getctxbyname(char *pwname)
+@@ -71,9 +71,16 @@ ssh_selinux_getctxbyname(char *pwname)
  #endif
  
  #ifdef HAVE_GET_DEFAULT_CONTEXT_WITH_LEVEL
@@ -275,7 +275,7 @@ index 77cb8213a..3a59ba1b7 100644
  #endif
  
  	if (r != 0) {
-@@ -102,7 +109,7 @@ ssh_selinux_getctxbyname(char *pwname)
+@@ -103,7 +110,7 @@ ssh_selinux_getctxbyname(char *pwname)
  
  /* Set the execution context to the default for the specified user */
  void
@@ -284,7 +284,7 @@ index 77cb8213a..3a59ba1b7 100644
  {
  	char *user_ctx = NULL;
  
-@@ -111,7 +118,7 @@ ssh_selinux_setup_exec_context(char *pwname)
+@@ -112,7 +119,7 @@ ssh_selinux_setup_exec_context(char *pwname)
  
  	debug3("%s: setting execution context", __func__);
  
@@ -293,7 +293,7 @@ index 77cb8213a..3a59ba1b7 100644
  	if (setexeccon(user_ctx) != 0) {
  		switch (security_getenforce()) {
  		case -1:
-@@ -133,7 +140,7 @@ ssh_selinux_setup_exec_context(char *pwname)
+@@ -134,7 +141,7 @@ ssh_selinux_setup_exec_context(char *pwname)
  
  /* Set the TTY context for the specified user */
  void
@@ -302,7 +302,7 @@ index 77cb8213a..3a59ba1b7 100644
  {
  	char *new_tty_ctx = NULL, *user_ctx = NULL, *old_tty_ctx = NULL;
  	security_class_t chrclass;
-@@ -143,7 +150,7 @@ ssh_selinux_setup_pty(char *pwname, const char *tty)
+@@ -144,7 +151,7 @@ ssh_selinux_setup_pty(char *pwname, const char *tty)
  
  	debug3("%s: setting TTY context on %s", __func__, tty);
  

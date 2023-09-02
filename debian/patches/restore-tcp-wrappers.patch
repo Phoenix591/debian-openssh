@@ -1,4 +1,4 @@
-From 7519b21ae89fafbfcb8084fcbfe7802f64797a43 Mon Sep 17 00:00:00 2001
+From f076f399d18ff34fd174d5a0a412868a35bedf6c Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Tue, 7 Oct 2014 13:22:41 +0100
 Subject: Restore TCP wrappers support
@@ -28,7 +28,7 @@ Patch-Name: restore-tcp-wrappers.patch
  3 files changed, 89 insertions(+)
 
 diff --git a/configure.ac b/configure.ac
-index 75a9e5670..0c59c8b50 100644
+index 6b5eb7020..8ff3cdd05 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -1667,6 +1667,62 @@ else
@@ -94,7 +94,7 @@ index 75a9e5670..0c59c8b50 100644
  # Check whether user wants to use ldns
  LDNS_MSG="no"
  AC_ARG_WITH(ldns,
-@@ -5653,6 +5709,7 @@ echo "                       PAM support: $PAM_MSG"
+@@ -5626,6 +5682,7 @@ echo "                       PAM support: $PAM_MSG"
  echo "                   OSF SIA support: $SIA_MSG"
  echo "                 KerberosV support: $KRB5_MSG"
  echo "                   SELinux support: $SELINUX_MSG"

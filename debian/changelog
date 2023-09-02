@@ -1,3 +1,82 @@
+openssh (1:9.4p1-1) UNRELEASED; urgency=medium
+
+  * New upstream release (https://www.openssh.com/releasenotes.html#9.4p1):
+    - ssh-agent(1): PKCS#11 modules must now be specified by their full
+      paths. Previously dlopen(3) could search for them in system library
+      directories.
+    - ssh(1): allow forwarding Unix Domain sockets via ssh -W.
+    - ssh(1): add support for configuration tags to ssh(1). This adds a
+      ssh_config(5) "Tag" directive and corresponding "Match tag" predicate
+      that may be used to select blocks of configuration similar to the
+      pf.conf(5) keywords of the same name.
+    - ssh(1): add a "match localnetwork" predicate. This allows matching on
+      the addresses of available network interfaces and may be used to vary
+      the effective client configuration based on network location.
+    - ssh(1), sshd(8), ssh-keygen(1): infrastructure support for KRL
+      extensions. This defines wire formats for optional KRL extensions and
+      implements parsing of the new submessages. No actual extensions are
+      supported at this point.
+    - sshd(8): AuthorizedPrincipalsCommand and AuthorizedKeysCommand now
+      accept two additional %-expansion sequences: %D which expands to the
+      routing domain of the connected session and %C which expands to the
+      addresses and port numbers for the source and destination of the
+      connection.
+    - ssh-keygen(1): increase the default work factor (rounds) for the
+      bcrypt KDF used to derive symmetric encryption keys for passphrase
+      protected key files by 50%.
+    - ssh-agent(1): improve isolation between loaded PKCS#11 modules by
+      running separate ssh-pkcs11-helpers for each loaded provider.
+    - ssh(1): make -f (fork after authentication) work correctly with
+      multiplexed connections, including ControlPersist (closes: #348741).
+    - ssh(1): make ConnectTimeout apply to multiplexing sockets and not just
+      to network connections.
+    - ssh-agent(1), ssh(1): improve defences against invalid PKCS#11 modules
+      being loaded by checking that the requested module contains the
+      required symbol before loading it.
+    - sshd(8): fix AuthorizedPrincipalsCommand when AuthorizedKeysCommand
+      appears before it in sshd_config. Since OpenSSH 8.7 the
+      AuthorizedPrincipalsCommand directive was incorrectly ignored in this
+      situation.
+    - sshd(8), ssh(1), ssh-keygen(1): remove vestigial support for KRL
+      signatures. When the KRL format was originally defined, it included
+      support for signing of KRL objects. However, the code to sign KRLs and
+      verify KRL signatues was never completed in OpenSSH. This release
+      removes the partially-implemented code to verify KRLs. All OpenSSH
+      tools now ignore KRL_SECTION_SIGNATURE sections in KRL files.
+    - All: fix a number of memory leaks and unreachable/harmless integer
+      overflows.
+    - ssh-agent(1), ssh(1): don't truncate strings logged from PKCS#11
+      modules.
+    - sshd(8), ssh(1): better validate CASignatureAlgorithms in ssh_config
+      and sshd_config. Previously this directive would accept certificate
+      algorithm names, but these were unusable in practice as OpenSSH does
+      not support CA chains.
+    - ssh(1): make `ssh -Q CASignatureAlgorithms` only list signature
+      algorithms that are valid for CA signing. Previous behaviour was to
+      list all signing algorithms, including certificate algorithms.
+    - ssh-keyscan(1): gracefully handle systems where rlimits or the maximum
+      number of open files is larger than INT_MAX.
+    - ssh-keygen(1): fix "no comment" not showing on when running
+      `ssh-keygen -l` on multiple keys where one has a comment and other
+      following keys do not. bz3580
+    - scp(1), sftp(1): adjust ftruncate() logic to handle servers that
+      reorder requests. Previously, if the server reordered requests then
+      the resultant file would be erroneously truncated.
+    - ssh(1): don't incorrectly disable hostname canonicalization when
+      CanonicalizeHostname=yes and ProxyJump was explicitly set to "none".
+    - scp(1): when copying local->remote, check that the source file exists
+      before opening an SFTP connection to the server (closes: #59255).
+    - sshd(8): provide a replacement for the SELinux matchpathcon()
+      function, which is deprecated.
+    - All: relax libcrypto version checks for OpenSSL >=3 (closes:
+      #1035623). Beyond OpenSSL 3.0, the ABI compatibility guarantees are
+      wider (only the library major must match instead of major and minor in
+      earlier versions).
+    - ssh-copy-id(1): Special case OpenWrt instead of Dropbear
+      (LP: #1966886).
+
+ -- Colin Watson <cjwatson@debian.org>  Sat, 02 Sep 2023 17:46:06 +0100
+
 openssh (1:9.3p2-1) unstable; urgency=high
 
   * New upstream release (https://www.openssh.com/releasenotes.html#9.3p2):
