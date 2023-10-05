@@ -1,3 +1,20 @@
+openssh (1:9.5p1-1) UNRELEASED; urgency=medium
+
+  OpenSSH 9.5p1 includes a number of changes that may affect existing
+  configurations:
+
+   * ssh-keygen(1): generate Ed25519 keys by default. Ed25519 public keys
+     are very convenient due to their small size. Ed25519 keys are specified
+     in RFC 8709 and OpenSSH has supported them since version 6.5 (January
+     2014).
+
+   * sshd(8): the Subsystem directive now accurately preserves quoting of
+     subsystem commands and arguments. This may change behaviour for exotic
+     configurations, but the most common subsystem configuration
+     (sftp-server) is unlikely to be affected.
+
+ -- Colin Watson <cjwatson@debian.org>  Thu, 05 Oct 2023 10:42:39 +0100
+
 openssh (1:9.4p1-1) unstable; urgency=medium
 
   OpenSSH 9.4p1 includes a number of changes that may affect existing

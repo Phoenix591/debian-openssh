@@ -1,4 +1,4 @@
-From 8394c25e65f46629b6ee3ec9ab7ddb1232b06d53 Mon Sep 17 00:00:00 2001
+From 2660ad359cb567d470cef661f4e904dc7f4b7cd6 Mon Sep 17 00:00:00 2001
 From: Kees Cook <kees@debian.org>
 Date: Sun, 9 Feb 2014 16:10:06 +0000
 Subject: Add DebianBanner server configuration option
@@ -22,10 +22,10 @@ Patch-Name: debian-banner.patch
  7 files changed, 22 insertions(+), 5 deletions(-)
 
 diff --git a/kex.c b/kex.c
-index b9bec3b9a..11b99827d 100644
+index 284742c68..0c140685b 100644
 --- a/kex.c
 +++ b/kex.c
-@@ -1332,7 +1332,7 @@ send_error(struct ssh *ssh, char *msg)
+@@ -1353,7 +1353,7 @@ send_error(struct ssh *ssh, char *msg)
   */
  int
  kex_exchange_identification(struct ssh *ssh, int timeout_ms,
@@ -34,7 +34,7 @@ index b9bec3b9a..11b99827d 100644
  {
  	int remote_major, remote_minor, mismatch, oerrno = 0;
  	size_t len, n;
-@@ -1350,7 +1350,8 @@ kex_exchange_identification(struct ssh *ssh, int timeout_ms,
+@@ -1371,7 +1371,8 @@ kex_exchange_identification(struct ssh *ssh, int timeout_ms,
  	if (version_addendum != NULL && *version_addendum == '\0')
  		version_addendum = NULL;
  	if ((r = sshbuf_putf(our_version, "SSH-%d.%d-%.100s%s%s\r\n",
@@ -45,10 +45,10 @@ index b9bec3b9a..11b99827d 100644
  	    version_addendum == NULL ? "" : version_addendum)) != 0) {
  		oerrno = errno;
 diff --git a/kex.h b/kex.h
-index 790b87f76..3f8d20177 100644
+index e27855ede..935faeb0c 100644
 --- a/kex.h
 +++ b/kex.h
-@@ -203,7 +203,7 @@ void	 kex_proposal_populate_entries(struct ssh *, char *prop[PROPOSAL_MAX],
+@@ -204,7 +204,7 @@ void	 kex_proposal_populate_entries(struct ssh *, char *prop[PROPOSAL_MAX],
  void	 kex_proposal_free_entries(char *prop[PROPOSAL_MAX]);
  int	 kex_gss_names_valid(const char *);
  
@@ -58,7 +58,7 @@ index 790b87f76..3f8d20177 100644
  struct kex *kex_new(void);
  int	 kex_ready(struct ssh *, char *[PROPOSAL_MAX]);
 diff --git a/servconf.c b/servconf.c
-index 162339600..8dd66fd69 100644
+index 8de1ba5be..3a282873a 100644
 --- a/servconf.c
 +++ b/servconf.c
 @@ -201,6 +201,7 @@ initialize_server_options(ServerOptions *options)
@@ -94,7 +94,7 @@ index 162339600..8dd66fd69 100644
  	{ NULL, sBadOption, 0 }
  };
  
-@@ -2601,6 +2606,10 @@ process_server_config_line_depth(ServerOptions *options, char *line,
+@@ -2616,6 +2621,10 @@ process_server_config_line_depth(ServerOptions *options, char *line,
  		}
  		goto parse_time;
  
@@ -106,10 +106,10 @@ index 162339600..8dd66fd69 100644
  	case sIgnore:
  	case sUnsupported:
 diff --git a/servconf.h b/servconf.h
-index 38a68d576..e142cf77a 100644
+index 2ce4ae0ad..e0c0af903 100644
 --- a/servconf.h
 +++ b/servconf.h
-@@ -238,6 +238,8 @@ typedef struct {
+@@ -236,6 +236,8 @@ typedef struct {
  	u_int	num_channel_timeouts;
  
  	int	unused_connection_timeout;
@@ -132,7 +132,7 @@ index 570c27fd9..db1fefbaa 100644
  
  	/* Put the connection into non-blocking mode. */
 diff --git a/sshd.c b/sshd.c
-index ef4ed8510..29db3a2ac 100644
+index 2c6bf3a3a..f76413378 100644
 --- a/sshd.c
 +++ b/sshd.c
 @@ -2249,7 +2249,7 @@ main(int ac, char **av)

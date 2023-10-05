@@ -1,4 +1,4 @@
-From e5377c0f8fda39097ce36d9f06d8768ac4b64ffa Mon Sep 17 00:00:00 2001
+From bb22a42a9113c67c028ff3610a2f280110e35635 Mon Sep 17 00:00:00 2001
 From: Steve Langasek <steve.langasek@ubuntu.com>
 Date: Thu, 1 Sep 2022 16:03:37 +0100
 Subject: Support systemd socket activation
@@ -17,7 +17,7 @@ Patch-Name: systemd-socket-activation.patch
  1 file changed, 75 insertions(+), 14 deletions(-)
 
 diff --git a/sshd.c b/sshd.c
-index 731b9e400..3a5189a6e 100644
+index 82a49af11..5d10dd3f4 100644
 --- a/sshd.c
 +++ b/sshd.c
 @@ -140,10 +140,16 @@ int deny_severity;

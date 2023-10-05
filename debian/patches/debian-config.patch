@@ -1,4 +1,4 @@
-From 89cc6e3788f7ed89e0f2aba04ea4c8931d3d05a8 Mon Sep 17 00:00:00 2001
+From a20211755ed4ea2e00903089e7bb4cce7fd4b477 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:18 +0000
 Subject: Various Debian-specific configuration changes
@@ -46,10 +46,10 @@ Patch-Name: debian-config.patch
  7 files changed, 99 insertions(+), 9 deletions(-)
 
 diff --git a/readconf.c b/readconf.c
-index 7675dadea..0b209f90e 100644
+index add5aefd1..dedc113fb 100644
 --- a/readconf.c
 +++ b/readconf.c
-@@ -2626,7 +2626,7 @@ fill_default_options(Options * options)
+@@ -2670,7 +2670,7 @@ fill_default_options(Options * options)
  	if (options->forward_x11 == -1)
  		options->forward_x11 = 0;
  	if (options->forward_x11_trusted == -1)
@@ -138,7 +138,7 @@ index 16197d15d..92d06ef38 100644
 +    HashKnownHosts yes
 +    GSSAPIAuthentication yes
 diff --git a/ssh_config.5 b/ssh_config.5
-index 15aa77f66..de46d3dc1 100644
+index aaf7bcd04..2521aef7d 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
 @@ -71,6 +71,29 @@ Since the first obtained value for each parameter is used, more

@@ -1,4 +1,4 @@
-From c5bb4a4f975bde1025552ee30580d41fa0f5917a Mon Sep 17 00:00:00 2001
+From a7d92f4b5bcca4cce584dabdbc36d369aa754a97 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Mon, 8 Apr 2019 10:46:29 +0100
 Subject: Revert "upstream: Update default IPQoS in ssh(1), sshd(8) to DSCP
@@ -24,10 +24,10 @@ Patch-Name: revert-ipqos-defaults.patch
  4 files changed, 8 insertions(+), 12 deletions(-)
 
 diff --git a/readconf.c b/readconf.c
-index 0b209f90e..3d5226f63 100644
+index dedc113fb..fbd605677 100644
 --- a/readconf.c
 +++ b/readconf.c
-@@ -2776,9 +2776,9 @@ fill_default_options(Options * options)
+@@ -2820,9 +2820,9 @@ fill_default_options(Options * options)
  	if (options->visual_host_key == -1)
  		options->visual_host_key = 0;
  	if (options->ip_qos_interactive == -1)
@@ -40,7 +40,7 @@ index 0b209f90e..3d5226f63 100644
  		options->request_tty = REQUEST_TTY_AUTO;
  	if (options->session_type == -1)
 diff --git a/servconf.c b/servconf.c
-index 8dd66fd69..6596304f7 100644
+index 3a282873a..d15813e86 100644
 --- a/servconf.c
 +++ b/servconf.c
 @@ -439,9 +439,9 @@ fill_default_server_options(ServerOptions *options)
@@ -56,7 +56,7 @@ index 8dd66fd69..6596304f7 100644
  		options->version_addendum = xstrdup("");
  	if (options->fwd_opts.streamlocal_bind_mask == (mode_t)-1)
 diff --git a/ssh_config.5 b/ssh_config.5
-index de46d3dc1..7fe549337 100644
+index 2521aef7d..8059dc210 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
 @@ -1243,11 +1243,9 @@ If one argument is specified, it is used as the packet class unconditionally.

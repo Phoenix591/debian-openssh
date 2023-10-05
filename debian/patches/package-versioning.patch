@@ -1,4 +1,4 @@
-From c173678fe1e32856d4500b5befe6b1d24260545a Mon Sep 17 00:00:00 2001
+From 3a556dc51239d31e66b78a6094318670cd90f6cc Mon Sep 17 00:00:00 2001
 From: Matthew Vernon <matthew@debian.org>
 Date: Sun, 9 Feb 2014 16:10:05 +0000
 Subject: Include the Debian version in our identification
@@ -18,10 +18,10 @@ Patch-Name: package-versioning.patch
  2 files changed, 7 insertions(+), 2 deletions(-)
 
 diff --git a/kex.c b/kex.c
-index 2e49ca41a..b9bec3b9a 100644
+index 597b29527..284742c68 100644
 --- a/kex.c
 +++ b/kex.c
-@@ -1350,7 +1350,7 @@ kex_exchange_identification(struct ssh *ssh, int timeout_ms,
+@@ -1371,7 +1371,7 @@ kex_exchange_identification(struct ssh *ssh, int timeout_ms,
  	if (version_addendum != NULL && *version_addendum == '\0')
  		version_addendum = NULL;
  	if ((r = sshbuf_putf(our_version, "SSH-%d.%d-%.100s%s%s\r\n",
@@ -31,11 +31,11 @@ index 2e49ca41a..b9bec3b9a 100644
  	    version_addendum == NULL ? "" : version_addendum)) != 0) {
  		oerrno = errno;
 diff --git a/version.h b/version.h
-index e5b1e719d..62fcbc484 100644
+index 1363d4706..551029722 100644
 --- a/version.h
 +++ b/version.h
 @@ -3,4 +3,9 @@
- #define SSH_VERSION	"OpenSSH_9.4"
+ #define SSH_VERSION	"OpenSSH_9.5"
  
  #define SSH_PORTABLE	"p1"
 -#define SSH_RELEASE	SSH_VERSION SSH_PORTABLE

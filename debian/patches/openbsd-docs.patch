@@ -1,4 +1,4 @@
-From 7ae5377ef7f526d85ad0669e4edad5f689d09689 Mon Sep 17 00:00:00 2001
+From 8831046338e096d941ae121eae40e25694a0fbe4 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:09 +0000
 Subject: Adjust various OpenBSD-specific references in manual pages
@@ -45,7 +45,7 @@ index 5086a6d42..6dffdc7e6 100644
  .Sh SEE ALSO
  .Xr ssh-keygen 1 ,
 diff --git a/ssh-keygen.1 b/ssh-keygen.1
-index c760f91be..997912c0b 100644
+index c392141ea..1155cf555 100644
 --- a/ssh-keygen.1
 +++ b/ssh-keygen.1
 @@ -212,9 +212,7 @@ key in
@@ -104,7 +104,7 @@ index 86e7e6fb2..ea0018d17 100644
  .Pp
  The file
 diff --git a/sshd.8 b/sshd.8
-index e314b6b87..f80a11e41 100644
+index 8efeacdf1..6527e28a3 100644
 --- a/sshd.8
 +++ b/sshd.8
 @@ -64,7 +64,7 @@ over an insecure network.
