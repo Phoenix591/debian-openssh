@@ -1,4 +1,4 @@
-From 2660ad359cb567d470cef661f4e904dc7f4b7cd6 Mon Sep 17 00:00:00 2001
+From aeb069fb60df77517e5cd5196eeaa080bf1e5ce5 Mon Sep 17 00:00:00 2001
 From: Kees Cook <kees@debian.org>
 Date: Sun, 9 Feb 2014 16:10:06 +0000
 Subject: Add DebianBanner server configuration option
@@ -8,18 +8,18 @@ initial protocol handshake, for those scared by package-versioning.patch.
 
 Bug-Debian: http://bugs.debian.org/562048
 Forwarded: not-needed
-Last-Update: 2023-01-02
+Last-Update: 2023-11-23
 
 Patch-Name: debian-banner.patch
 ---
- kex.c         | 5 +++--
- kex.h         | 2 +-
- servconf.c    | 9 +++++++++
- servconf.h    | 2 ++
- sshconnect.c  | 2 +-
- sshd.c        | 2 +-
- sshd_config.5 | 5 +++++
- 7 files changed, 22 insertions(+), 5 deletions(-)
+ kex.c         |  5 +++--
+ kex.h         |  2 +-
+ servconf.c    | 10 ++++++++++
+ servconf.h    |  2 ++
+ sshconnect.c  |  2 +-
+ sshd.c        |  2 +-
+ sshd_config.5 |  5 +++++
+ 7 files changed, 23 insertions(+), 5 deletions(-)
 
 diff --git a/kex.c b/kex.c
 index 284742c68..0c140685b 100644
@@ -58,7 +58,7 @@ index e27855ede..935faeb0c 100644
  struct kex *kex_new(void);
  int	 kex_ready(struct ssh *, char *[PROPOSAL_MAX]);
 diff --git a/servconf.c b/servconf.c
-index 8de1ba5be..3a282873a 100644
+index 8de1ba5be..d79435500 100644
 --- a/servconf.c
 +++ b/servconf.c
 @@ -201,6 +201,7 @@ initialize_server_options(ServerOptions *options)
@@ -105,6 +105,14 @@ index 8de1ba5be..3a282873a 100644
  	case sDeprecated:
  	case sIgnore:
  	case sUnsupported:
+@@ -3163,6 +3172,7 @@ dump_config(ServerOptions *o)
+ 	dump_cfg_fmtint(sStreamLocalBindUnlink, o->fwd_opts.streamlocal_bind_unlink);
+ 	dump_cfg_fmtint(sFingerprintHash, o->fingerprint_hash);
+ 	dump_cfg_fmtint(sExposeAuthInfo, o->expose_userauth_info);
++	dump_cfg_fmtint(sDebianBanner, o->debian_banner);
+ 
+ 	/* string arguments */
+ 	dump_cfg_string(sPidFile, o->pid_file);
 diff --git a/servconf.h b/servconf.h
 index 2ce4ae0ad..e0c0af903 100644
 --- a/servconf.h
