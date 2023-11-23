@@ -38,6 +38,7 @@ openssh (1:9.5p1-1) UNRELEASED; urgency=medium
       to be sent less frequently than configured.
     - ssh(1): fix regression in OpenSSH 9.4 (mux.c r1.99) that caused
       multiplexed sessions to ignore SIGINT under some circumstances.
+  * Build-depend on dh-sequence-movetousr.
 
  -- Colin Watson <cjwatson@debian.org>  Thu, 05 Oct 2023 10:42:39 +0100
 
