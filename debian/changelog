@@ -1,4 +1,4 @@
-openssh (1:9.5p1-1) UNRELEASED; urgency=medium
+openssh (1:9.5p1-1) experimental; urgency=medium
 
   * New upstream release (https://www.openssh.com/releasenotes.html#9.5p1):
     - ssh-keygen(1): generate Ed25519 keys by default. Ed25519 public keys
@@ -42,7 +42,7 @@ openssh (1:9.5p1-1) UNRELEASED; urgency=medium
   * Report DebianBanner setting in "sshd -G/-T" output (thanks, Rasmus
     Villemoes; closes: #1053555).
 
- -- Colin Watson <cjwatson@debian.org>  Thu, 05 Oct 2023 10:42:39 +0100
+ -- Colin Watson <cjwatson@debian.org>  Thu, 23 Nov 2023 17:38:07 +0000
 
 openssh (1:9.4p1-1) unstable; urgency=medium
 

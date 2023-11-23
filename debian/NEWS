@@ -1,4 +1,4 @@
-openssh (1:9.5p1-1) UNRELEASED; urgency=medium
+openssh (1:9.5p1-1) experimental; urgency=medium
 
   OpenSSH 9.5p1 includes a number of changes that may affect existing
   configurations:
@@ -13,7 +13,7 @@ openssh (1:9.5p1-1) UNRELEASED; urgency=medium
      configurations, but the most common subsystem configuration
      (sftp-server) is unlikely to be affected.
 
- -- Colin Watson <cjwatson@debian.org>  Thu, 05 Oct 2023 10:42:39 +0100
+ -- Colin Watson <cjwatson@debian.org>  Thu, 23 Nov 2023 17:38:07 +0000
 
 openssh (1:9.4p1-1) unstable; urgency=medium
 
