@@ -1,4 +1,4 @@
-From 4f273aa6b01e77ffb5a3693322acdd5f888a1832 Mon Sep 17 00:00:00 2001
+From 2b9d269e4cef44f4bcd860d2c8c066be41305aa3 Mon Sep 17 00:00:00 2001
 From: Scott Moser <smoser@ubuntu.com>
 Date: Sun, 9 Feb 2014 16:10:03 +0000
 Subject: Mention ssh-keygen in ssh fingerprint changed warning
@@ -6,7 +6,7 @@ Subject: Mention ssh-keygen in ssh fingerprint changed warning
 Author: Chris Lamb <lamby@debian.org>
 Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1843
 Bug-Ubuntu: https://bugs.launchpad.net/bugs/686607
-Last-Update: 2017-08-22
+Last-Update: 2023-12-11
 
 Patch-Name: mention-ssh-keygen-on-keychange.patch
 ---
@@ -14,7 +14,7 @@ Patch-Name: mention-ssh-keygen-on-keychange.patch
  1 file changed, 8 insertions(+), 1 deletion(-)
 
 diff --git a/sshconnect.c b/sshconnect.c
-index 5312f499d..570c27fd9 100644
+index 5312f499d..3ca69094f 100644
 --- a/sshconnect.c
 +++ b/sshconnect.c
 @@ -1269,9 +1269,13 @@ check_host_key(char *hostname, const struct ssh_conn_info *cinfo,
@@ -26,7 +26,7 @@ index 5312f499d..570c27fd9 100644
  				error("Offending key for IP in %s:%lu",
  				    ip_found->file, ip_found->line);
 +				error("  remove with:");
-+				error("  ssh-keygen -f \"%s\" -R \"%s\"",
++				error("  ssh-keygen -f '%s' -R '%s'",
 +				    ip_found->file, ip);
 +			}
  		}
@@ -37,7 +37,7 @@ index 5312f499d..570c27fd9 100644
  		    sshkey_type(host_found->key),
  		    host_found->file, host_found->line);
 +		error("  remove with:");
-+		error("  ssh-keygen -f \"%s\" -R \"%s\"",
++		error("  ssh-keygen -f '%s' -R '%s'",
 +		    host_found->file, host);
  
  		/*

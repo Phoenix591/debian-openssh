@@ -1,4 +1,4 @@
-From aeb069fb60df77517e5cd5196eeaa080bf1e5ce5 Mon Sep 17 00:00:00 2001
+From 300f96bbaed97b930b05d672f84be913a0d3cee8 Mon Sep 17 00:00:00 2001
 From: Kees Cook <kees@debian.org>
 Date: Sun, 9 Feb 2014 16:10:06 +0000
 Subject: Add DebianBanner server configuration option
@@ -127,7 +127,7 @@ index 2ce4ae0ad..e0c0af903 100644
  
  /* Information about the incoming connection as used by Match */
 diff --git a/sshconnect.c b/sshconnect.c
-index 570c27fd9..db1fefbaa 100644
+index 3ca69094f..7130e81c7 100644
 --- a/sshconnect.c
 +++ b/sshconnect.c
 @@ -1573,7 +1573,7 @@ ssh_login(struct ssh *ssh, Sensitive *sensitive, const char *orighost,
