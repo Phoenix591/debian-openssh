@@ -1,6 +1,8 @@
 openssh (1:9.5p1-3) UNRELEASED; urgency=medium
 
   * Use single quotes in suggested ssh-keygen commands (closes: #1057835).
+  * Debconf translations:
+    - Catalan (thanks, Pablo Huguet; closes: #1049995).
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 11 Dec 2023 00:47:22 +0000
 
