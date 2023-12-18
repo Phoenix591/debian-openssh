@@ -1,4 +1,4 @@
-From f15cda162e6a7bb20c7420ccc9a91db3dbfce9e5 Mon Sep 17 00:00:00 2001
+From 42e6d9d59082e75efe0ce7fca91c4297137cfb93 Mon Sep 17 00:00:00 2001
 From: Manoj Srivastava <srivasta@debian.org>
 Date: Sun, 9 Feb 2014 16:09:49 +0000
 Subject: Handle SELinux authorisation roles
@@ -43,10 +43,10 @@ index 6d2d39762..d16dc66b8 100644
  	/* Method lists for multiple authentication */
  	char		**auth_methods;	/* modified from server config */
 diff --git a/auth2.c b/auth2.c
-index e3f20d912..12e2710b9 100644
+index 514a697ca..12210c043 100644
 --- a/auth2.c
 +++ b/auth2.c
-@@ -268,7 +268,7 @@ input_userauth_request(int type, u_int32_t seq, struct ssh *ssh)
+@@ -272,7 +272,7 @@ input_userauth_request(int type, u_int32_t seq, struct ssh *ssh)
  {
  	Authctxt *authctxt = ssh->authctxt;
  	Authmethod *m = NULL;
@@ -55,7 +55,7 @@ index e3f20d912..12e2710b9 100644
  	int r, authenticated = 0;
  	double tstart = monotime_double();
  
-@@ -282,8 +282,13 @@ input_userauth_request(int type, u_int32_t seq, struct ssh *ssh)
+@@ -286,8 +286,13 @@ input_userauth_request(int type, u_int32_t seq, struct ssh *ssh)
  	debug("userauth-request for user %s service %s method %s", user, service, method);
  	debug("attempt %d failures %d", authctxt->attempt, authctxt->failures);
  
@@ -69,7 +69,7 @@ index e3f20d912..12e2710b9 100644
  
  	if (authctxt->attempt >= 1024)
  		auth_maxtries_exceeded(ssh);
-@@ -312,8 +317,9 @@ input_userauth_request(int type, u_int32_t seq, struct ssh *ssh)
+@@ -316,8 +321,9 @@ input_userauth_request(int type, u_int32_t seq, struct ssh *ssh)
  		    use_privsep ? " [net]" : "");
  		authctxt->service = xstrdup(service);
  		authctxt->style = style ? xstrdup(style) : NULL;
@@ -78,8 +78,8 @@ index e3f20d912..12e2710b9 100644
 -			mm_inform_authserv(service, style);
 +			mm_inform_authserv(service, style, role);
  		userauth_banner(ssh);
- 		if (auth2_setup_methods_lists(authctxt) != 0)
- 			ssh_packet_disconnect(ssh,
+ 		if ((r = kex_server_update_ext_info(ssh)) != 0)
+ 			fatal_fr(r, "kex_server_update_ext_info failed");
 diff --git a/monitor.c b/monitor.c
 index 2bc152468..c7e6f25d7 100644
 --- a/monitor.c
@@ -176,7 +176,7 @@ index 2b1a2d590..4d87284aa 100644
  
  struct ssh;
 diff --git a/monitor_wrap.c b/monitor_wrap.c
-index 1eb43d37a..b49969971 100644
+index 189467037..4b986ded6 100644
 --- a/monitor_wrap.c
 +++ b/monitor_wrap.c
 @@ -375,10 +375,10 @@ mm_auth2_read_banner(void)
@@ -424,7 +424,7 @@ index 344a1ddf9..20ea822a7 100644
  const char	*session_get_remote_name_or_ip(struct ssh *, u_int, int);
  
 diff --git a/sshd.c b/sshd.c
-index 20641dfa0..2c6bf3a3a 100644
+index c57ab9628..1895a9972 100644
 --- a/sshd.c
 +++ b/sshd.c
 @@ -579,7 +579,7 @@ privsep_postauth(struct ssh *ssh, Authctxt *authctxt)

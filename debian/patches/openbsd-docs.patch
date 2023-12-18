@@ -1,4 +1,4 @@
-From 2b72499d1264112d5b20b8bb3dabf88db938520f Mon Sep 17 00:00:00 2001
+From 92fdda49286532870c424f93f3d157583a921cbe Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:09 +0000
 Subject: Adjust various OpenBSD-specific references in manual pages
@@ -89,10 +89,10 @@ index c392141ea..1155cf555 100644
  The file format is described in
  .Xr moduli 5 .
 diff --git a/ssh.1 b/ssh.1
-index 86e7e6fb2..ea0018d17 100644
+index 2d07c919e..60e97dc62 100644
 --- a/ssh.1
 +++ b/ssh.1
-@@ -938,6 +938,10 @@ implements public key authentication protocol automatically,
+@@ -939,6 +939,10 @@ implements public key authentication protocol automatically,
  using one of the DSA, ECDSA, Ed25519 or RSA algorithms.
  The HISTORY section of
  .Xr ssl 8

@@ -1,4 +1,4 @@
-From 75d2499c7a1e8a1c4e3bda704aa6a54fad7f0b07 Mon Sep 17 00:00:00 2001
+From 44f9b28b1c8adaf00af6e011928141cfbd729b9a Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:09:58 +0000
 Subject: Allow harmless group-writability
@@ -65,7 +65,7 @@ index 8ccf06370..08a75fc4e 100644
  			    "bad owner or modes for %.200s",
  			    pw->pw_name, user_hostfile);
 diff --git a/misc.c b/misc.c
-index 42582c618..a6a34e7f9 100644
+index 3db2e4d0b..f667a99f8 100644
 --- a/misc.c
 +++ b/misc.c
 @@ -62,9 +62,9 @@
@@ -156,10 +156,10 @@ index 42582c618..a6a34e7f9 100644
  			    "bad ownership or modes for directory %s", buf);
  			return -1;
 diff --git a/misc.h b/misc.h
-index 4f941597e..78e84deab 100644
+index 74c6f832c..0aabe84ad 100644
 --- a/misc.h
 +++ b/misc.h
-@@ -236,6 +236,8 @@ struct notifier_ctx *notify_start(int, const char *, ...)
+@@ -237,6 +237,8 @@ struct notifier_ctx *notify_start(int, const char *, ...)
  void	notify_complete(struct notifier_ctx *, const char *, ...)
  	__attribute__((format(printf, 2, 3)));
  
@@ -169,10 +169,10 @@ index 4f941597e..78e84deab 100644
  #define MAXIMUM(a, b)	(((a) > (b)) ? (a) : (b))
  #define ROUNDUP(x, y)   ((((x)+((y)-1))/(y))*(y))
 diff --git a/readconf.c b/readconf.c
-index f62df91a7..add5aefd1 100644
+index bd2e78ab7..6cf3612e7 100644
 --- a/readconf.c
 +++ b/readconf.c
-@@ -2451,8 +2451,7 @@ read_config_file_depth(const char *filename, struct passwd *pw,
+@@ -2481,8 +2481,7 @@ read_config_file_depth(const char *filename, struct passwd *pw,
  
  		if (fstat(fileno(f), &sb) == -1)
  			fatal("fstat %s: %s", filename, strerror(errno));
@@ -183,10 +183,10 @@ index f62df91a7..add5aefd1 100644
  	}
  
 diff --git a/ssh.1 b/ssh.1
-index 85736fd5a..86e7e6fb2 100644
+index 877c3bc64..2d07c919e 100644
 --- a/ssh.1
 +++ b/ssh.1
-@@ -1576,6 +1576,8 @@ The file format and configuration options are described in
+@@ -1577,6 +1577,8 @@ The file format and configuration options are described in
  .Xr ssh_config 5 .
  Because of the potential for abuse, this file must have strict permissions:
  read/write for the user, and not writable by others.
@@ -196,10 +196,10 @@ index 85736fd5a..86e7e6fb2 100644
  .It Pa ~/.ssh/environment
  Contains additional definitions for environment variables; see
 diff --git a/ssh_config.5 b/ssh_config.5
-index bdf23f622..6a7c90417 100644
+index 25ccbed28..bebfe1cee 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -2322,6 +2322,8 @@ The format of this file is described above.
+@@ -2395,6 +2395,8 @@ The format of this file is described above.
  This file is used by the SSH client.
  Because of the potential for abuse, this file must have strict permissions:
  read/write for the user, and not writable by others.

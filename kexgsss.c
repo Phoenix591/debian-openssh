@@ -297,7 +297,11 @@ kexgssgex_server(struct ssh *ssh)
 
 	/* 5. S generates an ephemeral key pair (do the allocations early) */
 	debug("Doing group exchange");
-	ssh_packet_read_expect(ssh, SSH2_MSG_KEXGSS_GROUPREQ);
+	type = ssh_packet_read(ssh);
+	if (type != SSH2_MSG_KEXGSS_GROUPREQ)
+		ssh_packet_disconnect(ssh,
+		    "Protocol error: expected packet type %d, got %d",
+		    SSH2_MSG_KEXGSS_GROUPREQ, type);
 	/* store client proposal to provide valid signature */
 	if ((r = sshpkt_get_u32(ssh, &cmin)) != 0 ||
 	    (r = sshpkt_get_u32(ssh, &nbits)) != 0 ||
