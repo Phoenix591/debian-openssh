@@ -1,4 +1,4 @@
-openssh (1:9.6p1-1) UNRELEASED; urgency=medium
+openssh (1:9.6p1-1) unstable; urgency=medium
 
   * Use single quotes in suggested ssh-keygen commands (closes: #1057835).
   * Debconf translations:
@@ -76,7 +76,7 @@ openssh (1:9.6p1-1) UNRELEASED; urgency=medium
   * debian/run-tests: Supply absolute paths to tools.
   * debian/run-tests: Enable interop tests for Dropbear.
 
- -- Colin Watson <cjwatson@debian.org>  Mon, 18 Dec 2023 16:25:32 +0000
+ -- Colin Watson <cjwatson@debian.org>  Mon, 18 Dec 2023 22:35:25 +0000
 
 openssh (1:9.5p1-2) unstable; urgency=medium
 
