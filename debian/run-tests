@@ -25,12 +25,12 @@ make -C "$tmp/regress" \
 	BUILDDIR="$tmp/regress" \
 	OBJ="$tmp/regress" \
 	SUDO=sudo \
-	TEST_SHELL=sh \
-	TEST_SSH_SSH=ssh \
+	TEST_SHELL=/bin/sh \
+	TEST_SSH_SSH=/usr/bin/ssh \
 	TEST_SSH_SFTPSERVER=/usr/lib/openssh/sftp-server \
-	TEST_SSH_PLINK=plink \
-	TEST_SSH_PUTTYGEN=puttygen \
-	TEST_SSH_CONCH=conch3 \
+	TEST_SSH_PLINK=/usr/bin/plink \
+	TEST_SSH_PUTTYGEN=/usr/bin/puttygen \
+	TEST_SSH_CONCH=/usr/bin/conch3 \
 	TEST_SSH_IPV6=yes \
 	TEST_SSH_ECC=yes \
 	TEST_SSH_UNSAFE_PERMISSIONS=1 \
