@@ -73,7 +73,8 @@ openssh (1:9.6p1-1) UNRELEASED; urgency=medium
       a fail-open situation in future if a user uses a mismatched ssh(1)
       client and ssh-agent(1) where the client supports a key type that the
       agent does not support.
-  - debian/run-tests: Supply absolute paths to tools.
+  * debian/run-tests: Supply absolute paths to tools.
+  * debian/run-tests: Enable interop tests for Dropbear.
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 18 Dec 2023 16:25:32 +0000
 
