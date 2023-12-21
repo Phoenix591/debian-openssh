@@ -12,17 +12,17 @@ openssh (1:9.6p1-1) unstable; urgency=medium
       encryption, and deleting an equal number of consecutive messages
       immediately after encryption starts. A peer SSH client/server would
       not be able to detect that messages were deleted.
-    - [SECURITY] ssh-agent(1): when adding PKCS#11-hosted private keys while
-      specifying destination constraints, if the PKCS#11 token returned
-      multiple keys then only the first key had the constraints applied. Use
-      of regular private keys, FIDO tokens and unconstrained keys are
-      unaffected.
-    - [SECURITY] ssh(1): if an invalid user or hostname that contained shell
-      metacharacters was passed to ssh(1), and a ProxyCommand, LocalCommand
-      directive or "match exec" predicate referenced the user or hostname
-      via %u, %h or similar expansion token, then an attacker who could
-      supply arbitrary user/hostnames to ssh(1) could potentially perform
-      command injection depending on what quoting was present in the
+    - [CVE-2023-51384] ssh-agent(1): when adding PKCS#11-hosted private keys
+      while specifying destination constraints, if the PKCS#11 token
+      returned multiple keys then only the first key had the constraints
+      applied. Use of regular private keys, FIDO tokens and unconstrained
+      keys are unaffected.
+    - [CVE-2023-51385] ssh(1): if an invalid user or hostname that contained
+      shell metacharacters was passed to ssh(1), and a ProxyCommand,
+      LocalCommand directive or "match exec" predicate referenced the user
+      or hostname via %u, %h or similar expansion token, then an attacker
+      who could supply arbitrary user/hostnames to ssh(1) could potentially
+      perform command injection depending on what quoting was present in the
       user-supplied ssh_config(5) directive. OpenSSH 9.6 now bans most shell
       metacharacters from user and hostnames supplied via the command-line.
     - ssh(1), sshd(8): the RFC4254 connection/channels protocol provides a
