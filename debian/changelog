@@ -1,3 +1,12 @@
+openssh (1:9.6p1-3) UNRELEASED; urgency=medium
+
+  * Allow passing extra ssh-agent arguments via
+    "/usr/lib/openssh/agent-launch start", making it possible to override
+    things like identity lifetime using a systemd drop-in unit (closes:
+    #1059639).
+
+ -- Colin Watson <cjwatson@debian.org>  Sat, 30 Dec 2023 22:11:02 +0000
+
 openssh (1:9.6p1-2) unstable; urgency=medium
 
   * Improve detection of broken -fzero-call-used-regs=used (see
