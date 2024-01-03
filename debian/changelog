@@ -4,6 +4,7 @@ openssh (1:9.6p1-3) UNRELEASED; urgency=medium
     "/usr/lib/openssh/agent-launch start", making it possible to override
     things like identity lifetime using a systemd drop-in unit (closes:
     #1059639).
+  * Don't try to start rescue-ssh.target in postinst (LP: #2047082).
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 30 Dec 2023 22:11:02 +0000
 
