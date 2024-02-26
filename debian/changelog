@@ -5,6 +5,8 @@ openssh (1:9.6p1-4) UNRELEASED; urgency=medium
   * Drop manual adjustment of OpenSSL dependencies; OpenSSH relaxed its
     checks for OpenSSL >= 3 in 9.4p1.
   * Build-depend on pkgconf rather than pkg-config.
+  * Adjust debian/copyright to handle the "placed in the public domain"
+    status of rijndael.* more explicitly.
 
  -- Colin Watson <cjwatson@debian.org>  Fri, 16 Feb 2024 14:28:16 +0000
 
