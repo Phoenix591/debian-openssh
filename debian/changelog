@@ -1,4 +1,4 @@
-openssh (1:9.6p1-4) UNRELEASED; urgency=medium
+openssh (1:9.6p1-4) unstable; urgency=medium
 
   * Add sshd_config checksums for 1:9.2p1-1 to ucf reference file, and add a
     test to ensure it doesn't get out of date again.
@@ -8,7 +8,7 @@ openssh (1:9.6p1-4) UNRELEASED; urgency=medium
   * Adjust debian/copyright to handle the "placed in the public domain"
     status of rijndael.* more explicitly.
 
- -- Colin Watson <cjwatson@debian.org>  Fri, 16 Feb 2024 14:28:16 +0000
+ -- Colin Watson <cjwatson@debian.org>  Mon, 26 Feb 2024 12:26:57 +0000
 
 openssh (1:9.6p1-3) unstable; urgency=medium
 
