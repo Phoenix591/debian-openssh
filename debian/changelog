@@ -4,6 +4,7 @@ openssh (1:9.6p1-4) UNRELEASED; urgency=medium
     test to ensure it doesn't get out of date again.
   * Drop manual adjustment of OpenSSL dependencies; OpenSSH relaxed its
     checks for OpenSSL >= 3 in 9.4p1.
+  * Build-depend on pkgconf rather than pkg-config.
 
  -- Colin Watson <cjwatson@debian.org>  Fri, 16 Feb 2024 14:28:16 +0000
 

@@ -17,7 +17,7 @@ Build-Depends: debhelper (>= 13.1~),
                libssl-dev (>= 1.1.1),
                libsystemd-dev [linux-any] | libelogind-dev [linux-any],
                libwrap0-dev | libwrap-dev,
-               pkg-config,
+               pkgconf,
                zlib1g-dev,
 Standards-Version: 4.6.2
 Uploaders: Colin Watson <cjwatson@debian.org>,
