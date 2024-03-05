@@ -1,3 +1,14 @@
+openssh (1:9.6p1-5) UNRELEASED; urgency=medium
+
+  * Restore systemd template unit for per-connection sshd instances,
+    although without any corresponding .socket unit for now; this is mainly
+    for use with the forthcoming systemd-ssh-generator (closes: #1061516).
+    It's now called sshd@.service, since unlike the main service there's no
+    need to be concerned about compatibility with the slightly confusing
+    "ssh" service name that Debian has traditionally used.
+
+ -- Colin Watson <cjwatson@debian.org>  Sun, 03 Mar 2024 19:49:58 +0000
+
 openssh (1:9.6p1-4) unstable; urgency=medium
 
   * Add sshd_config checksums for 1:9.2p1-1 to ucf reference file, and add a
