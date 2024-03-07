@@ -1,3 +1,13 @@
+openssh (1:9.6p1-6) UNRELEASED; urgency=medium
+
+  * Add the isolation-container restriction to the "regress" autopkgtest.
+    Our setup code wants to ensure that the haveged service is running, and
+    furthermore at least the agent-subprocess test assumes that there's an
+    init to reap zombie processes and doesn't work in (e.g.)
+    autopkgtest-virt-unshare.
+
+ -- Colin Watson <cjwatson@debian.org>  Thu, 07 Mar 2024 11:06:07 +0000
+
 openssh (1:9.6p1-5) unstable; urgency=medium
 
   * Restore systemd template unit for per-connection sshd instances,
