@@ -1,4 +1,4 @@
-/* $OpenBSD: gss-genr.c,v 1.28 2021/01/27 10:05:28 djm Exp $ */
+/* $OpenBSD: gss-genr.c,v 1.29 2024/02/01 02:37:33 djm Exp $ */
 
 /*
  * Copyright (c) 2001-2009 Simon Wilkinson. All rights reserved.
@@ -507,7 +507,7 @@ ssh_gssapi_check_mechanism(Gssctxt **ctx, gss_OID oid, const char *host,
 		ctx = &intctx;
 
 	/* RFC 4462 says we MUST NOT do SPNEGO */
-	if (oid->length == spnego_oid.length && 
+	if (oid->length == spnego_oid.length &&
 	    (memcmp(oid->elements, spnego_oid.elements, oid->length) == 0))
 		return 0; /* false */
 
@@ -519,7 +519,7 @@ ssh_gssapi_check_mechanism(Gssctxt **ctx, gss_OID oid, const char *host,
 		major = ssh_gssapi_client_identity(*ctx, client);
 
 	if (!GSS_ERROR(major)) {
-		major = ssh_gssapi_init_ctx(*ctx, 0, GSS_C_NO_BUFFER, &token, 
+		major = ssh_gssapi_init_ctx(*ctx, 0, GSS_C_NO_BUFFER, &token,
 		    NULL);
 		gss_release_buffer(&minor, &token);
 		if ((*ctx)->context != GSS_C_NO_CONTEXT)
