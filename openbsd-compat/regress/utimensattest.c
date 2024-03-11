@@ -33,6 +33,12 @@
 # define AT_SYMLINK_NOFOLLOW 0x80000000
 #endif
 
+#if defined(HAVE_SYS_VFS_H) && defined(HAVE_STATFS) && defined(HAVE_STRUCT_STATFS_F_FILES)
+# include <sys/vfs.h>
+# define ZFS_SUPER_MAGIC 0x2fc12fc1
+# define HAVE_ZFS_CHECK
+#endif
+
 int utimensat(int, const char *, const struct timespec[2], int);
 
 static void
@@ -60,9 +66,20 @@ fail(char *msg, long expect, long got)
 int
 main(void)
 {
+#ifdef HAVE_ZFS_CHECK
+	struct statfs sfsb;
+#endif
 	int fd;
 	struct stat sb;
 	struct timespec ts[2];
+
+#ifdef HAVE_ZFS_CHECK
+	/* On ZFS, utimensat seems to leave the atime set to 0. */
+	if (statfs(".", &sfsb) == 0 && sfsb.f_type == ZFS_SUPER_MAGIC) {
+		fprintf(stderr, "utimensat: skipping test on ZFS\n");
+		exit(0);
+	}
+#endif
 
 	cleanup();
 	if ((fd = open(TMPFILE, O_CREAT, 0600)) == -1)
