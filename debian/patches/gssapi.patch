@@ -1,4 +1,4 @@
-From e0e054c32c639dff9c0b0b2c4491a9af12e7c964 Mon Sep 17 00:00:00 2001
+From 156d561811630c66f06068ee7892b3cbf90f0d1a Mon Sep 17 00:00:00 2001
 From: Simon Wilkinson <simon@sxw.org.uk>
 Date: Sun, 9 Feb 2014 16:09:48 +0000
 Subject: GSSAPI key exchange support
@@ -21,14 +21,14 @@ Author: Colin Watson <cjwatson@debian.org>
 Author: Jakub Jelen <jjelen@redhat.com>
 Origin: other, https://github.com/openssh-gsskex/openssh-gsskex/pull/23
 Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1242
-Last-Updated: 2024-03-11
+Last-Updated: 2024-03-14
 
 Patch-Name: gssapi.patch
 ---
  Makefile.in     |   5 +-
  README.md       |  36 +++
  auth.c          |  94 +-------
- auth2-gss.c     |  56 ++++-
+ auth2-gss.c     |  57 ++++-
  auth2.c         |   2 +
  canohost.c      |  91 ++++++++
  canohost.h      |   3 +
@@ -64,7 +64,7 @@ Patch-Name: gssapi.patch
  sshd_config.5   |  30 +++
  sshkey.c        |   8 +-
  sshkey.h        |   1 +
- 39 files changed, 2762 insertions(+), 164 deletions(-)
+ 39 files changed, 2763 insertions(+), 164 deletions(-)
  create mode 100644 kexgssc.c
  create mode 100644 kexgsss.c
  create mode 100644 ssh-null.c
@@ -256,7 +256,7 @@ index 3b380d9bb..8ccf06370 100644
   * Return the canonical name of the host in the other side of the current
   * connection.  The host name is cached, so it is efficient to call this
 diff --git a/auth2-gss.c b/auth2-gss.c
-index f72a38998..da3bf99c1 100644
+index f72a38998..c3b8e6288 100644
 --- a/auth2-gss.c
 +++ b/auth2-gss.c
 @@ -1,7 +1,7 @@
@@ -337,12 +337,13 @@ index f72a38998..da3bf99c1 100644
  	else
  		logit("GSSAPI MIC check failed");
  
-@@ -333,6 +377,12 @@ input_gssapi_mic(int type, u_int32_t plen, struct ssh *ssh)
+@@ -333,6 +377,13 @@ input_gssapi_mic(int type, u_int32_t plen, struct ssh *ssh)
  	return 0;
  }
  
 +Authmethod method_gsskeyex = {
 +	"gssapi-keyex",
++	NULL,
 +	userauth_gsskeyex,
 +	&options.gss_authentication
 +};

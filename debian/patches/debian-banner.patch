@@ -1,4 +1,4 @@
-From 500c471ed07f3f4c85c35bf3e30ff5eccb71b7e0 Mon Sep 17 00:00:00 2001
+From 1ec718d6b26bebc1c2c8b8774097c2a3d4805542 Mon Sep 17 00:00:00 2001
 From: Kees Cook <kees@debian.org>
 Date: Sun, 9 Feb 2014 16:10:06 +0000
 Subject: Add DebianBanner server configuration option

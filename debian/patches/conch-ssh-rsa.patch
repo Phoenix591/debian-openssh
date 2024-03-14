@@ -1,4 +1,4 @@
-From 4df39651a063fce7188fdd09ec49f7027f998624 Mon Sep 17 00:00:00 2001
+From 1a567ea25bebb83f7765cf05401e974f855e6938 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Tue, 15 Feb 2022 18:25:35 +0000
 Subject: Work around RSA SHA-2 signature issues in conch

@@ -379,6 +379,7 @@ input_gssapi_mic(int type, u_int32_t plen, struct ssh *ssh)
 
 Authmethod method_gsskeyex = {
 	"gssapi-keyex",
+	NULL,
 	userauth_gsskeyex,
 	&options.gss_authentication
 };

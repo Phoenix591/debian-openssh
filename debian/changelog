@@ -26,6 +26,8 @@ openssh (1:9.7p1-1) UNRELEASED; urgency=medium
     - Greatly improve interop testing against PuTTY.
   * Skip utimensat test on ZFS, since it seems to leave the atime set to 0.
   * Allow passing extra options to debian/tests/regress, for debugging.
+  * Fix gssapi-keyex declaration, broken when rebasing onto 8.9p1 (LP:
+    #2053146).
 
  -- Colin Watson <cjwatson@debian.org>  Thu, 07 Mar 2024 11:06:07 +0000
 
