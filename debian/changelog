@@ -1,4 +1,4 @@
-openssh (1:9.7p1-1) UNRELEASED; urgency=medium
+openssh (1:9.7p1-1) unstable; urgency=medium
 
   * Add the isolation-container restriction to the "regress" autopkgtest.
     Our setup code wants to ensure that the haveged service is running, and
@@ -26,10 +26,10 @@ openssh (1:9.7p1-1) UNRELEASED; urgency=medium
     - Greatly improve interop testing against PuTTY.
   * Skip utimensat test on ZFS, since it seems to leave the atime set to 0.
   * Allow passing extra options to debian/tests/regress, for debugging.
-  * Fix gssapi-keyex declaration, broken when rebasing onto 8.9p1 (LP:
-    #2053146).
+  * Fix gssapi-keyex declaration, broken when rebasing onto 8.9p1
+    (LP: #2053146).
 
- -- Colin Watson <cjwatson@debian.org>  Thu, 07 Mar 2024 11:06:07 +0000
+ -- Colin Watson <cjwatson@debian.org>  Thu, 14 Mar 2024 10:47:58 +0000
 
 openssh (1:9.6p1-5) unstable; urgency=medium
 
