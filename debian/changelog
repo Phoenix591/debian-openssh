@@ -1,3 +1,10 @@
+openssh (1:9.7p1-3) UNRELEASED; urgency=medium
+
+  * Fix gssapi-keyex declaration further (thanks, Andreas Hasenack;
+    LP: #2053146).
+
+ -- Colin Watson <cjwatson@debian.org>  Thu, 14 Mar 2024 12:15:52 +0000
+
 openssh (1:9.7p1-2) unstable; urgency=medium
 
   [ Simon McVittie ]

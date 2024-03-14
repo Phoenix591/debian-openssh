@@ -1,4 +1,4 @@
-From 156d561811630c66f06068ee7892b3cbf90f0d1a Mon Sep 17 00:00:00 2001
+From 4431708c5c325cdbcf802e5d86ea1f4da78c1b50 Mon Sep 17 00:00:00 2001
 From: Simon Wilkinson <simon@sxw.org.uk>
 Date: Sun, 9 Feb 2014 16:09:48 +0000
 Subject: GSSAPI key exchange support
@@ -256,7 +256,7 @@ index 3b380d9bb..8ccf06370 100644
   * Return the canonical name of the host in the other side of the current
   * connection.  The host name is cached, so it is efficient to call this
 diff --git a/auth2-gss.c b/auth2-gss.c
-index f72a38998..c3b8e6288 100644
+index f72a38998..052c7b80f 100644
 --- a/auth2-gss.c
 +++ b/auth2-gss.c
 @@ -1,7 +1,7 @@
@@ -276,7 +276,7 @@ index f72a38998..c3b8e6288 100644
 + * The 'gssapi_keyex' userauth mechanism.
 + */
 +static int
-+userauth_gsskeyex(struct ssh *ssh)
++userauth_gsskeyex(struct ssh *ssh, const char *method)
 +{
 +	Authctxt *authctxt = ssh->authctxt;
 +	int r, authenticated = 0;
