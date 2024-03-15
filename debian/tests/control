@@ -9,3 +9,9 @@ Depends: devscripts,
          python3-twisted,
          sudo,
          sysvinit-utils,
+
+Tests: ssh-gssapi
+Restrictions: needs-root allow-stderr isolation-container
+Depends: openssh-server,
+         krb5-kdc,
+         krb5-admin-server
