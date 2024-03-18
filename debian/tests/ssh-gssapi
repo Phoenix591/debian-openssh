@@ -115,23 +115,22 @@ EOF
     fi
     echo "## Restarting ssh"
     systemctl restart ssh.service
-    echo
 }
 
 _test_ssh_login() {
     local auth_method="${1}"
 
     kdestroy 2>/dev/null || :
-    configure_sshd "${auth_method}"
+    configure_sshd "${auth_method}" || return $?
     echo "## Obtaining TGT"
-    echo "${password}" | timeout --verbose 30 kinit "${user_principal}"
+    echo "${password}" | timeout --verbose 30 kinit "${user_principal}" || return $?
     klist
     echo
     echo "## ssh'ing into localhost using ${auth_method} auth"
-    timeout --verbose 30 ssh "${testuser}@${myhostname}" date
+    timeout --verbose 30 ssh "${testuser}@${myhostname}" date || return $?
     echo
     echo "## checking that we got a service ticket for ssh (host/)"
-    klist | grep -F "${service_principal}"
+    klist | grep -F "${service_principal}" || return $?
     echo
     echo "## Checking ssh logs to confirm ${auth_method} auth was used"
     journalctl -u ssh.service -b --grep "${auth_method}"
