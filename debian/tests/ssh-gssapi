@@ -17,6 +17,9 @@ cleanup() {
     if [ $? -ne 0 ]; then
         echo "## Something failed"
         echo
+        echo "## klist"
+        klist
+        echo
         echo "## ssh server log"
         journalctl -b -u ssh.service --lines 100
         echo
