@@ -133,7 +133,7 @@ _test_ssh_login() {
     klist | grep -F "${service_principal}" || return $?
     echo
     echo "## Checking ssh logs to confirm ${auth_method} auth was used"
-    journalctl -u ssh.service -b --grep "${auth_method}"
+    journalctl -u ssh.service -b --grep "Accepted ${auth_method}"
 }
 
 test_gssapi_login() {
