@@ -5,6 +5,7 @@ openssh (1:9.7p1-3) UNRELEASED; urgency=medium
   * Extend -fzero-call-used-regs check to catch m68k gcc bug (closes:
     #1067243).
   * debian/tests/regress: Set a different IP address for UNKNOWN.
+  * Re-enable ssh-askpass-gnome on all architectures.
 
  -- Colin Watson <cjwatson@debian.org>  Thu, 14 Mar 2024 12:15:52 +0000
 
