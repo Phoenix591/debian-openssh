@@ -42,7 +42,7 @@ try:
             if not data:
                 break
             os.write(1, data)
-except (IOError, OSError):
+except OSError:
     pass
 
 pid, status = os.wait()
