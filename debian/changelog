@@ -8,6 +8,8 @@ openssh (1:9.7p1-3) UNRELEASED; urgency=medium
   * Re-enable ssh-askpass-gnome on all architectures.
   * regress: Redirect conch stdin from /dev/zero (re-enables conch interop
     tests).
+  * Drop "Work around RSA SHA-2 signature issues in conch" patch (no longer
+    needed now that Twisted is fixed).
 
  -- Colin Watson <cjwatson@debian.org>  Thu, 14 Mar 2024 12:15:52 +0000
 
