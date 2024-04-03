@@ -80,7 +80,6 @@ confflags += --with-ssl-engine
 ifeq ($(DEB_HOST_ARCH_OS),linux)
 confflags += --with-selinux
 confflags += --with-audit=linux
-confflags += --with-systemd
 confflags += --with-security-key-builtin
 endif
 

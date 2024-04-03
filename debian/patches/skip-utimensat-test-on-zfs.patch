@@ -1,4 +1,4 @@
-From 4c1c5dc36c96a8e6dd34fd43caf83d292a33b797 Mon Sep 17 00:00:00 2001
+From c295622811895faaf4c0be0820cbb919c80b1143 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Mon, 11 Mar 2024 16:24:49 +0000
 Subject: Skip utimensat test on ZFS

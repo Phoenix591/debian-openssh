@@ -939,6 +939,8 @@ int main(void) { if (NSVersionOfRunTimeLibrary("System") >= (60 << 16))
 	AC_DEFINE([_PATH_BTMP], ["/var/log/btmp"], [log for bad login attempts])
 	AC_DEFINE([USE_BTMP])
 	AC_DEFINE([LINUX_OOM_ADJUST], [1], [Adjust Linux out-of-memory killer])
+	AC_DEFINE([SYSTEMD_NOTIFY], [1], [Have sshd notify systemd on start/reload])
+	AC_DEFINE([SYSTEMD_SOCKET_ACTIVATION], [1], [Have sshd accept systemd socket activation])
 	inet6_default_4in6=yes
 	case `uname -r` in
 	1.*|2.0.*)
@@ -4950,29 +4952,6 @@ AC_SUBST([GSSLIBS])
 AC_SUBST([K5LIBS])
 AC_SUBST([CHANNELLIBS])
 
-# Check whether user wants systemd support
-SYSTEMD_MSG="no"
-AC_ARG_WITH(systemd,
-	[  --with-systemd          Enable systemd support],
-	[ if test "x$withval" != "xno" ; then
-		AC_PATH_TOOL([PKGCONFIG], [pkg-config], [no])
-		if test "$PKGCONFIG" != "no"; then
-			AC_MSG_CHECKING([for libsystemd])
-			if $PKGCONFIG --exists libsystemd; then
-				SYSTEMD_CFLAGS=`$PKGCONFIG --cflags libsystemd`
-				SYSTEMD_LIBS=`$PKGCONFIG --libs libsystemd`
-				CPPFLAGS="$CPPFLAGS $SYSTEMD_CFLAGS"
-				SSHDLIBS="$SSHDLIBS $SYSTEMD_LIBS"
-				AC_MSG_RESULT([yes])
-				AC_DEFINE(HAVE_SYSTEMD, 1, [Define if you want systemd support.])
-				SYSTEMD_MSG="yes"
-			else
-				AC_MSG_RESULT([no])
-			fi
-		fi
-	fi ]
-)
-
 # Looking for programs, paths and files
 
 PRIVSEP_PATH=/var/empty
@@ -5792,7 +5771,6 @@ echo "                   libldns support: $LDNS_MSG"
 echo "  Solaris process contract support: $SPC_MSG"
 echo "           Solaris project support: $SP_MSG"
 echo "         Solaris privilege support: $SPP_MSG"
-echo "                   systemd support: $SYSTEMD_MSG"
 echo "       IP address in \$DISPLAY hack: $DISPLAY_HACK_MSG"
 echo "           Translate v4 in v6 hack: $IPV4_IN6_HACK_MSG"
 echo "                  BSD Auth support: $BSD_AUTH_MSG"

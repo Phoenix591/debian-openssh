@@ -88,10 +88,6 @@
 #include <prot.h>
 #endif
 
-#ifdef HAVE_SYSTEMD
-#include <systemd/sd-daemon.h>
-#endif
-
 #include "xmalloc.h"
 #include "ssh.h"
 #include "ssh2.h"
@@ -140,8 +136,10 @@ int deny_severity;
 #endif /* LIBWRAP */
 
 /* Re-exec fds */
-#ifdef HAVE_SYSTEMD
-#define SYSTEMD_OFFSET sd_listen_fds(0)
+#ifdef SYSTEMD_SOCKET_ACTIVATION
+static int get_systemd_listen_fds(void);
+#define SYSTEMD_OFFSET get_systemd_listen_fds()
+#define SYSTEMD_LISTEN_FDS_START 3
 #else
 #define SYSTEMD_OFFSET 0
 #endif
@@ -1026,7 +1024,47 @@ server_accept_inetd(int *sock_in, int *sock_out)
 	debug("inetd sockets after dupping: %d, %d", *sock_in, *sock_out);
 }
 
-#ifdef HAVE_SYSTEMD
+#ifdef SYSTEMD_SOCKET_ACTIVATION
+/*
+ * Get file descriptors passed by systemd; this implements the protocol
+ * described in the NOTES section of sd_listen_fds(3).
+ *
+ * We deliberately return 0 on error, so that the return value can safely be
+ * added as part of the REEXEC_*_FD macros without extra checks.
+ */
+static int
+get_systemd_listen_fds(void)
+{
+	const char *listen_pid_str, *listen_fds_str;
+	pid_t listen_pid;
+	int listen_fds;
+	const char *errstr = NULL;
+	int fd;
+
+	listen_pid_str = getenv("LISTEN_PID");
+	if (listen_pid_str == NULL)
+		return 0;
+	listen_pid = (pid_t)strtonum(listen_pid_str, 2, INT_MAX, &errstr);
+	if (errstr != NULL || getpid() != listen_pid)
+		return 0;
+
+	listen_fds_str = getenv("LISTEN_FDS");
+	if (listen_fds_str == NULL)
+		return 0;
+	listen_fds = (int)strtonum(listen_fds_str, 1,
+	    INT_MAX - SYSTEMD_LISTEN_FDS_START, &errstr);
+	if (errstr != NULL)
+		return 0;
+
+	for (fd = SYSTEMD_LISTEN_FDS_START;
+	    fd < SYSTEMD_LISTEN_FDS_START + listen_fds; fd++) {
+		if (fcntl(fd, F_SETFD, FD_CLOEXEC) == -1)
+			return 0;
+	}
+
+	return listen_fds;
+}
+
 /*
  * Configure our socket fds that were passed from systemd
  */
@@ -1147,7 +1185,7 @@ static void
 server_listen(void)
 {
 	u_int i;
-#ifdef HAVE_SYSTEMD
+#ifdef SYSTEMD_SOCKET_ACTIVATION
 	int systemd_socket_count;
 #endif
 
@@ -1155,13 +1193,13 @@ server_listen(void)
 	srclimit_init(options.max_startups, options.per_source_max_startups,
 	    options.per_source_masklen_ipv4, options.per_source_masklen_ipv6);
 
-#ifdef HAVE_SYSTEMD
-	systemd_socket_count = sd_listen_fds(0);
+#ifdef SYSTEMD_SOCKET_ACTIVATION
+	systemd_socket_count = get_systemd_listen_fds();
 	if (systemd_socket_count > 0)
 	{
 		int i;
 		for (i = 0; i < systemd_socket_count; i++)
-			setup_systemd_socket(SD_LISTEN_FDS_START + i);
+			setup_systemd_socket(SYSTEMD_LISTEN_FDS_START + i);
 	} else
 #endif
 	{
@@ -2150,6 +2188,8 @@ main(int ac, char **av)
 		ssh_signal(SIGTERM, sigterm_handler);
 		ssh_signal(SIGQUIT, sigterm_handler);
 
+		platform_post_listen();
+
 		/*
 		 * Write out the pid file after the sigterm handler
 		 * is setup and the listen sockets are bound
@@ -2165,11 +2205,6 @@ main(int ac, char **av)
 				fclose(f);
 			}
 		}
-
-#ifdef HAVE_SYSTEMD
-		/* Signal systemd that we are ready to accept connections */
-		sd_notify(0, "READY=1");
-#endif
 
 		/* Accept a connection and return in a forked child */
 		server_accept_loop(&sock_in, &sock_out,

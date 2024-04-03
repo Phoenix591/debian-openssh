@@ -1,3 +1,10 @@
+openssh (1:9.7p1-4) UNRELEASED; urgency=medium
+
+  * Rework systemd readiness notification and socket activation patches to
+    not link against libsystemd (the former via an upstream patch).
+
+ -- Colin Watson <cjwatson@debian.org>  Wed, 03 Apr 2024 10:34:41 +0100
+
 openssh (1:9.7p1-3) unstable; urgency=medium
 
   * Fix gssapi-keyex declaration further (thanks, Andreas Hasenack;
