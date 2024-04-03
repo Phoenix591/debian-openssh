@@ -68,6 +68,12 @@ endif
 # Always use the internal mkdtemp; see https://bugs.debian.org/1001186.
 confflags += ac_cv_func_mkdtemp=no
 
+# ppc64el doesn't support -fzero-call-used-regs=used, but configure fails to
+# detect that.
+ifeq ($(DEB_HOST_ARCH),ppc64el)
+confflags += ossh_cv_cflag__fzero_call_used_regs_used=no
+endif
+
 # Everything above here is common to the deb and udeb builds.
 confflags_udeb := $(confflags)
 
