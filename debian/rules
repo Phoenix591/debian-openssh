@@ -33,7 +33,7 @@ else
 endif
 
 # Change the version string to reflect distribution
-SSH_EXTRAVERSION := $(DEB_VENDOR)-$(shell echo '$(DEB_VERSION)' | sed -e 's/.*-//')
+SSH_EXTRAVERSION := $(DEB_VENDOR)-$(shell echo '$(DEB_VERSION)' | sed -e 's/.*-//; s/+salsaci+.*/+salsaci/')
 
 UBUNTU := $(shell $(call dpkg_vendor_derives_from,Ubuntu))
 ifeq ($(UBUNTU),yes)
