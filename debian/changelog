@@ -1,3 +1,10 @@
+openssh (1:9.7p1-6) UNRELEASED; urgency=medium
+
+  * Stop reading ~/.pam_environment, which has a history of security
+    problems and is deprecated by PAM upstream (closes: #1018260).
+
+ -- Colin Watson <cjwatson@debian.org>  Thu, 23 May 2024 19:17:29 +0100
+
 openssh (1:9.7p1-5) unstable; urgency=medium
 
   [ Colin Watson ]
