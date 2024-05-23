@@ -2,11 +2,15 @@ openssh (1:9.7p1-6) UNRELEASED; urgency=medium
 
   Debian's PAM configuration for OpenSSH no longer reads the
   ~/.pam_environment file.  The implementation of this in pam_env has a
-  history of security problems and is deprecated by PAM upstream (see
-  https://bugs.debian.org/1030119).  Instead, environment variables need to
-  be set somewhere that will be handled by the session process; for most
-  users, this will be shell initialization files such as ~/.bash_profile or
-  ~/.bashrc.
+  history of security problems and has been deprecated by the upstream
+  Linux-PAM maintainers due to the possibility that "user supplied
+  environment variables in the PAM environment could affect behavior of
+  subsequent modules in the stack without the consent of the system
+  administrator".
+
+  Instead, environment variables need to be set somewhere that will be
+  handled by the session process; for most users, this will be shell
+  initialization files such as ~/.bash_profile or ~/.bashrc.
 
  -- Colin Watson <cjwatson@debian.org>  Thu, 23 May 2024 19:17:29 +0100
 
