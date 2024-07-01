@@ -1,3 +1,11 @@
+openssh (1:9.7p1-7) UNRELEASED; urgency=critical
+
+  [ Salvatore Bonaccorso ]
+  * Disable async-signal-unsafe code from the sshsigdie() function.  This is
+    a minimal workaround for a regression from CVE-2006-5051.
+
+ -- Colin Watson <cjwatson@debian.org>  Mon, 01 Jul 2024 09:31:11 +0100
+
 openssh (1:9.7p1-6) unstable; urgency=medium
 
   * Stop reading ~/.pam_environment, which has a history of security

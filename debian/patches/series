@@ -29,3 +29,4 @@ zero-call-used-regs-m68k.patch
 regress-conch-dev-zero.patch
 configure-cache-vars.patch
 pam-avoid-unknown-host.patch
+sshsigdie-async-signal-unsafe.patch
