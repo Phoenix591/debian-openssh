@@ -1,4 +1,4 @@
-From 50a68a21649c42d5587e78cab2c63ee3add81dd4 Mon Sep 17 00:00:00 2001
+From fb7c10aae7ed2d9216b16ae5e172f45a2bdcd336 Mon Sep 17 00:00:00 2001
 From: Richard Kettlewell <rjk@greenend.org.uk>
 Date: Sun, 9 Feb 2014 16:09:52 +0000
 Subject: Various keepalive extensions
@@ -26,7 +26,7 @@ Patch-Name: keepalive-extensions.patch
  3 files changed, 34 insertions(+), 4 deletions(-)
 
 diff --git a/readconf.c b/readconf.c
-index 0f0fb67a5..c6e609fca 100644
+index cd1ebc85d..7d7296960 100644
 --- a/readconf.c
 +++ b/readconf.c
 @@ -182,6 +182,7 @@ typedef enum {
@@ -72,7 +72,7 @@ index 0f0fb67a5..c6e609fca 100644
  		options->server_alive_count_max = 3;
  	if (options->control_master == -1)
 diff --git a/ssh_config.5 b/ssh_config.5
-index 8e8aeb640..6b482ee15 100644
+index 255577462..c6041339b 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
 @@ -297,9 +297,13 @@ If set to
@@ -90,7 +90,7 @@ index 8e8aeb640..6b482ee15 100644
  The argument must be
  .Cm yes
  or
-@@ -1923,7 +1927,14 @@ from the server,
+@@ -1927,7 +1931,14 @@ from the server,
  will send a message through the encrypted
  channel to request a response from the server.
  The default
@@ -106,7 +106,7 @@ index 8e8aeb640..6b482ee15 100644
  .It Cm SessionType
  May be used to either request invocation of a subsystem on the remote system,
  or to prevent the execution of a remote command at all.
-@@ -2037,6 +2048,12 @@ Specifies whether the system should send TCP keepalive messages to the
+@@ -2041,6 +2052,12 @@ Specifies whether the system should send TCP keepalive messages to the
  other side.
  If they are sent, death of the connection or crash of one
  of the machines will be properly noticed.
@@ -120,10 +120,10 @@ index 8e8aeb640..6b482ee15 100644
  connections will die if the route is down temporarily, and some people
  find it annoying.
 diff --git a/sshd_config.5 b/sshd_config.5
-index c0c1b0d9a..e06ef8abd 100644
+index 5e41f0478..5dd656869 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -1859,6 +1859,9 @@ This avoids infinitely hanging sessions.
+@@ -1959,6 +1959,9 @@ This avoids infinitely hanging sessions.
  .Pp
  To disable TCP keepalive messages, the value should be set to
  .Cm no .

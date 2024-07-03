@@ -1,3 +1,63 @@
+openssh (1:9.8p1-1) UNRELEASED; urgency=medium
+
+  * New upstream release (https://www.openssh.com/releasenotes.html#9.8p1):
+    - CVE-2024-39894: Fix Logic error in ssh(1) ObscureKeystrokeTiming that
+      made the feature ineffective.
+    - The DSA signature algorithm is now disabled at compile-time.
+    - sshd(8): the server has been split into a listener binary, sshd(8),
+      and a per-session binary "sshd-session".  This allows for a much
+      smaller listener binary, as it no longer needs to support the SSH
+      protocol.  As part of this work, support for disabling privilege
+      separation (which previously required code changes to disable) and
+      disabling re-execution of sshd(8) has been removed.  Further
+      separation of sshd-session into additional, minimal binaries is
+      planned for the future.
+    - sshd(8): several log messages have changed.  In particular, some log
+      messages will be tagged with as originating from a process named
+      "sshd-session" rather than "sshd".
+    - ssh-keyscan(1): this tool previously emitted comment lines containing
+      the hostname and SSH protocol banner to standard error.  This release
+      now emits them to standard output, but adds a new "-q" flag to silence
+      them altogether.
+    - sshd(8): sshd will no longer use argv[0] as the PAM service name.  A
+      new "PAMServiceName" sshd_config(5) directive allows selecting the
+      service name at runtime.  This defaults to "sshd".
+    - sshd(8): penalise client addresses that, for various reasons, do not
+      successfully complete authentication.  This feature is controlled by a
+      new sshd_config(5) PerSourcePenalties option and is on by default.
+    - ssh(8): allow the HostkeyAlgorithms directive to disable the implicit
+      fallback from certificate host key to plain host keys.
+    - misc: fix a number of inaccuracies in the PROTOCOL.* documentation
+      files.
+    - all: switch to strtonum(3) for more robust integer parsing in most
+      places.
+    - ssh(1), sshd(8): correctly restore sigprocmask around ppoll().
+    - ssh-keysign(8): stricter validation of messaging socket fd.
+    - sftp(1): flush stdout after writing "sftp>" prompt when not using
+      editline.
+    - sftp-server(8): fix home-directory extension implementation, it
+      previously always returned the current user's home directory contrary
+      to the spec.
+    - ssh-keyscan(1): do not close stdin to prevent error messages when
+      stdin is read multiple times.
+    - regression tests: fix rekey test that was testing the same KEX
+      algorithm repeatedly instead of testing all of them.
+    - ssh_config(5), sshd_config(5): clarify the KEXAlgorithms directive
+      documentation, especially around what is supported vs available
+      (closes: #1073065).
+    - sshd(8): expose SSH_AUTH_INFO_0 always to PAM auth modules
+      unconditionally. The previous behaviour was to expose it only when
+      particular authentication methods were in use.
+    - build: fix OpenSSL ED25519 support detection. An incorrect function
+      signature in configure.ac previously prevented enabling the recently
+      added support for ED25519 private keys in PEM PKCS8 format.
+    - ssh(1), ssh-agent(8): allow the presence of the WAYLAND_DISPLAY
+      environment variable to enable SSH_ASKPASS, similarly to the X11
+      DISPLAY environment variable (closes: #1037515, #1068044).
+  * Stop generating DSA host key.
+
+ -- Colin Watson <cjwatson@debian.org>  Wed, 03 Jul 2024 11:48:25 +0100
+
 openssh (1:9.7p1-7) unstable; urgency=critical
 
   [ Salvatore Bonaccorso ]

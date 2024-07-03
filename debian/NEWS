@@ -1,3 +1,54 @@
+openssh (1:9.8p1-1) UNRELEASED; urgency=medium
+
+  OpenSSH 9.8p1 includes a number of changes that may affect existing
+  configurations:
+
+   * DSA keys, as specified in the SSH protocol, are inherently weak: they
+     are limited to 160-bit private keys and the SHA-1 digest.  The SSH
+     implementation provided by the openssh-client and openssh-server
+     packages has disabled support for DSA keys by default since OpenSSH
+     7.0p1 in 2015, released with Debian 9 ("stretch"), although it could
+     still be enabled using the HostKeyAlgorithms and
+     PubkeyAcceptedAlgorithms configuration options for host and user keys
+     respectively.
+
+     The only remaining uses of DSA at this point should be connecting to
+     some very old devices.  For all other purposes, the other key types
+     supported by OpenSSH (RSA, ECDSA, and Ed25519) are superior.
+
+     As of OpenSSH 9.8p1, DSA keys are no longer supported even with the
+     above configuration options.  If you have a device that you can only
+     connect to using DSA, then you can use the ssh1 command provided by the
+     openssh-client-ssh1 package to do so.
+
+     In the unlikely event that you are still using DSA keys to connect to a
+     Debian server (if you are unsure, you can check by adding the -v option
+     to the ssh command line you use to connect to that server and looking
+     for the "Server accepts key:" line), then you must generate replacement
+     keys before upgrading.
+
+   * sshd(8): the server will now block client addresses that repeatedly
+     fail authentication, repeatedly connect without ever completing
+     authentication or that crash the server.  Operators of servers that
+     accept connections from many users, or servers that accept connections
+     from addresses behind NAT or proxies may need to consider these
+     settings.
+
+   * sshd(8): several log messages have changed.  In particular, some log
+     messages will be tagged with as originating from a process named
+     "sshd-session" rather than "sshd".
+
+   * ssh-keyscan(1): this tool previously emitted comment lines containing
+     the hostname and SSH protocol banner to standard error.  This release
+     now emits them to standard output, but adds a new "-q" flag to silence
+     them altogether.
+
+   * sshd(8): sshd will no longer use argv[0] as the PAM service name.  A
+     new "PAMServiceName" sshd_config(5) directive allows selecting the
+     service name at runtime.  This defaults to "sshd".
+
+ -- Colin Watson <cjwatson@debian.org>  Wed, 03 Jul 2024 11:48:25 +0100
+
 openssh (1:9.7p1-6) UNRELEASED; urgency=medium
 
   Debian's PAM configuration for OpenSSH no longer reads the

@@ -1,4 +1,4 @@
-From f01545e3f9350c080a525c246b9d46ba71cb0d09 Mon Sep 17 00:00:00 2001
+From 496d8d99583423c054311e85738102a5d9185016 Mon Sep 17 00:00:00 2001
 From: Steve Langasek <steve.langasek@ubuntu.com>
 Date: Thu, 1 Sep 2022 16:03:37 +0100
 Subject: Support systemd socket activation
@@ -10,7 +10,7 @@ of the sshd daemon without becoming incompatible with config options
 like ClientAliveCountMax.
 
 Author: Colin Watson <cjwatson@debian.org>
-Last-Update: 2024-04-03
+Last-Update: 2024-07-03
 
 Patch-Name: systemd-socket-activation.patch
 ---
@@ -19,7 +19,7 @@ Patch-Name: systemd-socket-activation.patch
  2 files changed, 118 insertions(+), 14 deletions(-)
 
 diff --git a/configure.ac b/configure.ac
-index c7b563ef2..cdfb505bf 100644
+index f6bca2631..ee6aca972 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -940,6 +940,7 @@ int main(void) { if (NSVersionOfRunTimeLibrary("System") >= (60 << 16))
@@ -31,11 +31,11 @@ index c7b563ef2..cdfb505bf 100644
  	case `uname -r` in
  	1.*|2.0.*)
 diff --git a/sshd.c b/sshd.c
-index a18b85d1d..105c688e4 100644
+index 54c65dfe6..bc0127c9c 100644
 --- a/sshd.c
 +++ b/sshd.c
-@@ -136,10 +136,18 @@ int deny_severity;
- #endif /* LIBWRAP */
+@@ -93,10 +93,18 @@
+ #include "srclimit.h"
  
  /* Re-exec fds */
 -#define REEXEC_DEVCRYPTO_RESERVED_FD	(STDERR_FILENO + 1)
@@ -57,8 +57,8 @@ index a18b85d1d..105c688e4 100644
  
  extern char *__progname;
  
-@@ -1016,6 +1024,88 @@ server_accept_inetd(int *sock_in, int *sock_out)
- 	debug("inetd sockets after dupping: %d, %d", *sock_in, *sock_out);
+@@ -733,6 +741,88 @@ send_rexec_state(int fd, struct sshbuf *conf)
+ 	debug3_f("done");
  }
  
 +#ifdef SYSTEMD_SOCKET_ACTIVATION
@@ -146,7 +146,7 @@ index a18b85d1d..105c688e4 100644
  /*
   * Listen for TCP connections
   */
-@@ -1095,22 +1185,35 @@ static void
+@@ -812,6 +902,9 @@ static void
  server_listen(void)
  {
  	u_int i;
@@ -155,8 +155,10 @@ index a18b85d1d..105c688e4 100644
 +#endif
  
  	/* Initialise per-source limit tracking. */
- 	srclimit_init(options.max_startups, options.per_source_max_startups,
- 	    options.per_source_masklen_ipv4, options.per_source_masklen_ipv6);
+ 	srclimit_init(options.max_startups,
+@@ -821,17 +914,27 @@ server_listen(void)
+ 	    &options.per_source_penalty,
+ 	    options.per_source_penalty_exempt);
  
 -	for (i = 0; i < options.num_listen_addrs; i++) {
 -		listen_on_addrs(&options.listen_addrs[i]);

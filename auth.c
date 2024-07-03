@@ -1,4 +1,4 @@
-/* $OpenBSD: auth.c,v 1.160 2023/03/05 05:34:09 dtucker Exp $ */
+/* $OpenBSD: auth.c,v 1.161 2024/05/17 00:30:23 djm Exp $ */
 /*
  * Copyright (c) 2000 Markus Friedl.  All rights reserved.
  *
@@ -79,7 +79,6 @@
 /* import */
 extern ServerOptions options;
 extern struct include_list includes;
-extern int use_privsep;
 extern struct sshbuf *loginmsg;
 extern struct passwd *privsep_pw;
 extern struct sshauthopt *auth_opts;
@@ -272,7 +271,7 @@ auth_log(struct ssh *ssh, int authenticated, int partial,
 	const char *authmsg;
 	char *extra = NULL;
 
-	if (use_privsep && !mm_is_monitor() && !authctxt->postponed)
+	if (!mm_is_monitor() && !authctxt->postponed)
 		return;
 
 	/* Raise logging level */
@@ -472,14 +471,14 @@ getpwnamallow(struct ssh *ssh, const char *user)
 	struct connection_info *ci;
 	u_int i;
 
-	ci = get_connection_info(ssh, 1, options.use_dns);
+	ci = server_get_connection_info(ssh, 1, options.use_dns);
 	ci->user = user;
 	parse_server_match_config(&options, &includes, ci);
 	log_change_level(options.log_level);
 	log_verbose_reset();
 	for (i = 0; i < options.num_log_verbose; i++)
 		log_verbose_add(options.log_verbose[i]);
-	process_permitopen(ssh, &options);
+	server_process_permitopen(ssh);
 
 #if defined(_AIX) && defined(HAVE_SETAUTHDB)
 	aix_setauthdb(user);
@@ -650,12 +649,10 @@ auth_get_canonical_hostname(struct ssh *ssh, int use_dns)
 
 	if (!use_dns)
 		return ssh_remote_ipaddr(ssh);
-	else if (dnsname != NULL)
+	if (dnsname != NULL)
 		return dnsname;
-	else {
-		dnsname = remote_hostname(ssh);
-		return dnsname;
-	}
+	dnsname = ssh_remote_hostname(ssh);
+	return dnsname;
 }
 
 /* These functions link key/cert options to the auth framework */

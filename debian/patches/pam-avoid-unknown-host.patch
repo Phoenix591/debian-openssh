@@ -1,4 +1,4 @@
-From d4ae5b68870bf65747084f4ed3060bb13c586c9e Mon Sep 17 00:00:00 2001
+From 7406e666efe2d19e93cf6f50735b3a927bc3dfce Mon Sep 17 00:00:00 2001
 From: Daan De Meyer <daan.j.demeyer@gmail.com>
 Date: Mon, 20 Mar 2023 20:22:14 +0100
 Subject: Only set PAM_RHOST if the remote host is not "UNKNOWN"
@@ -20,7 +20,7 @@ Patch-Name: pam-avoid-unknown-host.patch
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/auth-pam.c b/auth-pam.c
-index b49d415e7..81de88bba 100644
+index 13c0a792e..b22883b95 100644
 --- a/auth-pam.c
 +++ b/auth-pam.c
 @@ -735,7 +735,7 @@ sshpam_init(struct ssh *ssh, Authctxt *authctxt)
