@@ -55,6 +55,7 @@ openssh (1:9.8p1-1) UNRELEASED; urgency=medium
       environment variable to enable SSH_ASKPASS, similarly to the X11
       DISPLAY environment variable (closes: #1037515, #1068044).
   * Stop generating DSA host key.
+  * Apply X-Style: black.
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 03 Jul 2024 11:48:25 +0100
 
