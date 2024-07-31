@@ -49,7 +49,7 @@ openssh (1:9.8p1-1) UNRELEASED; urgency=medium
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 03 Jul 2024 11:48:25 +0100
 
-openssh (1:9.7p1-6) UNRELEASED; urgency=medium
+openssh (1:9.7p1-6) unstable; urgency=medium
 
   Debian's PAM configuration for OpenSSH no longer reads the
   ~/.pam_environment file.  The implementation of this in pam_env has a
@@ -63,7 +63,7 @@ openssh (1:9.7p1-6) UNRELEASED; urgency=medium
   handled by the session process; for most users, this will be shell
   initialization files such as ~/.bash_profile or ~/.bashrc.
 
- -- Colin Watson <cjwatson@debian.org>  Thu, 23 May 2024 19:17:29 +0100
+ -- Colin Watson <cjwatson@debian.org>  Tue, 25 Jun 2024 14:20:44 +0100
 
 openssh (1:9.5p1-1) experimental; urgency=medium
 
@@ -292,7 +292,7 @@ openssh (1:8.4p1-1) unstable; urgency=medium
 
    * ssh-keygen(1): the format of the attestation information optionally
      recorded when a FIDO key is generated has changed. It now includes the
-     authenticator data needed to validate attestation signatures. 
+     authenticator data needed to validate attestation signatures.
 
    * The API between OpenSSH and the FIDO token middleware has changed and
      the SSH_SK_VERSION_MAJOR version has been incremented as a result.
