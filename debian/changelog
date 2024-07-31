@@ -1,4 +1,4 @@
-openssh (1:9.8p1-1) UNRELEASED; urgency=medium
+openssh (1:9.8p1-1) unstable; urgency=medium
 
   * New upstream release (https://www.openssh.com/releasenotes.html#9.8p1):
     - CVE-2024-39894: Fix Logic error in ssh(1) ObscureKeystrokeTiming that
@@ -57,7 +57,7 @@ openssh (1:9.8p1-1) UNRELEASED; urgency=medium
   * Stop generating DSA host key.
   * Apply X-Style: black.
 
- -- Colin Watson <cjwatson@debian.org>  Wed, 03 Jul 2024 11:48:25 +0100
+ -- Colin Watson <cjwatson@debian.org>  Wed, 31 Jul 2024 17:16:04 +0100
 
 openssh (1:9.7p1-7) unstable; urgency=critical
 
