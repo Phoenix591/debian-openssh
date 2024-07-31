@@ -63,7 +63,7 @@ EOF
     default_realm = ${realm}
     rdns = false
     forwardable = true
-    dns_lookup_kdc = falase
+    dns_lookup_kdc = false
     dns_uri_lookup = false
     dns_lookup_realm = false
 
