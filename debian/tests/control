@@ -25,3 +25,12 @@ Depends:
  krb5-admin-server,
  krb5-kdc,
  openssh-server,
+
+Tests:
+ socket-activation,
+Restrictions:
+ allow-stderr,
+ isolation-container,
+ needs-root,
+Depends:
+ openssh-server,
