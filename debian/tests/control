@@ -34,3 +34,4 @@ Restrictions:
  needs-root,
 Depends:
  openssh-server,
+ sudo,
