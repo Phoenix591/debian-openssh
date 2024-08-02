@@ -1,4 +1,4 @@
-From 5f5e44903a2dbd0381d4395e53444d17b2d1b494 Mon Sep 17 00:00:00 2001
+From 83cab69b606871d9a904fd4187a6c894ec9ea03c Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 31 Mar 2024 00:24:11 +0000
 Subject: regress: Redirect conch stdin from /dev/zero

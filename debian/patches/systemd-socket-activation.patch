@@ -1,4 +1,4 @@
-From 496d8d99583423c054311e85738102a5d9185016 Mon Sep 17 00:00:00 2001
+From 2de0ac9d2b98f8edec8f3e198e46a808905c9e7e Mon Sep 17 00:00:00 2001
 From: Steve Langasek <steve.langasek@ubuntu.com>
 Date: Thu, 1 Sep 2022 16:03:37 +0100
 Subject: Support systemd socket activation
@@ -10,13 +10,13 @@ of the sshd daemon without becoming incompatible with config options
 like ClientAliveCountMax.
 
 Author: Colin Watson <cjwatson@debian.org>
-Last-Update: 2024-07-03
+Last-Update: 2024-08-02
 
 Patch-Name: systemd-socket-activation.patch
 ---
  configure.ac |   1 +
- sshd.c       | 131 +++++++++++++++++++++++++++++++++++++++++++++------
- 2 files changed, 118 insertions(+), 14 deletions(-)
+ sshd.c       | 133 +++++++++++++++++++++++++++++++++++++++++++++------
+ 2 files changed, 119 insertions(+), 15 deletions(-)
 
 diff --git a/configure.ac b/configure.ac
 index f6bca2631..ee6aca972 100644
@@ -31,7 +31,7 @@ index f6bca2631..ee6aca972 100644
  	case `uname -r` in
  	1.*|2.0.*)
 diff --git a/sshd.c b/sshd.c
-index 54c65dfe6..bc0127c9c 100644
+index 54c65dfe6..51d5357b9 100644
 --- a/sshd.c
 +++ b/sshd.c
 @@ -93,10 +93,18 @@
@@ -194,3 +194,12 @@ index 54c65dfe6..bc0127c9c 100644
  	if (!num_listen_socks)
  		fatal("Cannot bind any address.");
  }
+@@ -1344,7 +1447,7 @@ main(int ac, char **av)
+ 	if (!test_flag && !do_dump_cfg && !path_absolute(av[0]))
+ 		fatal("sshd requires execution with an absolute path");
+ 
+-	closefrom(STDERR_FILENO + 1);
++	closefrom(STDERR_FILENO + 1 + SYSTEMD_OFFSET);
+ 
+ 	/* Reserve fds we'll need later for reexec things */
+ 	if ((devnull = open(_PATH_DEVNULL, O_RDWR)) == -1)

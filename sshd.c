@@ -1447,7 +1447,7 @@ main(int ac, char **av)
 	if (!test_flag && !do_dump_cfg && !path_absolute(av[0]))
 		fatal("sshd requires execution with an absolute path");
 
-	closefrom(STDERR_FILENO + 1);
+	closefrom(STDERR_FILENO + 1 + SYSTEMD_OFFSET);
 
 	/* Reserve fds we'll need later for reexec things */
 	if ((devnull = open(_PATH_DEVNULL, O_RDWR)) == -1)
