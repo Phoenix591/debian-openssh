@@ -1,4 +1,4 @@
-openssh (1:9.8p1-2) UNRELEASED; urgency=medium
+openssh (1:9.8p1-2) unstable; urgency=medium
 
   * Don't close sockets passed by systemd socket activation (closes:
     #1077765).
@@ -6,7 +6,7 @@ openssh (1:9.8p1-2) UNRELEASED; urgency=medium
   * Consult /etc/hosts.{allow,deny} as "sshd", not "sshd-session" (closes:
     #1077799).
 
- -- Colin Watson <cjwatson@debian.org>  Fri, 02 Aug 2024 15:54:00 +0100
+ -- Colin Watson <cjwatson@debian.org>  Fri, 02 Aug 2024 17:08:58 +0100
 
 openssh (1:9.8p1-1) unstable; urgency=medium
 
