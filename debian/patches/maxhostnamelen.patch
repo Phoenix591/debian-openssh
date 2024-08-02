@@ -1,4 +1,4 @@
-From 95b7dc366c3f27e7bd524a64bae2754eef9935d5 Mon Sep 17 00:00:00 2001
+From 5ffb02dd0478b1ceb24dd356d0ccad7cb7ec728b Mon Sep 17 00:00:00 2001
 From: Svante Signell <svante.signell@gmail.com>
 Date: Fri, 5 Nov 2021 23:22:53 +0000
 Subject: Define MAXHOSTNAMELEN on GNU/Hurd

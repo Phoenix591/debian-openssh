@@ -1,4 +1,4 @@
-From fb7c10aae7ed2d9216b16ae5e172f45a2bdcd336 Mon Sep 17 00:00:00 2001
+From 92c7e83658c40484aa7a0fa977a45de38461beef Mon Sep 17 00:00:00 2001
 From: Richard Kettlewell <rjk@greenend.org.uk>
 Date: Sun, 9 Feb 2014 16:09:52 +0000
 Subject: Various keepalive extensions

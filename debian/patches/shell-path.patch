@@ -1,4 +1,4 @@
-From 71863958087495c9d4a4c83ca6e3fbed58ae4e81 Mon Sep 17 00:00:00 2001
+From 693e1ad72a8bc084f804451beaad6f941921b435 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:00 +0000
 Subject: Look for $SHELL on the path for ProxyCommand/LocalCommand

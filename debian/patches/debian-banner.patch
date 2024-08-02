@@ -1,4 +1,4 @@
-From be94b157653742db3310bc565356a8e553bfd741 Mon Sep 17 00:00:00 2001
+From 6bed4d1be79474891ebaa62259919f14acf28273 Mon Sep 17 00:00:00 2001
 From: Kees Cook <kees@debian.org>
 Date: Sun, 9 Feb 2014 16:10:06 +0000
 Subject: Add DebianBanner server configuration option
@@ -140,7 +140,7 @@ index cbfc20735..f9d3a1ff2 100644
  
  	/* Put the connection into non-blocking mode. */
 diff --git a/sshd-session.c b/sshd-session.c
-index f0fd85367..1f38a0de9 100644
+index b6e544108..2a512dd74 100644
 --- a/sshd-session.c
 +++ b/sshd-session.c
 @@ -1303,7 +1303,7 @@ main(int ac, char **av)

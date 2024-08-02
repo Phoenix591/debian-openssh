@@ -1,4 +1,4 @@
-From 33df9974b50dda9718f7e31ca8568432edd97168 Mon Sep 17 00:00:00 2001
+From 0ff8d4f5356adbdebdbdbf951713d22b1e8e264e Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Tue, 7 Oct 2014 13:22:41 +0100
 Subject: Restore TCP wrappers support
@@ -18,7 +18,7 @@ but it at least probably doesn't involve dropping this feature shortly
 before a freeze.
 
 Forwarded: not-needed
-Last-Update: 2024-07-03
+Last-Update: 2024-08-02
 
 Patch-Name: restore-tcp-wrappers.patch
 ---
@@ -103,7 +103,7 @@ index dc274329f..f6bca2631 100644
  echo "                   libldns support: $LDNS_MSG"
  echo "  Solaris process contract support: $SPC_MSG"
 diff --git a/sshd-session.c b/sshd-session.c
-index ab88db7c5..a9fa63224 100644
+index ab88db7c5..dff1fefbe 100644
 --- a/sshd-session.c
 +++ b/sshd-session.c
 @@ -110,6 +110,13 @@
@@ -131,7 +131,7 @@ index ab88db7c5..a9fa63224 100644
 +	if (ssh_packet_connection_is_on_socket(ssh)) {
 +		struct request_info req;
 +
-+		request_init(&req, RQ_DAEMON, __progname, RQ_FILE, sock_in, 0);
++		request_init(&req, RQ_DAEMON, "sshd", RQ_FILE, sock_in, 0);
 +		fromhost(&req);
 +
 +		if (!hosts_access(&req)) {

@@ -1268,7 +1268,7 @@ main(int ac, char **av)
 	if (ssh_packet_connection_is_on_socket(ssh)) {
 		struct request_info req;
 
-		request_init(&req, RQ_DAEMON, __progname, RQ_FILE, sock_in, 0);
+		request_init(&req, RQ_DAEMON, "sshd", RQ_FILE, sock_in, 0);
 		fromhost(&req);
 
 		if (!hosts_access(&req)) {

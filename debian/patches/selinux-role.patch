@@ -1,4 +1,4 @@
-From 1b327bbfa9728e3e2f9ec02371b94069c9664f2f Mon Sep 17 00:00:00 2001
+From 1003c8e9926862f7f01fad4a9004766aa47948d1 Mon Sep 17 00:00:00 2001
 From: Manoj Srivastava <srivasta@debian.org>
 Date: Sun, 9 Feb 2014 16:09:49 +0000
 Subject: Handle SELinux authorisation roles
@@ -414,7 +414,7 @@ index 344a1ddf9..20ea822a7 100644
  const char	*session_get_remote_name_or_ip(struct ssh *, u_int, int);
  
 diff --git a/sshd-session.c b/sshd-session.c
-index a9fa63224..f0fd85367 100644
+index dff1fefbe..b6e544108 100644
 --- a/sshd-session.c
 +++ b/sshd-session.c
 @@ -438,7 +438,7 @@ privsep_postauth(struct ssh *ssh, Authctxt *authctxt)
