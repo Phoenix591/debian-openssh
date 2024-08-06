@@ -1,4 +1,4 @@
-openssh (1:9.8p1-3) unstable; urgency=low
+openssh (1:9.8p1-3) UNRELEASED; urgency=medium
 
   * Add sshd-session to openssh-server-udeb
 
