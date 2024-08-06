@@ -1,8 +1,9 @@
-openssh (1:9.8p1-3) UNRELEASED; urgency=medium
+openssh (1:9.8p1-3) unstable; urgency=medium
 
-  * Add sshd-session to openssh-server-udeb
+  [ Dirk Van Haerenborgh ]
+  * Add sshd-session to openssh-server-udeb.
 
- -- Dirk Van Haerenborgh <vhdirk@gmail.org>  Mon, 05 Aug 2024 21:39:20 +0100
+ -- Colin Watson <cjwatson@debian.org>  Tue, 06 Aug 2024 12:58:46 +0100
 
 openssh (1:9.8p1-2) unstable; urgency=medium
 
