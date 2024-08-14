@@ -23,6 +23,7 @@ make -C "$tmp/regress" \
 	.OBJDIR="$tmp/regress" \
 	.CURDIR="$tmp/regress" \
 	BUILDDIR="$tmp/regress" \
+	CRYPTOGRAPHY_OPENSSL_NO_LEGACY=1 \
 	OBJ="$tmp/regress" \
 	SUDO=sudo \
 	TEST_SHELL=/bin/sh \
