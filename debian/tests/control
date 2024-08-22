@@ -35,3 +35,14 @@ Restrictions:
 Depends:
  openssh-server,
  sudo,
+
+Tests:
+ xinetd,
+Restrictions:
+ allow-stderr,
+ isolation-container,
+ needs-root,
+Depends:
+ openssh-server,
+ sudo,
+ xinetd,
