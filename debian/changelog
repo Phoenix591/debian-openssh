@@ -1,4 +1,4 @@
-openssh (1:9.8p1-4) UNRELEASED; urgency=medium
+openssh (1:9.8p1-4) unstable; urgency=medium
 
   [ Grzegorz Szymaszek ]
   * Disable listening on 22 in the port change example in README.Debian.
@@ -7,7 +7,7 @@ openssh (1:9.8p1-4) UNRELEASED; urgency=medium
   * sshd: Allow exec without absolute path in inetd mode (closes: #1078429).
   * Add an autopkgtest for running sshd from xinetd.
 
- -- Colin Watson <cjwatson@debian.org>  Wed, 14 Aug 2024 11:56:16 +0100
+ -- Colin Watson <cjwatson@debian.org>  Mon, 26 Aug 2024 15:02:45 +0100
 
 openssh (1:9.8p1-3) unstable; urgency=medium
 
