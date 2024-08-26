@@ -4,8 +4,6 @@ openssh (1:9.8p1-4) UNRELEASED; urgency=medium
   * Disable listening on 22 in the port change example in README.Debian.
 
   [ Colin Watson ]
-  * Set CRYPTOGRAPHY_OPENSSL_NO_LEGACY=1 when running regression tests (see
-    discussion in #965041).
   * sshd: Allow exec without absolute path in inetd mode (closes: #1078429).
   * Add an autopkgtest for running sshd from xinetd.
 
