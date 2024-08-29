@@ -24,7 +24,7 @@ Restrictions:
 Depends:
  krb5-admin-server,
  krb5-kdc,
- openssh-server,
+ openssh-server-gssapi,
 
 Tests:
  socket-activation,

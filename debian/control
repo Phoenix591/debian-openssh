@@ -77,6 +77,33 @@ Description: secure shell (SSH) client, for secure access to remote machines
  ssh replaces the insecure rsh, rcp and rlogin programs, which are
  obsolete for most purposes.
 
+Package: openssh-client-gssapi
+Priority: optional
+Architecture: all
+Depends:
+ openssh-client (>= ${binary:Version}),
+ ${misc:Depends},
+Multi-Arch: foreign
+Description: secure shell (SSH) client, with GSS-API support
+ This is the portable version of OpenSSH, a free implementation of
+ the Secure Shell protocol as specified by the IETF secsh working
+ group.
+ .
+ Ssh (Secure Shell) is a program for logging into a remote machine
+ and for executing commands on a remote machine.
+ It provides secure encrypted communications between two untrusted
+ hosts over an insecure network. X11 connections and arbitrary TCP/IP
+ ports can also be forwarded over the secure channel.
+ It can be used to provide applications with a secure communication
+ channel.
+ .
+ This package provides versions of the ssh client and related programs
+ built with support for GSS-API authentication and key exchange, which
+ can be used with systems such as Kerberos.  It is currently an empty
+ package depending on openssh-client, but future releases will remove
+ GSS-API support from openssh-client, so users who need it should
+ install this package.
+
 Package: openssh-server
 Priority: optional
 Architecture: any
@@ -136,6 +163,33 @@ Description: secure shell (SSH) server, for secure access from remote machines
  .
  sshd replaces the insecure rshd program, which is obsolete for most
  purposes.
+
+Package: openssh-server-gssapi
+Priority: optional
+Architecture: all
+Depends:
+ openssh-client-gssapi (>= ${binary:Version}),
+ openssh-server (>= ${binary:Version}),
+ ${misc:Depends},
+Multi-Arch: foreign
+Description: secure shell (SSH) server, with GSS-API key exchange
+ This is the portable version of OpenSSH, a free implementation of
+ the Secure Shell protocol as specified by the IETF secsh working
+ group.
+ .
+ Ssh (Secure Shell) is a program for logging into a remote machine
+ and for executing commands on a remote machine.
+ It provides secure encrypted communications between two untrusted
+ hosts over an insecure network. X11 connections and arbitrary TCP/IP
+ ports can also be forwarded over the secure channel.
+ It can be used to provide applications with a secure communication
+ channel.
+ .
+ This package provides a version of the sshd server built with support
+ for GSS-API authentication and key exchange, which can be used with
+ systems such as Kerberos.  It is currently an empty package depending
+ on openssh-server, but future releases will remove GSS-API support from
+ openssh-server, so users who need it should install this package.
 
 Package: openssh-sftp-server
 Priority: optional

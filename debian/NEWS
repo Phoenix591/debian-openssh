@@ -1,3 +1,15 @@
+openssh (1:9.8p1-5) unstable; urgency=medium
+
+  Future Debian releases will remove GSS-API authentication and key exchange
+  support from openssh-client and openssh-server; this adds
+  pre-authentication attack surface and should only be used where
+  specifically needed.  Users of GSS-API authentication or key exchange
+  should install the new openssh-client-gssapi or openssh-server-gssapi
+  package now; these currently just depend on openssh-client and
+  openssh-server respectively, but this will change in the future.
+
+ -- Colin Watson <cjwatson@debian.org>  Thu, 29 Aug 2024 12:13:32 +0100
+
 openssh (1:9.8p1-1) unstable; urgency=medium
 
   OpenSSH 9.8p1 includes a number of changes that may affect existing
