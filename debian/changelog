@@ -1,9 +1,9 @@
-openssh (1:9.8p1-7) UNRELEASED; urgency=medium
+openssh (1:9.8p1-7) unstable; urgency=medium
 
   * Adjust description line-wrapping so that lintian recognizes that
     openssh-client-gssapi is an intentionally empty package.
 
- -- Colin Watson <cjwatson@debian.org>  Thu, 29 Aug 2024 14:16:15 +0100
+ -- Colin Watson <cjwatson@debian.org>  Thu, 29 Aug 2024 14:17:13 +0100
 
 openssh (1:9.8p1-6) unstable; urgency=medium
 
