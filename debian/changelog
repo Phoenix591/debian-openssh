@@ -1,11 +1,11 @@
-openssh (1:9.8p1-5) UNRELEASED; urgency=medium
+openssh (1:9.8p1-5) unstable; urgency=medium
 
   * Add openssh-client-gssapi and openssh-server-gssapi packages; these
     currently just depend on their non-gssapi counterparts, but will become
     different in future.  See
     https://lists.debian.org/debian-devel/2024/04/msg00044.html.
 
- -- Colin Watson <cjwatson@debian.org>  Thu, 29 Aug 2024 12:13:32 +0100
+ -- Colin Watson <cjwatson@debian.org>  Thu, 29 Aug 2024 12:53:42 +0100
 
 openssh (1:9.8p1-4) unstable; urgency=medium
 
