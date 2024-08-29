@@ -99,10 +99,10 @@ Description: secure shell (SSH) client, with GSS-API support
  .
  This package provides versions of the ssh client and related programs
  built with support for GSS-API authentication and key exchange, which
- can be used with systems such as Kerberos.  It is currently an empty
- package depending on openssh-client, but future releases will remove
- GSS-API support from openssh-client, so users who need it should
- install this package.
+ can be used with systems such as Kerberos.
+ It is currently an empty package depending on openssh-client, but
+ future releases will remove GSS-API support from openssh-client, so
+ users who need it should install this package.
 
 Package: openssh-server
 Priority: optional
@@ -187,9 +187,10 @@ Description: secure shell (SSH) server, with GSS-API key exchange
  .
  This package provides a version of the sshd server built with support
  for GSS-API authentication and key exchange, which can be used with
- systems such as Kerberos.  It is currently an empty package depending
- on openssh-server, but future releases will remove GSS-API support from
- openssh-server, so users who need it should install this package.
+ systems such as Kerberos.
+ It is currently an empty package depending on openssh-server, but
+ future releases will remove GSS-API support from openssh-server, so
+ users who need it should install this package.
 
 Package: openssh-sftp-server
 Priority: optional
