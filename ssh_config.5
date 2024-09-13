@@ -647,6 +647,8 @@ Specifies the timeout (in seconds) used when connecting to the
 SSH server, instead of using the default system TCP timeout.
 This timeout is applied both to establishing the connection and to performing
 the initial SSH protocol handshake and key exchange.
+.Cm SetupTimeOut
+is a Debian-specific compatibility alias for this option.
 .It Cm ControlMaster
 Enables the sharing of multiple sessions over a single network connection.
 When set to
@@ -1961,9 +1963,7 @@ or 300 if the
 .Cm BatchMode
 option is set (Debian-specific).
 .Cm ProtocolKeepAlives
-and
-.Cm SetupTimeOut
-are Debian-specific compatibility aliases for this option.
+is a Debian-specific compatibility alias for this option.
 .It Cm SessionType
 May be used to either request invocation of a subsystem on the remote system,
 or to prevent the execution of a remote command at all.

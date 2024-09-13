@@ -1,4 +1,4 @@
-From c02212390140a127d47873d8d27081466bd5daeb Mon Sep 17 00:00:00 2001
+From b4a597511b65b9e4b848d7b1108a90788f5bf0e4 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:09:58 +0000
 Subject: Allow harmless group-writability
@@ -169,7 +169,7 @@ index 113403896..4681f79f7 100644
  #define MAXIMUM(a, b)	(((a) > (b)) ? (a) : (b))
  #define ROUNDUP(x, y)   ((((x)+((y)-1))/(y))*(y))
 diff --git a/readconf.c b/readconf.c
-index 7d7296960..eaca29ace 100644
+index 1910c2765..6ad8d5827 100644
 --- a/readconf.c
 +++ b/readconf.c
 @@ -2518,8 +2518,7 @@ read_config_file_depth(const char *filename, struct passwd *pw,
@@ -196,7 +196,7 @@ index dc382cd49..55bc1faef 100644
  .It Pa ~/.ssh/environment
  Contains additional definitions for environment variables; see
 diff --git a/ssh_config.5 b/ssh_config.5
-index c6041339b..d1b1da95a 100644
+index aed54ce57..58ee6bd7b 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
 @@ -2409,6 +2409,8 @@ The format of this file is described above.

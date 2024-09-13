@@ -1,4 +1,4 @@
-From 8b067a754bdeac8fcdab1fbb2010651cf07b1b61 Mon Sep 17 00:00:00 2001
+From c1dec80039d9b9e351c8b2e2a798113d347ab266 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:18 +0000
 Subject: Various Debian-specific configuration changes
@@ -48,7 +48,7 @@ Patch-Name: debian-config.patch
  7 files changed, 100 insertions(+), 10 deletions(-)
 
 diff --git a/readconf.c b/readconf.c
-index eaca29ace..1b64b7af5 100644
+index 6ad8d5827..78944c405 100644
 --- a/readconf.c
 +++ b/readconf.c
 @@ -2739,7 +2739,7 @@ fill_default_options(Options * options)
@@ -140,7 +140,7 @@ index 16197d15d..92d06ef38 100644
 +    HashKnownHosts yes
 +    GSSAPIAuthentication yes
 diff --git a/ssh_config.5 b/ssh_config.5
-index cb1bba1a7..091b933b4 100644
+index 0fdb5a46b..ba7abab61 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
 @@ -71,6 +71,29 @@ Since the first obtained value for each parameter is used, more
@@ -173,7 +173,7 @@ index cb1bba1a7..091b933b4 100644
  The file contains keyword-argument pairs, one per line.
  Lines starting with
  .Ql #
-@@ -901,11 +924,12 @@ elapsed.
+@@ -903,11 +926,12 @@ elapsed.
  .It Cm ForwardX11Trusted
  If this option is set to
  .Cm yes ,

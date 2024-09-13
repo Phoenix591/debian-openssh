@@ -1,4 +1,4 @@
-From 91663a43be78a3b33c0cc055033d648269a4f98c Mon Sep 17 00:00:00 2001
+From 434c3c48cc2272bcb741feaac736bf981c70abce Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Mon, 8 Apr 2019 10:46:29 +0100
 Subject: Revert "upstream: Update default IPQoS in ssh(1), sshd(8) to DSCP
@@ -24,7 +24,7 @@ Patch-Name: revert-ipqos-defaults.patch
  4 files changed, 8 insertions(+), 12 deletions(-)
 
 diff --git a/readconf.c b/readconf.c
-index 1b64b7af5..a60aed047 100644
+index 78944c405..e31123064 100644
 --- a/readconf.c
 +++ b/readconf.c
 @@ -2891,9 +2891,9 @@ fill_default_options(Options * options)
@@ -56,10 +56,10 @@ index 81511bc86..86c798b34 100644
  		options->version_addendum = xstrdup("");
  	if (options->fwd_opts.streamlocal_bind_mask == (mode_t)-1)
 diff --git a/ssh_config.5 b/ssh_config.5
-index 091b933b4..98a2ef60b 100644
+index ba7abab61..3d3d2e99c 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -1322,11 +1322,9 @@ If one argument is specified, it is used as the packet class unconditionally.
+@@ -1324,11 +1324,9 @@ If one argument is specified, it is used as the packet class unconditionally.
  If two values are specified, the first is automatically selected for
  interactive sessions and the second for non-interactive sessions.
  The default is

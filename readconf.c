@@ -1140,6 +1140,7 @@ process_config_line_depth(Options *options, struct passwd *pw, const char *host,
 		argv_consume(&ac);
 		break;
 	case oConnectTimeout:
+	case oSetupTimeOut:	  /* Debian-specific compatibility alias */
 		intptr = &options->connection_timeout;
 parse_time:
 		arg = argv_next(&ac, &av);
@@ -1890,7 +1891,6 @@ parse_pubkey_algos:
 
 	case oServerAliveInterval:
 	case oProtocolKeepAlives: /* Debian-specific compatibility alias */
-	case oSetupTimeOut:	  /* Debian-specific compatibility alias */
 		intptr = &options->server_alive_interval;
 		goto parse_time;
 
