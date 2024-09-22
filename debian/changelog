@@ -1,7 +1,74 @@
-openssh (1:9.8p1-9) UNRELEASED; urgency=medium
+openssh (1:9.9p1-1) UNRELEASED; urgency=medium
 
   * Alias the old Debian-specific SetupTimeOut client option to
     ConnectTimeout rather than to ServerAliveInterval.
+  * New upstream release (https://www.openssh.com/releasenotes.html#9.9p1):
+    - ssh(1): remove support for pre-authentication compression.
+    - ssh(1), sshd(8): processing of the arguments to the "Match"
+      configuration directive now follows more shell-like rules for quoted
+      strings, including allowing nested quotes and \-escaped characters.
+    - ssh(1), sshd(8): add support for a new hybrid post-quantum key
+      exchange based on the FIPS 203 Module-Lattice Key Enapsulation
+      mechanism (ML-KEM) combined with X25519 ECDH as described by
+      https://datatracker.ietf.org/doc/html/draft-kampanakis-curdle-ssh-pq-ke-03
+      This algorithm "mlkem768x25519-sha256" is available by default.
+    - ssh(1): the ssh_config "Include" directive can now expand environment
+      as well as the same set of %-tokens "Match Exec" supports.
+    - sshd(8): add a sshd_config "RefuseConnection" option that, if set will
+      terminate the connection at the first authentication request.
+    - sshd(8): add a "refuseconnection" penalty class to sshd_config
+      PerSourcePenalties that is applied when a connection is dropped by the
+      new RefuseConnection keyword.
+    - sshd(8): add a "Match invalid-user" predicate to sshd_config Match
+      options that matches when the target username is not valid on the
+      server.
+    - ssh(1), sshd(8): update the Streamlined NTRUPrime code to a
+      substantially faster implementation.
+    - ssh(1), sshd(8): the hybrid Streamlined NTRUPrime/X25519 key exchange
+      algorithm now has an IANA-assigned name in addition to the
+      "@openssh.com" vendor extension name. This algorithm is now also
+      available under this name "sntrup761x25519-sha512"
+    - ssh(1), sshd(8), ssh-agent(1): prevent private keys from being
+      included in core dump files for most of their lifespans. This is in
+      addition to pre-existing controls in ssh-agent(1) and sshd(8) that
+      prevented coredumps.
+    - All: convert key handling to use the libcrypto EVP_PKEY API, with the
+      exception of DSA.
+    - sshd(8): add a random amount of jitter (up to 4 seconds) to the grace
+      login time to make its expiry unpredictable.
+    - sshd(8): fix regression introduced in openssh-9.8 that swapped the
+      order of source and destination addresses in some sshd log messages.
+    - sshd(8): do not apply authorized_keys options when signature
+      verification fails. Prevents more restrictive key options being
+      incorrectly applied to subsequent keys in authorized_keys.
+    - ssh-keygen(1): include pathname in some of ssh-keygen's passphrase
+      prompts. Helps the user know what's going on when ssh-keygen is
+      invoked via other tools.
+    - ssh(1), ssh-add(1): make parsing user@host consistently look for the
+      last '@' in the string rather than the first. This makes it possible
+      to more consistently use usernames that contain '@' characters.
+    - ssh(1), sshd(8): be more strict in parsing key type names. Only allow
+      short names (e.g "rsa") in user-interface code and require full SSH
+      protocol names (e.g. "ssh-rsa") everywhere else.
+    - regress: many performance and correctness improvements to the
+      re-keying regression test.
+    - ssh-keygen(1): clarify that ed25519 is the default key type generated
+      and clarify that rsa-sha2-512 is the default signature scheme when RSA
+      is in use.
+    - sshd(8): fix minor memory leak in Subsystem option parsing.
+    - All: additional hardening and consistency checks for the sshbuf code.
+    - sshd(8): reduce default logingrace penalty to ensure that a single
+      forgotten login that times out will be below the penalty threshold.
+    - ssh(1): fix proxy multiplexing (-O proxy) bug. If a mux started with
+      ControlPersist then later has a forwarding added using mux proxy
+      connection and the forwarding was used, then when the mux proxy
+      session terminated, the mux master process would issue a bad message
+      that terminated the connection.
+    - Sync contrib/ssh-copy-id to the latest upstream version.
+    - sshd(8): restore audit call before exit that regressed in openssh-9.8.
+      Fixes an issue where the SSH_CONNECTION_ABANDON event was not
+      recorded.
+    - Fix detection of setres*id on GNU/Hurd.
 
  -- Colin Watson <cjwatson@debian.org>  Fri, 13 Sep 2024 14:04:38 +0100
 

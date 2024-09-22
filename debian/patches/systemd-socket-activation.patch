@@ -1,4 +1,4 @@
-From 327b1e0907026c5ffa3140397e6f26263542f5ec Mon Sep 17 00:00:00 2001
+From 8616cd415d778b058f6c27064e52364e90fc6418 Mon Sep 17 00:00:00 2001
 From: Steve Langasek <steve.langasek@ubuntu.com>
 Date: Thu, 1 Sep 2022 16:03:37 +0100
 Subject: Support systemd socket activation
@@ -19,7 +19,7 @@ Patch-Name: systemd-socket-activation.patch
  2 files changed, 119 insertions(+), 15 deletions(-)
 
 diff --git a/configure.ac b/configure.ac
-index f6bca2631..ee6aca972 100644
+index 90548dcfc..8b3a9776b 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -940,6 +940,7 @@ int main(void) { if (NSVersionOfRunTimeLibrary("System") >= (60 << 16))
@@ -31,7 +31,7 @@ index f6bca2631..ee6aca972 100644
  	case `uname -r` in
  	1.*|2.0.*)
 diff --git a/sshd.c b/sshd.c
-index 54c65dfe6..51d5357b9 100644
+index 48b334c68..142310c07 100644
 --- a/sshd.c
 +++ b/sshd.c
 @@ -93,10 +93,18 @@
@@ -57,7 +57,7 @@ index 54c65dfe6..51d5357b9 100644
  
  extern char *__progname;
  
-@@ -733,6 +741,88 @@ send_rexec_state(int fd, struct sshbuf *conf)
+@@ -740,6 +748,88 @@ send_rexec_state(int fd, struct sshbuf *conf)
  	debug3_f("done");
  }
  
@@ -146,7 +146,7 @@ index 54c65dfe6..51d5357b9 100644
  /*
   * Listen for TCP connections
   */
-@@ -812,6 +902,9 @@ static void
+@@ -819,6 +909,9 @@ static void
  server_listen(void)
  {
  	u_int i;
@@ -156,7 +156,7 @@ index 54c65dfe6..51d5357b9 100644
  
  	/* Initialise per-source limit tracking. */
  	srclimit_init(options.max_startups,
-@@ -821,17 +914,27 @@ server_listen(void)
+@@ -828,17 +921,27 @@ server_listen(void)
  	    &options.per_source_penalty,
  	    options.per_source_penalty_exempt);
  
@@ -194,8 +194,8 @@ index 54c65dfe6..51d5357b9 100644
  	if (!num_listen_socks)
  		fatal("Cannot bind any address.");
  }
-@@ -1344,7 +1447,7 @@ main(int ac, char **av)
- 	if (!test_flag && !do_dump_cfg && !path_absolute(av[0]))
+@@ -1351,7 +1454,7 @@ main(int ac, char **av)
+ 	if (!test_flag && !inetd_flag && !do_dump_cfg && !path_absolute(av[0]))
  		fatal("sshd requires execution with an absolute path");
  
 -	closefrom(STDERR_FILENO + 1);

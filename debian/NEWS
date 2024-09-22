@@ -1,3 +1,26 @@
+openssh (1:9.9p1-1) UNRELEASED; urgency=medium
+
+  OpenSSH 9.9p1 includes a number of changes that may affect existing
+  configurations:
+
+   * ssh(1): remove support for pre-authentication compression.  OpenSSH has
+     only supported post-authentication compression in the server for some
+     years. Compression before authentication significantly increases the
+     attack surface of SSH servers and risks creating oracles that reveal
+     information about information sent during authentication.
+
+   * ssh(1), sshd(8): processing of the arguments to the "Match"
+     configuration directive now follows more shell-like rules for quoted
+     strings, including allowing nested quotes and \-escaped characters. If
+     configurations contained workarounds for the previous simplistic quote
+     handling then they may need to be adjusted. If this is the case, it's
+     most likely to be in the arguments to a "Match exec" condition. In this
+     case, moving the command to be evaluated from the Match line to an
+     external shell script is the easiest way to preserve compatibility with
+     both the old and new versions.
+
+ -- Colin Watson <cjwatson@debian.org>  Sun, 22 Sep 2024 08:14:59 -0700
+
 openssh (1:9.8p1-5) unstable; urgency=medium
 
   Future Debian releases will remove GSS-API authentication and key exchange

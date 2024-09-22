@@ -1,4 +1,4 @@
-From 2ad0cd84eddab6016650344c17a7a2871ccf3db5 Mon Sep 17 00:00:00 2001
+From 1f9b181b1f2af9c29468f7a3ab2f51fb354e51ec Mon Sep 17 00:00:00 2001
 From: Richard Kettlewell <rjk@greenend.org.uk>
 Date: Sun, 9 Feb 2014 16:09:52 +0000
 Subject: Various keepalive extensions
@@ -26,7 +26,7 @@ Patch-Name: keepalive-extensions.patch
  3 files changed, 34 insertions(+), 4 deletions(-)
 
 diff --git a/readconf.c b/readconf.c
-index cd1ebc85d..1910c2765 100644
+index 08342f2a2..f78786964 100644
 --- a/readconf.c
 +++ b/readconf.c
 @@ -182,6 +182,7 @@ typedef enum {
@@ -46,7 +46,7 @@ index cd1ebc85d..1910c2765 100644
  
  	{ NULL, oBadOption }
  };
-@@ -1137,6 +1140,7 @@ process_config_line_depth(Options *options, struct passwd *pw, const char *host,
+@@ -1166,6 +1169,7 @@ process_config_line_depth(Options *options, struct passwd *pw, const char *host,
  		argv_consume(&ac);
  		break;
  	case oConnectTimeout:
@@ -54,7 +54,7 @@ index cd1ebc85d..1910c2765 100644
  		intptr = &options->connection_timeout;
  parse_time:
  		arg = argv_next(&ac, &av);
-@@ -1886,6 +1890,7 @@ parse_pubkey_algos:
+@@ -1908,6 +1912,7 @@ parse_pubkey_algos:
  		goto parse_flag;
  
  	case oServerAliveInterval:
@@ -62,7 +62,7 @@ index cd1ebc85d..1910c2765 100644
  		intptr = &options->server_alive_interval;
  		goto parse_time;
  
-@@ -2859,8 +2864,13 @@ fill_default_options(Options * options)
+@@ -2893,8 +2898,13 @@ fill_default_options(Options * options)
  		options->rekey_interval = 0;
  	if (options->verify_host_key_dns == -1)
  		options->verify_host_key_dns = 0;
@@ -79,7 +79,7 @@ index cd1ebc85d..1910c2765 100644
  		options->server_alive_count_max = 3;
  	if (options->control_master == -1)
 diff --git a/ssh_config.5 b/ssh_config.5
-index 255577462..aed54ce57 100644
+index 4a48c5775..31142f8c5 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
 @@ -297,9 +297,13 @@ If set to
@@ -106,7 +106,7 @@ index 255577462..aed54ce57 100644
  .It Cm ControlMaster
  Enables the sharing of multiple sessions over a single network connection.
  When set to
-@@ -1927,7 +1933,12 @@ from the server,
+@@ -1933,7 +1939,12 @@ from the server,
  will send a message through the encrypted
  channel to request a response from the server.
  The default
@@ -120,7 +120,7 @@ index 255577462..aed54ce57 100644
  .It Cm SessionType
  May be used to either request invocation of a subsystem on the remote system,
  or to prevent the execution of a remote command at all.
-@@ -2041,6 +2052,12 @@ Specifies whether the system should send TCP keepalive messages to the
+@@ -2047,6 +2058,12 @@ Specifies whether the system should send TCP keepalive messages to the
  other side.
  If they are sent, death of the connection or crash of one
  of the machines will be properly noticed.
@@ -134,10 +134,10 @@ index 255577462..aed54ce57 100644
  connections will die if the route is down temporarily, and some people
  find it annoying.
 diff --git a/sshd_config.5 b/sshd_config.5
-index 5e41f0478..5dd656869 100644
+index 6959d5f6c..11a8e922f 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -1959,6 +1959,9 @@ This avoids infinitely hanging sessions.
+@@ -1984,6 +1984,9 @@ This avoids infinitely hanging sessions.
  .Pp
  To disable TCP keepalive messages, the value should be set to
  .Cm no .

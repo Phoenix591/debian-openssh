@@ -1,4 +1,4 @@
-From e82a38204f18f15982ad2396d73d4837b6901055 Mon Sep 17 00:00:00 2001
+From d4e17cdc03d060ca67e4f6628c90cc40c2eaa022 Mon Sep 17 00:00:00 2001
 From: Svante Signell <svante.signell@gmail.com>
 Date: Fri, 5 Nov 2021 23:22:53 +0000
 Subject: Define MAXHOSTNAMELEN on GNU/Hurd
@@ -12,7 +12,7 @@ Patch-Name: maxhostnamelen.patch
  1 file changed, 6 insertions(+)
 
 diff --git a/defines.h b/defines.h
-index 279e509aa..7225cbfab 100644
+index ed860e78b..aa3518732 100644
 --- a/defines.h
 +++ b/defines.h
 @@ -136,6 +136,12 @@ enum
