@@ -1,4 +1,4 @@
-openssh (1:9.9p1-1) UNRELEASED; urgency=medium
+openssh (1:9.9p1-1) unstable; urgency=medium
 
   * Alias the old Debian-specific SetupTimeOut client option to
     ConnectTimeout rather than to ServerAliveInterval.
@@ -70,7 +70,7 @@ openssh (1:9.9p1-1) UNRELEASED; urgency=medium
       recorded.
     - Fix detection of setres*id on GNU/Hurd.
 
- -- Colin Watson <cjwatson@debian.org>  Fri, 13 Sep 2024 14:04:38 +0100
+ -- Colin Watson <cjwatson@debian.org>  Mon, 23 Sep 2024 21:09:59 -0700
 
 openssh (1:9.8p1-8) unstable; urgency=medium
 

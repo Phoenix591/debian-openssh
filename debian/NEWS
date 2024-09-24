@@ -1,4 +1,4 @@
-openssh (1:9.9p1-1) UNRELEASED; urgency=medium
+openssh (1:9.9p1-1) unstable; urgency=medium
 
   OpenSSH 9.9p1 includes a number of changes that may affect existing
   configurations:
@@ -19,7 +19,7 @@ openssh (1:9.9p1-1) UNRELEASED; urgency=medium
      external shell script is the easiest way to preserve compatibility with
      both the old and new versions.
 
- -- Colin Watson <cjwatson@debian.org>  Sun, 22 Sep 2024 08:14:59 -0700
+ -- Colin Watson <cjwatson@debian.org>  Mon, 23 Sep 2024 21:09:59 -0700
 
 openssh (1:9.8p1-5) unstable; urgency=medium
 
