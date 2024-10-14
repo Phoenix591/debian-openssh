@@ -1,4 +1,4 @@
-From 25a0d098399b79a2ee544f17947829c01f13932c Mon Sep 17 00:00:00 2001
+From 160d97105023e620b623f2f337327aa820bd0e5a Mon Sep 17 00:00:00 2001
 From: Simon Wilkinson <simon@sxw.org.uk>
 Date: Sun, 9 Feb 2014 16:09:48 +0000
 Subject: GSSAPI key exchange support
@@ -21,7 +21,7 @@ Author: Colin Watson <cjwatson@debian.org>
 Author: Jakub Jelen <jjelen@redhat.com>
 Origin: other, https://github.com/openssh-gsskex/openssh-gsskex/pull/23
 Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1242
-Last-Updated: 2024-09-22
+Last-Updated: 2024-10-14
 
 Patch-Name: gssapi.patch
 ---
@@ -58,14 +58,14 @@ Patch-Name: gssapi.patch
  ssh.c           |   6 +-
  ssh_config      |   2 +
  ssh_config.5    |  57 +++++
- sshconnect2.c   | 144 +++++++++++-
+ sshconnect2.c   | 148 +++++++++++-
  sshd-session.c  |  59 ++++-
  sshd.c          |   3 +-
  sshd_config     |   2 +
  sshd_config.5   |  30 +++
  sshkey.c        |   8 +-
  sshkey.h        |   1 +
- 40 files changed, 2667 insertions(+), 72 deletions(-)
+ 40 files changed, 2670 insertions(+), 73 deletions(-)
  create mode 100644 kexgssc.c
  create mode 100644 kexgsss.c
  create mode 100644 ssh-null.c
@@ -3537,7 +3537,7 @@ index 7c7c5c50d..4a48c5775 100644
  Indicates that
  .Xr ssh 1
 diff --git a/sshconnect2.c b/sshconnect2.c
-index 11fcdea8a..d809a6507 100644
+index 11fcdea8a..068da7f94 100644
 --- a/sshconnect2.c
 +++ b/sshconnect2.c
 @@ -222,6 +222,11 @@ ssh_kex2(struct ssh *ssh, char *host, struct sockaddr *hostaddr, u_short port,
@@ -3756,6 +3756,17 @@ index 11fcdea8a..d809a6507 100644
  #endif /* GSSAPI */
  
  static int
+@@ -1319,7 +1457,9 @@ sign_and_send_pubkey(struct ssh *ssh, Identity *id)
+ 
+ 	/* prefer host-bound pubkey signatures if supported by server */
+ 	if ((ssh->kex->flags & KEX_HAS_PUBKEY_HOSTBOUND) != 0 &&
+-	    (options.pubkey_authentication & SSH_PUBKEY_AUTH_HBOUND) != 0) {
++	    (options.pubkey_authentication & SSH_PUBKEY_AUTH_HBOUND) != 0 &&
++	    /* initial_hostkey may be NULL with GSS-API key exchange */
++	    ssh->kex->initial_hostkey != NULL) {
+ 		hostbound = 1;
+ 		method = "publickey-hostbound-v00@openssh.com";
+ 	}
 diff --git a/sshd-session.c b/sshd-session.c
 index 4b79b9ba6..03a028c82 100644
 --- a/sshd-session.c

@@ -1457,7 +1457,9 @@ sign_and_send_pubkey(struct ssh *ssh, Identity *id)
 
 	/* prefer host-bound pubkey signatures if supported by server */
 	if ((ssh->kex->flags & KEX_HAS_PUBKEY_HOSTBOUND) != 0 &&
-	    (options.pubkey_authentication & SSH_PUBKEY_AUTH_HBOUND) != 0) {
+	    (options.pubkey_authentication & SSH_PUBKEY_AUTH_HBOUND) != 0 &&
+	    /* initial_hostkey may be NULL with GSS-API key exchange */
+	    ssh->kex->initial_hostkey != NULL) {
 		hostbound = 1;
 		method = "publickey-hostbound-v00@openssh.com";
 	}

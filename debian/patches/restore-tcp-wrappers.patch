@@ -1,4 +1,4 @@
-From 20df52e18eb28e8e50e475d85bb652e8fdc5f588 Mon Sep 17 00:00:00 2001
+From c4f6a4d2c7ce9dcd29df3d447e7bc8ddf1b5c592 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Tue, 7 Oct 2014 13:22:41 +0100
 Subject: Restore TCP wrappers support

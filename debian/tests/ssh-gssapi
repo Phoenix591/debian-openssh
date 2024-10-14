@@ -6,10 +6,17 @@ set -o pipefail
 realm="EXAMPLE.FAKE"
 myhostname="sshd-gssapi.${realm,,}"
 testuser="testuser$$"
+testuser2="testuser$$-2"
 adduser --quiet --disabled-password --gecos "" "${testuser}"
+adduser --quiet --disabled-password --gecos "" "${testuser2}"
 password="secret"
 user_principal="${testuser}@${realm}"
 service_principal="host/${myhostname}"
+
+ssh-keygen -t ed25519 -N '' -f "$HOME/.ssh/id_ed25519"
+sudo -u "$testuser2" mkdir -m700 "/home/$testuser2/.ssh"
+cp "$HOME/.ssh/id_ed25519.pub" "/home/$testuser2/.ssh/authorized_keys"
+chown "$testuser2:" "/home/$testuser2/.ssh/authorized_keys"
 
 source debian/tests/util
 
@@ -85,15 +92,12 @@ configure_sshd() {
 GSSAPIAuthentication yes
 GSSAPIKeyExchange no
 GSSAPICleanupCredentials yes
-PubkeyAuthentication no
-AuthenticationMethods ${auth_method}
 EOF
     # client
     cat > /etc/ssh/ssh_config.d/gssapi.conf <<EOF
 Host *
     GSSAPIAuthentication yes
     GSSAPIKeyExchange no
-    PubkeyAuthentication no
 EOF
     elif [ "${auth_method}" = "gssapi-keyex" ]; then
         # server
@@ -102,15 +106,12 @@ EOF
 GSSAPIAuthentication yes
 GSSAPIKeyExchange yes
 GSSAPICleanupCredentials yes
-PubkeyAuthentication no
-AuthenticationMethods ${auth_method}
 EOF
     # client
     cat > /etc/ssh/ssh_config.d/gssapi.conf <<EOF
 Host *
     GSSAPIAuthentication yes
     GSSAPIKeyExchange yes
-    PubkeyAuthentication no
 EOF
     else
         echo "## ERROR: unknown auth_method \"${auth_method}\""
@@ -121,34 +122,40 @@ EOF
 }
 
 _test_ssh_login() {
-    local auth_method="${1}"
+    local initial_auth_method="${1}"
+    local user="${2}"
+    local final_auth_method="${3}"
+    local cursor
 
     kdestroy 2>/dev/null || :
-    configure_sshd "${auth_method}" || return $?
+    configure_sshd "${initial_auth_method}" || return $?
+    cursor="$(journalctl -u ssh.service --lines=1 --show-cursor | sed -n 's/^-- cursor: //p')"
     echo "## Obtaining TGT"
     echo "${password}" | timeout --verbose 30 kinit "${user_principal}" || return $?
     klist
     echo
-    echo "## ssh'ing into localhost using ${auth_method} auth"
-    timeout --verbose 30 ssh "${testuser}@${myhostname}" date || return $?
+    echo "## ssh'ing into localhost using ${initial_auth_method} auth"
+    timeout --verbose 30 ssh "${user}@${myhostname}" date || return $?
     echo
     echo "## checking that we got a service ticket for ssh (host/)"
     klist | grep -F "${service_principal}" || return $?
     echo
-    echo "## Checking ssh logs to confirm ${auth_method} auth was used"
-    journalctl -u ssh.service -b --grep "Accepted ${auth_method}"
+    echo "## Checking ssh logs to confirm ${final_auth_method} auth was used"
+    journalctl -u ssh.service --after-cursor="$cursor" --grep "Accepted ${final_auth_method}"
 }
 
 test_gssapi_login() {
-    local auth_method="gssapi-with-mic"
-
-    _test_ssh_login "${auth_method}"
+    _test_ssh_login gssapi-with-mic "${testuser}" gssapi-with-mic
 }
 
 test_gssapi_keyex_login() {
-    local auth_method="gssapi-keyex"
+    _test_ssh_login gssapi-keyex "${testuser}" gssapi-keyex
+}
 
-    _test_ssh_login "${auth_method}"
+test_gssapi_keyex_pubkey_fallback() {
+    # GSS-API key exchange for the wrong user, falling back to public key
+    # authentication for the right user.
+    _test_ssh_login gssapi-keyex "${testuser2}" publickey
 }
 
 setup
@@ -156,3 +163,4 @@ echo "## TESTS"
 echo
 run_test test_gssapi_login
 run_test test_gssapi_keyex_login
+run_test test_gssapi_keyex_pubkey_fallback
