@@ -25,7 +25,6 @@ Depends:
  krb5-admin-server,
  krb5-kdc,
  openssh-server-gssapi,
- sudo,
 
 Tests:
  socket-activation,
@@ -35,7 +34,6 @@ Restrictions:
  needs-root,
 Depends:
  openssh-server,
- sudo,
 
 Tests:
  xinetd,
@@ -45,5 +43,4 @@ Restrictions:
  needs-root,
 Depends:
  openssh-server,
- sudo,
  xinetd,

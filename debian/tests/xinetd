@@ -3,10 +3,10 @@ set -e
 
 testuser="testuser$$"
 adduser --quiet --disabled-password --gecos "" "$testuser"
-sudo -u "$testuser" mkdir -m700 "/home/$testuser/.ssh"
-sudo -u "$testuser" \
+runuser -u "$testuser" -- mkdir -m700 "/home/$testuser/.ssh"
+runuser -u "$testuser" -- \
 	ssh-keygen -t ed25519 -N '' -f "/home/$testuser/.ssh/id_ed25519"
-sudo -u "$testuser" \
+runuser -u "$testuser" -- \
 	cp "/home/$testuser/.ssh/id_ed25519.pub" \
 	"/home/$testuser/.ssh/authorized_keys"
 
@@ -48,5 +48,5 @@ EOF
 systemctl daemon-reload
 systemctl disable --now ssh.service
 systemctl reload xinetd.service
-sudo -u "$testuser" \
+runuser -u "$testuser" -- \
 	ssh -oStrictHostKeyChecking=accept-new "$testuser@localhost" date
