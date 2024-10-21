@@ -1,4 +1,4 @@
-openssh (1:9.9p1-2) UNRELEASED; urgency=medium
+openssh (1:9.9p1-2) unstable; urgency=medium
 
   * Don't prefer host-bound public key signatures if there was no initial
     host key, as is the case when using GSS-API key exchange (closes:
@@ -6,7 +6,7 @@ openssh (1:9.9p1-2) UNRELEASED; urgency=medium
   * Use runuser rather than sudo in autopkgtests where possible, avoiding a
     dependency.
 
- -- Colin Watson <cjwatson@debian.org>  Mon, 14 Oct 2024 16:54:53 +0100
+ -- Colin Watson <cjwatson@debian.org>  Mon, 21 Oct 2024 18:24:07 +0100
 
 openssh (1:9.9p1-1) unstable; urgency=medium
 
