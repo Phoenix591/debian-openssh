@@ -1,3 +1,10 @@
+openssh (1:9.9p1-3) UNRELEASED; urgency=medium
+
+  * Fix mlkem768x25519-sha256 key exchange algorithm on big-endian
+    architectures.
+
+ -- Colin Watson <cjwatson@debian.org>  Sun, 27 Oct 2024 12:51:46 +0000
+
 openssh (1:9.9p1-2) unstable; urgency=medium
 
   * Don't prefer host-bound public key signatures if there was no initial

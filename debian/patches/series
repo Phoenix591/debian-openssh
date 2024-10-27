@@ -27,3 +27,5 @@ skip-utimensat-test-on-zfs.patch
 regress-conch-dev-zero.patch
 configure-cache-vars.patch
 pam-avoid-unknown-host.patch
+mlkem768x25519-big-endian-1.patch
+mlkem768x25519-big-endian-2.patch
