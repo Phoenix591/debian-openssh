@@ -1,4 +1,4 @@
-From f98a5ab16134bcfbc346123a8f4573f82f9665f1 Mon Sep 17 00:00:00 2001
+From b966dccd427fba8f70e77cb1bed10e8f7393b3e3 Mon Sep 17 00:00:00 2001
 From: "djm@openbsd.org" <djm@openbsd.org>
 Date: Sun, 27 Oct 2024 02:06:59 +0000
 Subject: upstream: explicitly include endian.h

@@ -2,6 +2,7 @@ openssh (1:9.9p1-3) UNRELEASED; urgency=medium
 
   * Fix mlkem768x25519-sha256 key exchange algorithm on big-endian
     architectures.
+  * Drop patch to define MAXHOSTNAMELEN on GNU/Hurd (no longer needed).
 
  -- Colin Watson <cjwatson@debian.org>  Sun, 27 Oct 2024 12:51:46 +0000
 

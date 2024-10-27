@@ -1,4 +1,4 @@
-From 801df0d5b8366943828a0138cb87637f19c26c66 Mon Sep 17 00:00:00 2001
+From 15cbef581b3fec7ec182fad1c3cb874c60ca01b6 Mon Sep 17 00:00:00 2001
 From: "djm@openbsd.org" <djm@openbsd.org>
 Date: Sun, 27 Oct 2024 02:06:01 +0000
 Subject: upstream: fix ML-KEM768x25519 KEX on big-endian systems; spotted by

@@ -21,7 +21,6 @@ gnome-ssh-askpass2-icon.patch
 debian-config.patch
 restore-authorized_keys2.patch
 revert-ipqos-defaults.patch
-maxhostnamelen.patch
 systemd-socket-activation.patch
 skip-utimensat-test-on-zfs.patch
 regress-conch-dev-zero.patch

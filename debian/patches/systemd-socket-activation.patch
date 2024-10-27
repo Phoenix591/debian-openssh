@@ -1,4 +1,4 @@
-From 903d99f29389be5c768ef576ed5af43cb8a908de Mon Sep 17 00:00:00 2001
+From ea15be5452914d4dcf291228c73e7dfa4550537b Mon Sep 17 00:00:00 2001
 From: Steve Langasek <steve.langasek@ubuntu.com>
 Date: Thu, 1 Sep 2022 16:03:37 +0100
 Subject: Support systemd socket activation
