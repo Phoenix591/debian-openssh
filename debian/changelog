@@ -1,4 +1,4 @@
-openssh (1:9.9p2-1) UNRELEASED; urgency=medium
+openssh (1:9.9p2-1) unstable; urgency=medium
 
   * New upstream release:
     - CVE-2025-26465: ssh(1) in OpenSSH versions 6.8p1 to 9.9p1 (inclusive)
@@ -15,7 +15,7 @@ openssh (1:9.9p2-1) UNRELEASED; urgency=medium
     - sshd(8): fix the "Match invalid-user" predicate, which was matching
       incorrectly in the initial pass of config evaluation.
 
- -- Colin Watson <cjwatson@debian.org>  Tue, 18 Feb 2025 09:46:37 +0000
+ -- Colin Watson <cjwatson@debian.org>  Tue, 18 Feb 2025 10:13:10 +0000
 
 openssh (1:9.9p1-3) unstable; urgency=medium
 
