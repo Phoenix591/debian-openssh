@@ -1,4 +1,4 @@
-From bcafde3235b00794b6d7ee62b8687a786aa08d4f Mon Sep 17 00:00:00 2001
+From 545c1452e2a7c58563d70c4ad88bb3adde99130f Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:18 +0000
 Subject: Various Debian-specific configuration changes
@@ -48,10 +48,10 @@ Patch-Name: debian-config.patch
  7 files changed, 100 insertions(+), 10 deletions(-)
 
 diff --git a/readconf.c b/readconf.c
-index d3c3056ef..90bf74f32 100644
+index 7053ece9b..6ce77f640 100644
 --- a/readconf.c
 +++ b/readconf.c
-@@ -2773,7 +2773,7 @@ fill_default_options(Options * options)
+@@ -2791,7 +2791,7 @@ fill_default_options(Options * options)
  	if (options->forward_x11 == -1)
  		options->forward_x11 = 0;
  	if (options->forward_x11_trusted == -1)

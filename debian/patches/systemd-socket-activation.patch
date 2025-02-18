@@ -1,4 +1,4 @@
-From ea15be5452914d4dcf291228c73e7dfa4550537b Mon Sep 17 00:00:00 2001
+From 9f6346e72fe521d1d541b37dc9b9f0fd98fdf1a8 Mon Sep 17 00:00:00 2001
 From: Steve Langasek <steve.langasek@ubuntu.com>
 Date: Thu, 1 Sep 2022 16:03:37 +0100
 Subject: Support systemd socket activation
@@ -19,7 +19,7 @@ Patch-Name: systemd-socket-activation.patch
  2 files changed, 119 insertions(+), 15 deletions(-)
 
 diff --git a/configure.ac b/configure.ac
-index 90548dcfc..8b3a9776b 100644
+index ec19d8ebb..62d989ba4 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -940,6 +940,7 @@ int main(void) { if (NSVersionOfRunTimeLibrary("System") >= (60 << 16))

@@ -1,4 +1,4 @@
-From acf273b1eb60544826e13ffbd9967772c4f13e13 Mon Sep 17 00:00:00 2001
+From 1dce8eb1d74c508042e2d7ee2a4405a6870e6bf5 Mon Sep 17 00:00:00 2001
 From: Kees Cook <kees@debian.org>
 Date: Sun, 9 Feb 2014 16:10:06 +0000
 Subject: Add DebianBanner server configuration option
@@ -58,7 +58,7 @@ index cd6a40333..6a08023d0 100644
  struct kex *kex_new(void);
  int	 kex_ready(struct ssh *, char *[PROPOSAL_MAX]);
 diff --git a/servconf.c b/servconf.c
-index 1d5c143ba..49a066df8 100644
+index 707cb8872..825400d3a 100644
 --- a/servconf.c
 +++ b/servconf.c
 @@ -219,6 +219,7 @@ initialize_server_options(ServerOptions *options)
@@ -94,7 +94,7 @@ index 1d5c143ba..49a066df8 100644
  	{ NULL, sBadOption, 0 }
  };
  
-@@ -2725,6 +2730,10 @@ process_server_config_line_depth(ServerOptions *options, char *line,
+@@ -2754,6 +2759,10 @@ process_server_config_line_depth(ServerOptions *options, char *line,
  		multistate_ptr = multistate_flag;
  		goto parse_multistate;
  
@@ -105,7 +105,7 @@ index 1d5c143ba..49a066df8 100644
  	case sDeprecated:
  	case sIgnore:
  	case sUnsupported:
-@@ -3278,6 +3287,7 @@ dump_config(ServerOptions *o)
+@@ -3307,6 +3316,7 @@ dump_config(ServerOptions *o)
  	dump_cfg_fmtint(sFingerprintHash, o->fingerprint_hash);
  	dump_cfg_fmtint(sExposeAuthInfo, o->expose_userauth_info);
  	dump_cfg_fmtint(sRefuseConnection, o->refuse_connection);

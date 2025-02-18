@@ -1,4 +1,4 @@
-From d927628a5a54212ba64b7a703a25d63aab0fb3a3 Mon Sep 17 00:00:00 2001
+From 3276673b8fdfb8a8f805a0d25c75b729fb319508 Mon Sep 17 00:00:00 2001
 From: Richard Kettlewell <rjk@greenend.org.uk>
 Date: Sun, 9 Feb 2014 16:09:52 +0000
 Subject: Various keepalive extensions
@@ -26,7 +26,7 @@ Patch-Name: keepalive-extensions.patch
  3 files changed, 34 insertions(+), 4 deletions(-)
 
 diff --git a/readconf.c b/readconf.c
-index 08342f2a2..f78786964 100644
+index 8e59864c2..3227e387b 100644
 --- a/readconf.c
 +++ b/readconf.c
 @@ -182,6 +182,7 @@ typedef enum {
@@ -46,7 +46,7 @@ index 08342f2a2..f78786964 100644
  
  	{ NULL, oBadOption }
  };
-@@ -1166,6 +1169,7 @@ process_config_line_depth(Options *options, struct passwd *pw, const char *host,
+@@ -1184,6 +1187,7 @@ process_config_line_depth(Options *options, struct passwd *pw, const char *host,
  		argv_consume(&ac);
  		break;
  	case oConnectTimeout:
@@ -54,7 +54,7 @@ index 08342f2a2..f78786964 100644
  		intptr = &options->connection_timeout;
  parse_time:
  		arg = argv_next(&ac, &av);
-@@ -1908,6 +1912,7 @@ parse_pubkey_algos:
+@@ -1926,6 +1930,7 @@ parse_pubkey_algos:
  		goto parse_flag;
  
  	case oServerAliveInterval:
@@ -62,7 +62,7 @@ index 08342f2a2..f78786964 100644
  		intptr = &options->server_alive_interval;
  		goto parse_time;
  
-@@ -2893,8 +2898,13 @@ fill_default_options(Options * options)
+@@ -2911,8 +2916,13 @@ fill_default_options(Options * options)
  		options->rekey_interval = 0;
  	if (options->verify_host_key_dns == -1)
  		options->verify_host_key_dns = 0;

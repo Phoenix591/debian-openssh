@@ -1,4 +1,4 @@
-From 83dc570f464527322534494bcb75ad068c8d39e5 Mon Sep 17 00:00:00 2001
+From 451efaed6d70c5638696276e7d10cf1361f70406 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Wed, 3 Apr 2024 11:52:04 +0100
 Subject: Add Autoconf cache variables for OSSH_CHECK_*FLAG_*
