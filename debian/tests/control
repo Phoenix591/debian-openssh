@@ -3,7 +3,7 @@ Tests:
 Restrictions:
  allow-stderr,
  isolation-container,
- needs-root,
+ needs-sudo,
 Depends:
  devscripts,
  dropbear,
@@ -31,7 +31,7 @@ Tests:
 Restrictions:
  allow-stderr,
  isolation-container,
- needs-root,
+ needs-sudo,
 Depends:
  openssh-server,
 
@@ -40,7 +40,7 @@ Tests:
 Restrictions:
  allow-stderr,
  isolation-container,
- needs-root,
+ needs-sudo,
 Depends:
  openssh-server,
  xinetd,
