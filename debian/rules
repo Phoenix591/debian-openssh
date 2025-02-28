@@ -195,6 +195,10 @@ override_dh_installdocs:
 override_dh_installinit:
 	dh_installinit -R --name ssh
 
+# Can be dropped in compat level 14
+execute_after_dh_installinit:
+	dh_installsysusers
+
 override_dh_installsystemd:
 	dh_installsystemd -popenssh-server ssh.service
 	dh_installsystemd -popenssh-server --no-enable ssh.socket
