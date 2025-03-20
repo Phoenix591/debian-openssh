@@ -35,7 +35,7 @@ Patch-Name: gssapi.patch
  configure.ac    |  24 ++
  gss-genr.c      | 297 +++++++++++++++++++++++-
  gss-serv-krb5.c |  87 ++++++-
- gss-serv.c      | 200 ++++++++++++++--
+ gss-serv.c      | 202 ++++++++++++++--
  kex-names.c     |  62 ++++-
  kex.c           |   4 +
  kex.h           |  29 +++
@@ -65,7 +65,7 @@ Patch-Name: gssapi.patch
  sshd_config.5   |  30 +++
  sshkey.c        |   8 +-
  sshkey.h        |   1 +
- 40 files changed, 2670 insertions(+), 73 deletions(-)
+ 40 files changed, 2671 insertions(+), 74 deletions(-)
  create mode 100644 kexgssc.c
  create mode 100644 kexgsss.c
  create mode 100644 ssh-null.c
@@ -959,7 +959,8 @@ index 025a118f8..a5cca7973 100644
 +	int equal = 0;
 +	gss_name_t new_name = GSS_C_NO_NAME;
 +	gss_buffer_desc ename = GSS_C_EMPTY_BUFFER;
-+
+ 
+-	gss_buffer_desc ename;
 +	if (options.gss_store_rekey && client->used && ctx->client_creds) {
 +		if (client->mech->oid.length != ctx->oid->length ||
 +		    (memcmp(client->mech->oid.elements,
@@ -967,8 +968,7 @@ index 025a118f8..a5cca7973 100644
 +			debug("Rekeyed credentials have different mechanism");
 +			return GSS_S_COMPLETE;
 +		}
- 
--	gss_buffer_desc ename;
++
 +		if ((ctx->major = gss_inquire_cred_by_mech(&ctx->minor,
 +		    ctx->client_creds, ctx->oid, &new_name,
 +		    NULL, NULL, NULL))) {
@@ -1085,6 +1085,9 @@ index 025a118f8..a5cca7973 100644
 -/* Privileged */
 -OM_uint32
 -ssh_gssapi_checkmic(Gssctxt *ctx, gss_buffer_t gssbuf, gss_buffer_t gssmic)
+-{
+-	ctx->major = gss_verify_mic(&ctx->minor, ctx->context,
+-	    gssbuf, gssmic, NULL);
 +/* These bits are only used for rekeying. The unpriviledged child is running
 + * as the user, the monitor is root.
 + *
@@ -1092,20 +1095,18 @@ index 025a118f8..a5cca7973 100644
 + *    *) Ask the monitor to store our credentials into the store we specify
 + *    *) If it succeeds, maybe do a PAM update
 + */
-+
+ 
+-	return (ctx->major);
 +/* Stuff for PAM */
 +
 +#ifdef USE_PAM
 +static int ssh_gssapi_simple_conv(int n, const struct pam_message **msg,
 +    struct pam_response **resp, void *data)
- {
--	ctx->major = gss_verify_mic(&ctx->minor, ctx->context,
--	    gssbuf, gssmic, NULL);
++{
 +	return (PAM_CONV_ERR);
 +}
 +#endif
- 
--	return (ctx->major);
++
 +void
 +ssh_gssapi_rekey_creds(void) {
 +	int ok;

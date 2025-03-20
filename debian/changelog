@@ -2,6 +2,8 @@ openssh (1:9.9p2-2) UNRELEASED; urgency=medium
 
   * Simplify most autopkgtests using needs-sudo restriction.
   * Remove obsolete slogin symlink (closes: #1098760).
+  * Check if dbclient supports SHA1 before trying SHA1-based KEX (closes:
+    #1100948).
 
  -- Colin Watson <cjwatson@debian.org>  Thu, 20 Feb 2025 14:32:32 +0000
 
