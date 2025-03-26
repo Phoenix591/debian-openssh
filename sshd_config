@@ -109,8 +109,8 @@ PrintMotd no
 # no default banner path
 #Banner none
 
-# Allow client to pass locale environment variables
-AcceptEnv LANG LC_*
+# Allow client to pass locale and color environment variables
+AcceptEnv LANG LC_* COLORTERM NO_COLOR
 
 # override default of no subsystems
 Subsystem	sftp	/usr/lib/openssh/sftp-server

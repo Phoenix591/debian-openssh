@@ -1,4 +1,4 @@
-From f9f8970756a601f30c97d079d6ff99751b0c9334 Mon Sep 17 00:00:00 2001
+From 8e492f2f5e8633eb4a60687c039839ed48a2c482 Mon Sep 17 00:00:00 2001
 From: "dtucker@openbsd.org" <dtucker@openbsd.org>
 Date: Tue, 11 Mar 2025 07:42:08 +0000
 Subject: upstream: Check if dbclient supports SHA1 before trying SHA1-based

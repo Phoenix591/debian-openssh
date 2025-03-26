@@ -1,4 +1,4 @@
-From 545c1452e2a7c58563d70c4ad88bb3adde99130f Mon Sep 17 00:00:00 2001
+From 40add5588253d9d69713caba03bfeb0227d5d298 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:18 +0000
 Subject: Various Debian-specific configuration changes
@@ -6,7 +6,8 @@ Subject: Various Debian-specific configuration changes
 ssh: Enable ForwardX11Trusted, returning to earlier semantics which cause
 fewer problems with existing setups (http://bugs.debian.org/237021).
 
-ssh: Set 'SendEnv LANG LC_*' by default (http://bugs.debian.org/264024).
+ssh: Set 'SendEnv LANG LC_* COLORTERM NO_COLOR' by default
+(http://bugs.debian.org/264024).
 
 ssh: Enable HashKnownHosts by default to try to limit the spread of ssh
 worms.
@@ -20,7 +21,7 @@ PrintMotd.
 
 sshd: Enable X11Forwarding.
 
-sshd: Set 'AcceptEnv LANG LC_*' by default.
+sshd: Set 'AcceptEnv LANG LC_* COLORTERM NO_COLOR' by default.
 
 sshd: Change sftp subsystem path to /usr/lib/openssh/sftp-server.
 
@@ -33,8 +34,9 @@ regress: Run tests with 'UsePAM yes', to match sshd_config.
 Document all of this.
 
 Author: Russ Allbery <rra@debian.org>
+Author: Luca Boccassi <bluca@debian.org>
 Forwarded: not-needed
-Last-Update: 2024-07-03
+Last-Update: 2025-03-26
 
 Patch-Name: debian-config.patch
 ---
@@ -115,7 +117,7 @@ index 3ad246c27..9ca6e18e2 100644
  Send log information using the
  .Xr syslog 3
 diff --git a/ssh_config b/ssh_config
-index 16197d15d..92d06ef38 100644
+index 16197d15d..fc7930bfc 100644
 --- a/ssh_config
 +++ b/ssh_config
 @@ -17,9 +17,12 @@
@@ -136,11 +138,11 @@ index 16197d15d..92d06ef38 100644
  #   ProxyCommand ssh -q -W %h:%p gateway.example.com
  #   RekeyLimit 1G 1h
  #   UserKnownHostsFile ~/.ssh/known_hosts.d/%k
-+    SendEnv LANG LC_*
++    SendEnv LANG LC_* COLORTERM NO_COLOR
 +    HashKnownHosts yes
 +    GSSAPIAuthentication yes
 diff --git a/ssh_config.5 b/ssh_config.5
-index 86258eb4f..9adc0fdb7 100644
+index 86258eb4f..4a0f721cb 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
 @@ -71,6 +71,29 @@ Since the first obtained value for each parameter is used, more
@@ -158,7 +160,7 @@ index 86258eb4f..9adc0fdb7 100644
 +.It
 +.Cm Include /etc/ssh/ssh_config.d/*.conf
 +.It
-+.Cm SendEnv No LANG LC_*
++.Cm SendEnv No LANG LC_* COLORTERM NO_COLOR
 +.It
 +.Cm HashKnownHosts No yes
 +.It
@@ -188,7 +190,7 @@ index 86258eb4f..9adc0fdb7 100644
  from stealing or tampering with data belonging to trusted X11
  clients.
 diff --git a/sshd_config b/sshd_config
-index ecfe8d026..677f97d5d 100644
+index ecfe8d026..9d631cfef 100644
 --- a/sshd_config
 +++ b/sshd_config
 @@ -10,6 +10,8 @@
@@ -236,8 +238,8 @@ index ecfe8d026..677f97d5d 100644
  # no default banner path
  #Banner none
  
-+# Allow client to pass locale environment variables
-+AcceptEnv LANG LC_*
++# Allow client to pass locale and color environment variables
++AcceptEnv LANG LC_* COLORTERM NO_COLOR
 +
  # override default of no subsystems
 -Subsystem	sftp	/usr/libexec/sftp-server
@@ -246,7 +248,7 @@ index ecfe8d026..677f97d5d 100644
  # Example of overriding settings on a per-user basis
  #Match User anoncvs
 diff --git a/sshd_config.5 b/sshd_config.5
-index e177e4af8..2887ed531 100644
+index e177e4af8..658f0b4af 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
 @@ -56,6 +56,35 @@ Arguments may optionally be enclosed in double quotes
@@ -270,7 +272,7 @@ index e177e4af8..2887ed531 100644
 +.It
 +.Cm PrintMotd No no
 +.It
-+.Cm AcceptEnv No LANG LC_*
++.Cm AcceptEnv No LANG LC_* COLORTERM NO_COLOR
 +.It
 +.Cm Subsystem No sftp /usr/lib/openssh/sftp-server
 +.It

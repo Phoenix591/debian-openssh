@@ -1,3 +1,10 @@
+openssh (1:9.9p2-3) UNRELEASED; urgency=medium
+
+  [ Luca Boccassi ]
+  * Add COLORTERM NO_COLOR to SendEnv and AcceptEnv.
+
+ -- Colin Watson <cjwatson@debian.org>  Wed, 26 Mar 2025 11:42:10 +0000
+
 openssh (1:9.9p2-2) unstable; urgency=medium
 
   * Simplify most autopkgtests using needs-sudo restriction.
