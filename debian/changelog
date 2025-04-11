@@ -1,4 +1,4 @@
-openssh (1:10.0p1-1) UNRELEASED; urgency=medium
+openssh (1:10.0p1-1) unstable; urgency=medium
 
   [ Luca Boccassi ]
   * Add COLORTERM NO_COLOR to SendEnv and AcceptEnv.
@@ -136,7 +136,7 @@ openssh (1:10.0p1-1) UNRELEASED; urgency=medium
       --with-linux-memlock-onfault configure flag.
   * Configure --with-linux-memlock-onfault on Linux.
 
- -- Colin Watson <cjwatson@debian.org>  Wed, 26 Mar 2025 11:42:10 +0000
+ -- Colin Watson <cjwatson@debian.org>  Fri, 11 Apr 2025 16:00:55 +0100
 
 openssh (1:9.9p2-2) unstable; urgency=medium
 
