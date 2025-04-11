@@ -134,6 +134,7 @@ openssh (1:10.0p1-1) UNRELEASED; urgency=medium
     - sshd(8): add wtmpdb support as a Y2038 safe wtmp replacement.
     - sshd(8): add support for locking sshd into memory, enabled with the
       --with-linux-memlock-onfault configure flag.
+  * Configure --with-linux-memlock-onfault on Linux.
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 26 Mar 2025 11:42:10 +0000
 

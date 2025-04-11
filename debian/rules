@@ -87,6 +87,7 @@ ifeq ($(DEB_HOST_ARCH_OS),linux)
 confflags += --with-selinux
 confflags += --with-audit=linux
 confflags += --with-security-key-builtin
+confflags += --with-linux-memlock-onfault
 endif
 
 # The deb build wants xauth; the udeb build doesn't.
