@@ -133,6 +133,13 @@ ifeq ($(filter noudeb,$(DEB_BUILD_PROFILES)),)
 	cd debian/build-udeb && ./config.status
 endif
 
+	# Nothing reads /var/log/btmp any more (see
+	# https://bugs.debian.org/1072184).
+	perl -pi -e 's,.*#define USE_BTMP .*,/* #undef USE_BTMP */,' debian/build-deb/config.h
+ifeq ($(filter noudeb,$(DEB_BUILD_PROFILES)),)
+	perl -pi -e 's,.*#define USE_BTMP .*,/* #undef USE_BTMP */,' debian/build-udeb/config.h
+endif
+
 override_dh_auto_configure-indep:
 
 override_dh_auto_build-arch:
