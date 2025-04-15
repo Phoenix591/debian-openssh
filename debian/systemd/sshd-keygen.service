@@ -11,4 +11,4 @@ RemainAfterExit=yes
 ExecStart=ssh-keygen -A
 
 [Install]
-WantedBy=ssh.service sshd.service sshd@.service ssh.socket sshd.socket
+WantedBy=ssh.service sshd.service sshd@.service ssh.socket
