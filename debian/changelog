@@ -2,6 +2,7 @@ openssh (1:10.0p1-2) UNRELEASED; urgency=medium
 
   [ Colin Watson ]
   * Disable --with-linux-memlock-onfault on riscv64.
+  * Build with wtmpdb (see #1102643).
 
   [ Daniel Kahn Gillmor ]
   * Improve systemd user service socket activation (closes: #961311,
