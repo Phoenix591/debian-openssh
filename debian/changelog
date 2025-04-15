@@ -1,6 +1,11 @@
 openssh (1:10.0p1-2) UNRELEASED; urgency=medium
 
+  [ Colin Watson ]
   * Disable --with-linux-memlock-onfault on riscv64.
+
+  [ Daniel Kahn Gillmor ]
+  * Improve systemd user service socket activation (closes: #961311,
+    #1039919, #1103037).
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 15 Apr 2025 01:50:38 +0100
 

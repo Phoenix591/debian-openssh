@@ -34,3 +34,4 @@ debian/openssh-client.apport => usr/share/apport/package-hooks/openssh-client.py
 
 # systemd user unit (only used under sessions)
 debian/systemd/ssh-agent.service usr/lib/systemd/user
+debian/systemd/ssh-agent.socket usr/lib/systemd/user
