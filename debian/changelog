@@ -7,6 +7,9 @@ openssh (1:10.0p1-2) UNRELEASED; urgency=medium
   * Improve systemd user service socket activation (closes: #961311,
     #1039919, #1103037).
 
+  [ Luca Boccassi ]
+  * Switch from adduser to sysusers.d.
+
  -- Colin Watson <cjwatson@debian.org>  Tue, 15 Apr 2025 01:50:38 +0100
 
 openssh (1:10.0p1-1) unstable; urgency=medium
