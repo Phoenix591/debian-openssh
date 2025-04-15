@@ -1,4 +1,4 @@
-openssh (1:10.0p1-2) UNRELEASED; urgency=medium
+openssh (1:10.0p1-2) unstable; urgency=medium
 
   [ Colin Watson ]
   * Disable --with-linux-memlock-onfault on riscv64.
@@ -16,7 +16,7 @@ openssh (1:10.0p1-2) UNRELEASED; urgency=medium
   * Switch from adduser to sysusers.d.
   * Add sshd-keygen service.
 
- -- Colin Watson <cjwatson@debian.org>  Tue, 15 Apr 2025 01:50:38 +0100
+ -- Colin Watson <cjwatson@debian.org>  Tue, 15 Apr 2025 14:19:35 +0100
 
 openssh (1:10.0p1-1) unstable; urgency=medium
 
