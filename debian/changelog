@@ -5,6 +5,8 @@ openssh (1:10.0p1-2) UNRELEASED; urgency=medium
   * Build with wtmpdb (see #1102643).
   * Stop writing /var/log/btmp, since nothing reads it any more (closes:
     #1072184).
+  * Restore some rdomain references in sshd_config(5) where they're
+    supported on Linux, referring to ip-vrf(8) (closes: #1095686).
 
   [ Daniel Kahn Gillmor ]
   * Improve systemd user service socket activation (closes: #961311,

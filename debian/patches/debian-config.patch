@@ -1,4 +1,4 @@
-From 662269090001abe5664ae48da8a0d15d52930424 Mon Sep 17 00:00:00 2001
+From 5fbe366def6557d221b9d955b7ab9bfbe88fd2b3 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:18 +0000
 Subject: Various Debian-specific configuration changes
@@ -250,7 +250,7 @@ index 6ddae0370..01e8d9098 100644
  # Example of overriding settings on a per-user basis
  #Match User anoncvs
 diff --git a/sshd_config.5 b/sshd_config.5
-index cb81ac6b8..e309daabd 100644
+index 80a75fbb7..a5594102f 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
 @@ -56,6 +56,35 @@ Arguments may optionally be enclosed in double quotes
@@ -289,7 +289,7 @@ index cb81ac6b8..e309daabd 100644
  The possible
  keywords and their meanings are as follows (note that
  keywords are case-insensitive and arguments are case-sensitive):
-@@ -1870,14 +1899,14 @@ Overrides the default path to the
+@@ -1889,14 +1918,14 @@ Overrides the default path to the
  .Cm sshd-auth
  binary that is invoked to complete user authentication.
  The default is
