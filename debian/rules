@@ -203,6 +203,7 @@ override_dh_installsystemd:
 	dh_installsystemd -popenssh-server ssh.service
 	dh_installsystemd -popenssh-server --no-enable ssh.socket
 	dh_installsystemd -popenssh-server --no-start rescue-ssh.target
+	dh_installsystemd -popenssh-server sshd-keygen.service
 
 debian/openssh-server.sshd.pam: debian/openssh-server.sshd.pam.in
 ifeq ($(DEB_HOST_ARCH_OS),linux)
