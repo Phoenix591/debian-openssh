@@ -87,7 +87,11 @@ ifeq ($(DEB_HOST_ARCH_OS),linux)
 confflags += --with-selinux
 confflags += --with-audit=linux
 confflags += --with-security-key-builtin
+# On riscv64, this causes failures in ed25519-sk keytype tests, for unclear
+# reasons.
+ifneq ($(DEB_HOST_ARCH),riscv64)
 confflags += --with-linux-memlock-onfault
+endif
 endif
 
 # The deb build wants xauth; the udeb build doesn't.
