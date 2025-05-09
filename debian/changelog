@@ -1,9 +1,9 @@
-openssh (1:10.0p1-4) UNRELEASED; urgency=medium
+openssh (1:10.0p1-4) unstable; urgency=medium
 
   [ Daniel Kahn Gillmor ]
   * Add Requires=ssh-agent.socket to ssh-agent.service (closes: #1103522).
 
- -- Colin Watson <cjwatson@debian.org>  Fri, 09 May 2025 10:15:24 +0100
+ -- Colin Watson <cjwatson@debian.org>  Fri, 09 May 2025 10:16:45 +0100
 
 openssh (1:10.0p1-3) unstable; urgency=medium
 
