@@ -74,6 +74,10 @@ ifeq ($(DEB_HOST_ARCH),ppc64el)
 confflags += ossh_cv_cflag__fzero_call_used_regs_used=no
 endif
 
+# passwd isn't otherwise needed and may not be installed at build time.
+# Ensure that sshd knows its path.
+confflags += PATH_PASSWD_PROG=/usr/bin/passwd
+
 # Everything above here is common to the deb and udeb builds.
 confflags_udeb := $(confflags)
 
