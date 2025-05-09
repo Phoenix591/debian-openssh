@@ -1,9 +1,9 @@
-openssh (1:10.0p1-5) UNRELEASED; urgency=medium
+openssh (1:10.0p1-5) unstable; urgency=medium
 
   * Ensure that configure knows the path to passwd; fixes reproducibility of
     openssh-tests.
 
- -- Colin Watson <cjwatson@debian.org>  Fri, 09 May 2025 13:35:05 +0100
+ -- Colin Watson <cjwatson@debian.org>  Fri, 09 May 2025 13:40:49 +0100
 
 openssh (1:10.0p1-4) unstable; urgency=medium
 
