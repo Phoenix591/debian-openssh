@@ -40,8 +40,6 @@ Depends:
  ${shlibs:Depends},
 Recommends:
  xauth,
-Conflicts:
- sftp,
 Breaks:
  openssh-sk-helper,
 Replaces:
@@ -126,10 +124,6 @@ Recommends:
  ncurses-term,
  xauth,
  ${openssh-server:Recommends},
-Conflicts:
- sftp,
- ssh-socks,
- ssh2,
 Replaces:
  openssh-client (<< 1:7.9p1-8),
  ssh,

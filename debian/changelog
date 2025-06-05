@@ -1,3 +1,9 @@
+openssh (1:10.0p1-6) UNRELEASED; urgency=medium
+
+  * Remove some long-obsolete Conflicts (closes: #54243).
+
+ -- Colin Watson <cjwatson@debian.org>  Thu, 05 Jun 2025 02:53:41 +0100
+
 openssh (1:10.0p1-5) unstable; urgency=medium
 
   * Ensure that configure knows the path to passwd; fixes reproducibility of
