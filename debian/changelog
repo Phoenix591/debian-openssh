@@ -1,6 +1,9 @@
 openssh (1:10.0p1-6) UNRELEASED; urgency=medium
 
   * Remove some long-obsolete Conflicts (closes: #54243).
+  * Temporarily divert /usr/sbin/sshd during upgrades from before
+    1:9.8p1-1~, to avoid new connections failing between unpack and
+    configure (closes: #1109742).
 
  -- Colin Watson <cjwatson@debian.org>  Thu, 05 Jun 2025 02:53:41 +0100
 
