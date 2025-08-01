@@ -1,8 +1,8 @@
-openssh (1:10.0p1-7) UNRELEASED; urgency=medium
+openssh (1:10.0p1-7) unstable; urgency=medium
 
   * Make postinst logic for cleaning up the sshd diversion more robust.
 
- -- Colin Watson <cjwatson@debian.org>  Fri, 01 Aug 2025 15:48:53 +0100
+ -- Colin Watson <cjwatson@debian.org>  Fri, 01 Aug 2025 16:02:27 +0100
 
 openssh (1:10.0p1-6) unstable; urgency=medium
 
