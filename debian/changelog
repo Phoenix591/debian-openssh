@@ -1,6 +1,8 @@
 openssh (1:10.0p1-8) UNRELEASED; urgency=medium
 
   * Remove some long-obsolete Conflicts (closes: #54243).
+  * Fix mistracking of MaxStartups process exits in some situations (closes:
+    #1080350).
 
  -- Colin Watson <cjwatson@debian.org>  Fri, 01 Aug 2025 16:13:52 +0100
 
