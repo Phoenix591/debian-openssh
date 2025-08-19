@@ -17,7 +17,6 @@ Build-Depends:
  libselinux1-dev [linux-any],
  libssl-dev (>= 1.1.1),
  libwrap0-dev | libwrap-dev,
- libwtmpdb-dev,
  pkgconf,
  zlib1g-dev,
 Standards-Version: 4.6.2
