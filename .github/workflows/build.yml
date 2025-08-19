@@ -1,0 +1,65 @@
+name: Build Ubuntu 24.04 pkg of latest openssh
+env:
+  TAR_REPRO_OPTS: '"--mtime=2024-01-01 00:00 UTC" --sort=name  --owner=0 --group=0 --numeric-owner'
+  TAR_NAME: ${{ github.event.repository.name }}-${{ github.ref_name }}-vendor.tar.xz
+  CHECKOUT_DIR: ${{ github.event.repository.name }}-${{ github.ref_name }}
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+
+  Build_package:
+    runs-on: ubuntu-24.04-arm
+    permissions:
+      contents: write
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        path: ${{ env.CHECKOUT_DIR }}
+
+    - name: Update repo
+      run: sudo apt-get update
+
+    - name: Install build essential
+      run: sudo apt-get install -y build-essential devscripts fakeroot equivs
+
+    - name: Install openssh specific deps
+      run: |
+          sudo mk-build-deps -i
+          rm openssh-build*
+      working-directory: ${{ env.CHECKOUT_DIR }}
+
+    - name: Download OpenSSH Source Files
+      working-directory: ${{ env.CHECKOUT_DIR }}
+      run: |
+          FULLVER=$(head -n1 debian/changelog | awk '{ split($2, a, /[:()]/); print a[3] }')
+          UPSTREAM=${FULLVER%-*}
+          DEB_REV=${FULLVER##*-}
+          
+          DSC_URL="https://deb.debian.org/debian/pool/main/o/openssh/openssh_${FULLVER}.dsc"
+          ORIG_TAR_URL="https://deb.debian.org/debian/pool/main/o/openssh/openssh_${UPSTREAM}.orig.tar.gz"
+          ASC_URL="https://deb.debian.org/debian/pool/main/o/openssh/openssh_${UPSTREAM}.orig.tar.gz.asc"
+          cd ..
+          echo "Downloading files for version: $FULLVER"
+          wget "$DSC_URL"
+          wget "$ORIG_TAR_URL"
+          wget "$ASC_URL"
+
+    - name: Build package
+      run: |
+          rm .github/workflows/build.yml
+          dpkg-buildpackage -uc
+      working-directory: ${{ env.CHECKOUT_DIR }}
+
+    - name: release
+      run: |
+            gh release create ${{ github.ref_name }} \
+                --title "${{ github.ref_name }}" \
+                --notes "backported openssh build for personal use" \
+                ../*.deb
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      working-directory: ${{ env.CHECKOUT_DIR }}
