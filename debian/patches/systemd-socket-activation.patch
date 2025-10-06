@@ -1,4 +1,4 @@
-From aa7d7ffcefa83f6a524da54a10cd9026b6012695 Mon Sep 17 00:00:00 2001
+From 4eeda965e3f2256fd3458e0387ec695a55d320ea Mon Sep 17 00:00:00 2001
 From: Steve Langasek <steve.langasek@ubuntu.com>
 Date: Thu, 1 Sep 2022 16:03:37 +0100
 Subject: Support systemd socket activation
@@ -19,10 +19,10 @@ Patch-Name: systemd-socket-activation.patch
  2 files changed, 118 insertions(+), 14 deletions(-)
 
 diff --git a/configure.ac b/configure.ac
-index 06ad5c78a..75e50acf3 100644
+index 761c5ee95..264f867f1 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -974,6 +974,7 @@ int main(void) { if (NSVersionOfRunTimeLibrary("System") >= (60 << 16))
+@@ -1000,6 +1000,7 @@ int main(void) { if (NSVersionOfRunTimeLibrary("System") >= (60 << 16))
  	)
  
  	AC_DEFINE([SYSTEMD_NOTIFY], [1], [Have sshd notify systemd on start/reload])
@@ -31,11 +31,11 @@ index 06ad5c78a..75e50acf3 100644
  	case `uname -r` in
  	1.*|2.0.*)
 diff --git a/sshd.c b/sshd.c
-index c9ea8e385..802cbe760 100644
+index 3ab81e268..7ba0f753a 100644
 --- a/sshd.c
 +++ b/sshd.c
-@@ -96,9 +96,17 @@
- #include "atomicio.h"
+@@ -92,9 +92,17 @@
+ #include "monitor_wrap.h"
  
  /* Re-exec fds */
 -#define REEXEC_DEVCRYPTO_RESERVED_FD	(STDERR_FILENO + 1)
@@ -55,7 +55,7 @@ index c9ea8e385..802cbe760 100644
  
  extern char *__progname;
  
-@@ -802,6 +810,88 @@ send_rexec_state(int fd)
+@@ -801,6 +809,88 @@ send_rexec_state(int fd)
  	exit(0);
  }
  
@@ -144,7 +144,7 @@ index c9ea8e385..802cbe760 100644
  /*
   * Listen for TCP connections
   */
-@@ -881,6 +971,9 @@ static void
+@@ -880,6 +970,9 @@ static void
  server_listen(void)
  {
  	u_int i;
@@ -154,7 +154,7 @@ index c9ea8e385..802cbe760 100644
  
  	/* Initialise per-source limit tracking. */
  	srclimit_init(options.max_startups,
-@@ -890,17 +983,27 @@ server_listen(void)
+@@ -889,17 +982,27 @@ server_listen(void)
  	    &options.per_source_penalty,
  	    options.per_source_penalty_exempt);
  
@@ -192,7 +192,7 @@ index c9ea8e385..802cbe760 100644
  	if (!num_listen_socks)
  		fatal("Cannot bind any address.");
  }
-@@ -1461,7 +1564,7 @@ main(int ac, char **av)
+@@ -1463,7 +1566,7 @@ main(int ac, char **av)
  	if (!test_flag && !inetd_flag && !do_dump_cfg && !path_absolute(av[0]))
  		fatal("sshd requires execution with an absolute path");
  

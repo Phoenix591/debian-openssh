@@ -1,7 +1,90 @@
-openssh (1:10.0p1-9) UNRELEASED; urgency=medium
+openssh (1:10.1p1-1) UNRELEASED; urgency=medium
 
   [ Allison Karlitskaya ]
   * sshd@.service: Support ephemeral keys from VM/container hosts.
+
+  [ Colin Watson ]
+  * New upstream release:
+    - ssh(1): add a warning when the connection negotiates a non-post
+      quantum key agreement algorithm.
+    - ssh(1), sshd(8): major changes to handling of DSCP marking/IPQoS: by
+      default, interactive traffic is assigned to the EF (Expedited
+      Forwarding) class, while non-interactive traffic uses the operating
+      system default DSCP marking.
+    - ssh(1), sshd(8): deprecate support for IPv4 type-of-service (ToS)
+      keywords in the IPQoS configuration directive.
+    - ssh-add(1): when adding certificates to an agent, set the expiry to
+      the certificate expiry time plus a short (5 min) grace period.
+    - All: remove experimental support for XMSS keys.
+    - ssh-agent(1), sshd(8): move agent listener sockets from /tmp to under
+      ~/.ssh/agent for both ssh-agent(1) and forwarded sockets in sshd(8).
+    - ssh(1): disallow control characters in usernames passed via the
+      commandline or expanded using %-sequences from the configuration file,
+      and disallow \0 characters in ssh:// URIs.
+    - ssh(1), sshd(8): add SIGINFO handlers to log active channel and
+      session information.
+    - sshd(8): when refusing a certificate for user authentication, log
+      enough information to identify the certificate in addition to the
+      reason why it was being denied. Makes debugging certificate
+      authorisation problems a bit easier.
+    - ssh(1), ssh-agent(1): support ed25519 keys hosted on PKCS#11 tokens.
+    - ssh(1): add an ssh_config(5) RefuseConnection option that, when
+      encountered while processing an active section in a configuration,
+      terminates ssh(1) with an error message that contains the argument to
+      the option.
+    - sshd(8): make the X11 display number check relative to
+      X11DisplayOffset. This will allow people to use X11DisplayOffset to
+      configure much higher port ranges if they really want, while not
+      changing the default behaviour.
+    - ssh(1): fix delay on X client startup when ObscureKeystrokeTiming is
+      enabled.
+    - sshd(8): increase the maximum size of the supported configuration from
+      256KB to 4MB, which ought to be enough for anybody. Fail early and
+      visibly when this limit is breached.
+    - sftp(1): during sftp uploads, avoid a condition where a failed write
+      could be ignored if a subsequent write succeeded. This is unlikely but
+      technically possible because sftp servers are allowed to reorder
+      requests.
+    - sshd(8): avoid a race condition when the sshd-auth process exits that
+      could cause a spurious error message to be logged.
+    - sshd(8): log at level INFO when PerSourcePenalties actually blocks
+      access to a source address range. Previously this was logged at level
+      VERBOSE, which hid enforcement actions under default config settings.
+    - sshd(8): Make the MaxStartups and PerSourceNetBlockSize options
+      first-match-wins as advertised.
+    - ssh(1): fix an incorrect return value check in the local forward
+      cancellation path that would cause failed cancellations not to be
+      logged.
+    - sshd(8): make "Match !final" not trigger a second parsing pass of
+      ssh_config (unless hostname canonicalisation or a separate "Match
+      final" does).
+    - ssh(1): better debug diagnostics when loading keys. Will now list key
+      fingerprint and algorithm (not just algorithm number) as well as
+      making it explicit which keys didn't load.
+    - All: fix a number of memory leaks found by LeakSanitizer, Coverity and
+      manual inspection.
+    - sshd(8): Output the current name for PermitRootLogin's
+      "prohibit-password" in sshd -T instead of its deprecated alias
+      "without-password" (closes: #1095922).
+    - ssh(1): make writing known_hosts lines more atomic by writing the
+      entire line in one operation and using unbuffered stdio.
+    - sshd(8): check the username didn't change during the PAM transactions.
+    - sshd(8): don't log audit messages with UNKNOWN hostname to avoid slow
+      DNS lookups in the audit subsystem.
+    - All: when making a copy of struct passwd, ensure struct fields are
+      non-NULL.
+    - sshd(8): handle futex_time64 properly in seccomp sandbox.
+    - Add contrib/gnome-ssh-askpass4 for GNOME 40+ using the GCR API.
+    - ssh-agent(1): exit 0 from SIGTERM under systemd socket-activation,
+      preventing a graceful shutdown of an agent via systemd from
+      incorrectly marking the service as "failed".
+  * Drop patches:
+    - no-openssl-version-status.patch: Mostly applied upstream; the rest
+      only applied to OpenSSL < 3, which isn't relevant to current Debian
+      releases.
+    - revert-ipqos-defaults.patch: This new upstream release reworks IPQoS,
+      so let's see how that works in Debian (closes: #1111446).
+  * debian/run-tests: Fix path to dropbear.
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 06 Oct 2025 16:14:35 +0100
 

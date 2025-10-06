@@ -1,4 +1,4 @@
-From 8f693762755211b20d50f7e0b963bd1c3955c4b7 Mon Sep 17 00:00:00 2001
+From 5e75ff8970e98b0aee0fe865d760efb7303fbb5b Mon Sep 17 00:00:00 2001
 From: Kees Cook <kees@debian.org>
 Date: Sun, 9 Feb 2014 16:10:06 +0000
 Subject: Add DebianBanner server configuration option
@@ -22,10 +22,10 @@ Patch-Name: debian-banner.patch
  7 files changed, 23 insertions(+), 5 deletions(-)
 
 diff --git a/kex.c b/kex.c
-index 19b1fcaa8..ca6d5b53d 100644
+index a19303633..0df4f2f3f 100644
 --- a/kex.c
 +++ b/kex.c
-@@ -1237,7 +1237,7 @@ send_error(struct ssh *ssh, char *msg)
+@@ -1236,7 +1236,7 @@ send_error(struct ssh *ssh, char *msg)
   */
  int
  kex_exchange_identification(struct ssh *ssh, int timeout_ms,
@@ -34,7 +34,7 @@ index 19b1fcaa8..ca6d5b53d 100644
  {
  	int remote_major, remote_minor, mismatch, oerrno = 0;
  	size_t len, n;
-@@ -1255,7 +1255,8 @@ kex_exchange_identification(struct ssh *ssh, int timeout_ms,
+@@ -1254,7 +1254,8 @@ kex_exchange_identification(struct ssh *ssh, int timeout_ms,
  	if (version_addendum != NULL && *version_addendum == '\0')
  		version_addendum = NULL;
  	if ((r = sshbuf_putf(our_version, "SSH-%d.%d-%s%s%s\r\n",
@@ -45,10 +45,10 @@ index 19b1fcaa8..ca6d5b53d 100644
  	    version_addendum == NULL ? "" : version_addendum)) != 0) {
  		oerrno = errno;
 diff --git a/kex.h b/kex.h
-index cd6a40333..6a08023d0 100644
+index 56ad54c41..c7b254d0c 100644
 --- a/kex.h
 +++ b/kex.h
-@@ -215,7 +215,7 @@ void	 kex_proposal_populate_entries(struct ssh *, char *prop[PROPOSAL_MAX],
+@@ -220,7 +220,7 @@ void	 kex_proposal_populate_entries(struct ssh *, char *prop[PROPOSAL_MAX],
      const char *, const char *, const char *, const char *, const char *);
  void	 kex_proposal_free_entries(char *prop[PROPOSAL_MAX]);
  
@@ -58,10 +58,10 @@ index cd6a40333..6a08023d0 100644
  struct kex *kex_new(void);
  int	 kex_ready(struct ssh *, char *[PROPOSAL_MAX]);
 diff --git a/servconf.c b/servconf.c
-index d2025592a..4891a43d6 100644
+index a7a4a0098..b0ea7ceb1 100644
 --- a/servconf.c
 +++ b/servconf.c
-@@ -221,6 +221,7 @@ initialize_server_options(ServerOptions *options)
+@@ -219,6 +219,7 @@ initialize_server_options(ServerOptions *options)
  	options->sshd_session_path = NULL;
  	options->sshd_auth_path = NULL;
  	options->refuse_connection = -1;
@@ -69,7 +69,7 @@ index d2025592a..4891a43d6 100644
  }
  
  /* Returns 1 if a string option is unset or set to "none" or 0 otherwise. */
-@@ -511,6 +512,8 @@ fill_default_server_options(ServerOptions *options)
+@@ -505,6 +506,8 @@ fill_default_server_options(ServerOptions *options)
  		options->sshd_auth_path = xstrdup(_PATH_SSHD_AUTH);
  	if (options->refuse_connection == -1)
  		options->refuse_connection = 0;
@@ -78,7 +78,7 @@ index d2025592a..4891a43d6 100644
  
  	assemble_algorithms(options);
  
-@@ -595,6 +598,7 @@ typedef enum {
+@@ -589,6 +592,7 @@ typedef enum {
  	sExposeAuthInfo, sRDomain, sPubkeyAuthOptions, sSecurityKeyProvider,
  	sRequiredRSASize, sChannelTimeout, sUnusedConnectionTimeout,
  	sSshdSessionPath, sSshdAuthPath, sRefuseConnection,
@@ -86,7 +86,7 @@ index d2025592a..4891a43d6 100644
  	sDeprecated, sIgnore, sUnsupported
  } ServerOpCodes;
  
-@@ -775,6 +779,7 @@ static struct {
+@@ -769,6 +773,7 @@ static struct {
  	{ "sshdsessionpath", sSshdSessionPath, SSHCFG_GLOBAL },
  	{ "sshdauthpath", sSshdAuthPath, SSHCFG_GLOBAL },
  	{ "refuseconnection", sRefuseConnection, SSHCFG_ALL },
@@ -94,7 +94,7 @@ index d2025592a..4891a43d6 100644
  	{ NULL, sBadOption, 0 }
  };
  
-@@ -2773,6 +2778,10 @@ process_server_config_line_depth(ServerOptions *options, char *line,
+@@ -2775,6 +2780,10 @@ process_server_config_line_depth(ServerOptions *options, char *line,
  		multistate_ptr = multistate_flag;
  		goto parse_multistate;
  
@@ -105,7 +105,7 @@ index d2025592a..4891a43d6 100644
  	case sDeprecated:
  	case sIgnore:
  	case sUnsupported:
-@@ -3328,6 +3337,7 @@ dump_config(ServerOptions *o)
+@@ -3330,6 +3339,7 @@ dump_config(ServerOptions *o)
  	dump_cfg_fmtint(sFingerprintHash, o->fingerprint_hash);
  	dump_cfg_fmtint(sExposeAuthInfo, o->expose_userauth_info);
  	dump_cfg_fmtint(sRefuseConnection, o->refuse_connection);
@@ -127,10 +127,10 @@ index c3f501400..b510992e3 100644
  
  /* Information about the incoming connection as used by Match */
 diff --git a/sshconnect.c b/sshconnect.c
-index 54de157db..59f66c534 100644
+index b125d9202..dc3b7b4b8 100644
 --- a/sshconnect.c
 +++ b/sshconnect.c
-@@ -1611,7 +1611,7 @@ ssh_login(struct ssh *ssh, Sensitive *sensitive, const char *orighost,
+@@ -1612,7 +1612,7 @@ ssh_login(struct ssh *ssh, Sensitive *sensitive, const char *orighost,
  	lowercase(host);
  
  	/* Exchange protocol version identification strings with the server. */
@@ -140,10 +140,10 @@ index 54de157db..59f66c534 100644
  		sshpkt_fatal(ssh, r, "banner exchange");
  
 diff --git a/sshd-session.c b/sshd-session.c
-index 372a610b3..2b6d2a98b 100644
+index 307088717..2de08287f 100644
 --- a/sshd-session.c
 +++ b/sshd-session.c
-@@ -1295,7 +1295,7 @@ main(int ac, char **av)
+@@ -1273,7 +1273,7 @@ main(int ac, char **av)
  			fatal("login grace time setitimer failed");
  	}
  
@@ -153,7 +153,7 @@ index 372a610b3..2b6d2a98b 100644
  		sshpkt_fatal(ssh, r, "banner exchange");
  
 diff --git a/sshd_config.5 b/sshd_config.5
-index b79e8a3ee..677567908 100644
+index ceaeddc9d..d7b60308a 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
 @@ -629,6 +629,11 @@ or
