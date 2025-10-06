@@ -1,3 +1,10 @@
+openssh (1:10.0p1-9) UNRELEASED; urgency=medium
+
+  [ Allison Karlitskaya ]
+  * sshd@.service: Support ephemeral keys from VM/container hosts.
+
+ -- Colin Watson <cjwatson@debian.org>  Mon, 06 Oct 2025 16:14:35 +0100
+
 openssh (1:10.0p1-8) unstable; urgency=medium
 
   * Remove some long-obsolete Conflicts (closes: #54243).
