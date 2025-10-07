@@ -18,9 +18,11 @@ openssh (1:10.1p1-1) UNRELEASED; urgency=medium
     - All: remove experimental support for XMSS keys.
     - ssh-agent(1), sshd(8): move agent listener sockets from /tmp to under
       ~/.ssh/agent for both ssh-agent(1) and forwarded sockets in sshd(8).
-    - ssh(1): disallow control characters in usernames passed via the
-      commandline or expanded using %-sequences from the configuration file,
-      and disallow \0 characters in ssh:// URIs.
+    - CVE-2025-61984: ssh(1): disallow control characters in usernames
+      passed via the commandline or expanded using %-sequences from the
+      configuration file (closes: #1117529),
+    - CVE-2025-61985: ssh(1): disallow \0 characters in ssh:// URIs (closes:
+      #1117530).
     - ssh(1), sshd(8): add SIGINFO handlers to log active channel and
       session information.
     - sshd(8): when refusing a certificate for user authentication, log
