@@ -23,3 +23,4 @@ systemd-socket-activation.patch
 skip-utimensat-test-on-zfs.patch
 regress-conch-dev-zero.patch
 pam-avoid-unknown-host.patch
+avoid-channel-isatty-overloading.patch
