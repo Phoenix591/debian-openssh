@@ -1,4 +1,4 @@
-From 315f14059b7ca5c67e9c9e27ec8f586be7d8bf45 Mon Sep 17 00:00:00 2001
+From 28a37ce87937ecd284c67489868864731270b133 Mon Sep 17 00:00:00 2001
 From: "djm@openbsd.org" <djm@openbsd.org>
 Date: Tue, 7 Oct 2025 08:02:32 +0000
 Subject: upstream: don't reuse c->isatty for signalling that the remote
@@ -13,6 +13,7 @@ OpenBSD-Commit-ID: 4cd8a9f641498ca6089442e59bad0fd3dcbe85f8
 
 Origin: upstream, https://anongit.mindrot.org/openssh.git/commit/?id=979cbc2c1e0c9cd2f60d45d8d1da69519ec425cf
 Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=3872
+Bug-Debian: https://bugs.debian.org/1117574
 Bug-Debian: https://bugs.debian.org/1117594
 Last-Update: 2025-10-08
 
