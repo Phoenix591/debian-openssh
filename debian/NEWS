@@ -1,4 +1,4 @@
-openssh (1:10.1p1-1) UNRELEASED; urgency=medium
+openssh (1:10.1p1-1) unstable; urgency=medium
 
   OpenSSH 10.1p1 includes a number of changes that may affect existing
   configurations:
@@ -80,7 +80,7 @@ openssh (1:10.1p1-1) UNRELEASED; urgency=medium
      running agent, -uu forces a cleanup that ignores the hostname. -T makes
      ssh-agent put the socket back in /tmp.
 
- -- Colin Watson <cjwatson@debian.org>  Mon, 06 Oct 2025 16:32:25 +0100
+ -- Colin Watson <cjwatson@debian.org>  Tue, 07 Oct 2025 22:07:19 +0100
 
 openssh (1:10.0p1-1) unstable; urgency=medium
 
