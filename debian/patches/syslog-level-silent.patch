@@ -1,4 +1,4 @@
-From 7258fe822f68f9fe5ee07460bdb7a826d00a3968 Mon Sep 17 00:00:00 2001
+From a2728f68b4934d480c80474cab91fda0aa9928f5 Mon Sep 17 00:00:00 2001
 From: Natalie Amery <nmamery@chiark.greenend.org.uk>
 Date: Sun, 9 Feb 2014 16:09:54 +0000
 Subject: "LogLevel SILENT" compatibility

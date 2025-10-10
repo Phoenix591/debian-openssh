@@ -1,4 +1,4 @@
-From 94f1e2e0f1ba0fe1e5fbabd970f188887b02af82 Mon Sep 17 00:00:00 2001
+From 13a4a4e22141677c78ab05960d7eb0d014e11f4e Mon Sep 17 00:00:00 2001
 From: Simon Wilkinson <simon@sxw.org.uk>
 Date: Sun, 9 Feb 2014 16:09:48 +0000
 Subject: GSSAPI key exchange support
@@ -72,7 +72,7 @@ Patch-Name: gssapi.patch
  create mode 100644 ssh-null.c
 
 diff --git a/Makefile.in b/Makefile.in
-index 760fbaa5b..62e69ca35 100644
+index ba17a79f0..6d453e859 100644
 --- a/Makefile.in
 +++ b/Makefile.in
 @@ -97,14 +97,14 @@ LIBSSH_OBJS=${LIBOPENSSH_OBJS} \
@@ -344,10 +344,10 @@ index 49d048d85..dcad9ec6b 100644
  		if (conn_in_ready)
  			client_process_net_input(ssh);
 diff --git a/configure.ac b/configure.ac
-index 3eb6d4697..97106af6b 100644
+index db5211013..53112bdac 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -812,6 +812,30 @@ int main(void) { if (NSVersionOfRunTimeLibrary("System") >= (60 << 16))
+@@ -813,6 +813,30 @@ int main(void) { if (NSVersionOfRunTimeLibrary("System") >= (60 << 16))
  	    [Use tunnel device compatibility to OpenBSD])
  	AC_DEFINE([SSH_TUN_PREPEND_AF], [1],
  	    [Prepend the address family to IP tunnel traffic])
@@ -3938,7 +3938,7 @@ index 6ae606f1e..301c6be90 100644
  Specifies the signature algorithms that will be accepted for hostbased
  authentication as a list of comma-separated patterns.
 diff --git a/sshkey.c b/sshkey.c
-index e17e929e0..2a1ef6a18 100644
+index afd7822c4..1b71b47c9 100644
 --- a/sshkey.c
 +++ b/sshkey.c
 @@ -113,6 +113,9 @@ extern const struct sshkey_impl sshkey_rsa_sha256_cert_impl;

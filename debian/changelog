@@ -1,3 +1,10 @@
+openssh (1:10.2p1-1) UNRELEASED; urgency=medium
+
+  * New upstream release:
+    - ssh-keygen(1): fix download of keys from PKCS#11 tokens.
+
+ -- Colin Watson <cjwatson@debian.org>  Fri, 10 Oct 2025 14:07:52 +0100
+
 openssh (1:10.1p1-2) unstable; urgency=medium
 
   * Don't reuse c->isatty for signalling that the remote channel has a tty

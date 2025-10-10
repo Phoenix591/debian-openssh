@@ -1,12 +1,12 @@
 # see git-dpm(1) from git-dpm package
-db9906f64cfee403b9c68d5bae5cc893ce4e1d94
-db9906f64cfee403b9c68d5bae5cc893ce4e1d94
-c786c95fed5a942c6e11b9b503d27f683dc319f9
-c786c95fed5a942c6e11b9b503d27f683dc319f9
-openssh_10.1p1.orig.tar.gz
-7fd17b99d1beffb47cd380d64079e920bb0bd91f
-1972831
+0d77cb7768dfbb23abf73510b0ec1562b2ca3c7d
+0d77cb7768dfbb23abf73510b0ec1562b2ca3c7d
+ec3a38459ea2e2277374fd0b549e58f7e797e681
+ec3a38459ea2e2277374fd0b549e58f7e797e681
+openssh_10.2p1.orig.tar.gz
+c34efade16109f065ec8c834f237bcedd8d7ef5c
+1974519
 debianTag="debian/%e%%%V"
 patchedTag="patched/%e%%%V"
 upstreamTag="upstream/%U"
-signature:3067baf706cbf8497a00d40113eb6c246a5db569:833:openssh_10.1p1.orig.tar.gz.asc
+signature:a2363ac9ef437e7eadbd550cd272a5285e02c7de:833:openssh_10.2p1.orig.tar.gz.asc

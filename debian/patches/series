@@ -22,6 +22,3 @@ restore-authorized_keys2.patch
 systemd-socket-activation.patch
 skip-utimensat-test-on-zfs.patch
 regress-conch-dev-zero.patch
-pam-avoid-unknown-host.patch
-avoid-channel-isatty-overloading.patch
-link-ssh-keygen-against-ssh-pkcs11.patch

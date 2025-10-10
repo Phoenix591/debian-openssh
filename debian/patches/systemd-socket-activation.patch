@@ -1,4 +1,4 @@
-From 4eeda965e3f2256fd3458e0387ec695a55d320ea Mon Sep 17 00:00:00 2001
+From 9504e97e8a60f45edcea3831ee52c5c641ca4181 Mon Sep 17 00:00:00 2001
 From: Steve Langasek <steve.langasek@ubuntu.com>
 Date: Thu, 1 Sep 2022 16:03:37 +0100
 Subject: Support systemd socket activation
@@ -19,10 +19,10 @@ Patch-Name: systemd-socket-activation.patch
  2 files changed, 118 insertions(+), 14 deletions(-)
 
 diff --git a/configure.ac b/configure.ac
-index 761c5ee95..264f867f1 100644
+index d6783774b..9854ffd28 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -1000,6 +1000,7 @@ int main(void) { if (NSVersionOfRunTimeLibrary("System") >= (60 << 16))
+@@ -1001,6 +1001,7 @@ int main(void) { if (NSVersionOfRunTimeLibrary("System") >= (60 << 16))
  	)
  
  	AC_DEFINE([SYSTEMD_NOTIFY], [1], [Have sshd notify systemd on start/reload])

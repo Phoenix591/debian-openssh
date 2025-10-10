@@ -1,4 +1,4 @@
-From 5181bd78a04c98d5e7cb2b0a33e98c2adcdc0849 Mon Sep 17 00:00:00 2001
+From 757a376cd0e12c19e9fc5772f506431803be717f Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:18 +0000
 Subject: Various Debian-specific configuration changes
@@ -63,7 +63,7 @@ index c568697cf..82a91cc30 100644
  		options->forward_x11_timeout = 1200;
  	/*
 diff --git a/regress/test-exec.sh b/regress/test-exec.sh
-index c5270042e..fd28aeaf2 100644
+index 34fb58fda..a1db94af1 100644
 --- a/regress/test-exec.sh
 +++ b/regress/test-exec.sh
 @@ -622,6 +622,7 @@ cat << EOF > $OBJ/sshd_config

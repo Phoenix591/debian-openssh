@@ -1,4 +1,4 @@
-From f74618e49d3aba06d426c0092d5cf54facd0f349 Mon Sep 17 00:00:00 2001
+From e69bb05c4592053012cf6d1ee785ae8200cc3e79 Mon Sep 17 00:00:00 2001
 From: Tomas Pospisek <tpo_deb@sourcepole.ch>
 Date: Sun, 9 Feb 2014 16:10:07 +0000
 Subject: Install authorized_keys(5) as a symlink to sshd(8)
@@ -13,7 +13,7 @@ Patch-Name: authorized-keys-man-symlink.patch
  1 file changed, 1 insertion(+)
 
 diff --git a/Makefile.in b/Makefile.in
-index 62e69ca35..9310d4518 100644
+index 6d453e859..6ad81e78b 100644
 --- a/Makefile.in
 +++ b/Makefile.in
 @@ -451,6 +451,7 @@ install-files:
