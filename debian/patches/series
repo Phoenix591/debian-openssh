@@ -22,3 +22,5 @@ restore-authorized_keys2.patch
 systemd-socket-activation.patch
 skip-utimensat-test-on-zfs.patch
 regress-conch-dev-zero.patch
+downgrade-pkcs11-error.patch
+link-ssh-against-ssh-pkcs11.patch
